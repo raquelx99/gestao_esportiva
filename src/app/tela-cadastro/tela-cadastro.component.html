@@ -1,0 +1,102 @@
+<div class="tela-cadastro">
+  <div class="cadastro-card">
+    <div class="logo-titulo">
+      <img src="/logo.png" alt="Logo Gestão Esportiva" class="logo" />
+      <h1>GestãoEsportiva</h1>
+    </div>
+
+    <h2>Cadastro</h2>
+    <form>
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="nome">Nome Completo</label>
+          <input id="nome" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="matricula">Matrícula</label>
+          <input id="matricula" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label for="centro">Centro</label>
+          <select id="centro">
+            <option>Selecione</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="curso">Curso</label>
+          <select id="curso">
+            <option>Selecione</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" type="tel" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input id="senha" type="password" />
+        </div>
+        <div class="form-group upload-group">
+          <label>Foto de documento de identificação</label>
+          <div class="upload-box">
+            <input type="file" id="docUpload" hidden />
+            <label for="docUpload" class="upload-label">
+              <span class="icon">⭳</span>
+              <span class="text">Anexar foto do documento</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="emergnome">Contato de emergência: Nome do contato</label>
+          <input id="emergnome" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="emergetel">Telefone do contato</label>
+          <input id="emergetel" type="tel" />
+        </div>
+      </div>
+
+      <fieldset class="espacos-group">
+        <legend>Espaços que serão utilizados</legend>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="espacos" value="Piscina" />
+            Piscina
+          </label>
+          <label>
+            <input type="checkbox" name="espacos" value="Quadra" />
+            Quadra
+          </label>
+          <label>
+            <input type="checkbox" name="espacos" value="Campo Society" />
+            Campo Society
+          </label>
+          <label>
+            <input type="checkbox" name="espacos" value="Quadra de Tênis" />
+            Quadra de Tênis
+          </label>
+          <label>
+            <input type="checkbox" name="espacos" value="Quadra de Areia" />
+            Quadra de Areia
+          </label>
+          <label>
+            <input type="checkbox" name="espacos" value="Pista de Atletismo" />
+            Pista de Atletismo
+          </label>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn-concluir">Concluir</button>
+    </form>
+  </div>
+</div>

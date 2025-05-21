@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tela-login-cadastro',
-  imports: [],
   templateUrl: './tela-login-cadastro.component.html',
-  styleUrl: './tela-login-cadastro.component.css'
+  styleUrls: ['./tela-login-cadastro.component.css']  // observe o “s” e o array
 })
 export class TelaLoginCadastroComponent {
-
+  
 }
