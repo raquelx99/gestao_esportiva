@@ -1,0 +1,50 @@
+.tela-cadastro-ou-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  height: 100vh;
+  background-color: #e8eef7;
+  font-family: Arial, sans-serif;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.logo {
+  height: 50px;
+}
+
+.botoes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.botao-primario,
+.botao-secundario {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.botao-primario {
+  background-color: #4682b4;
+  color: white;
+}
+
+.botao-secundario {
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.imagem-lateral img {
+  max-height: 300px;
+}
