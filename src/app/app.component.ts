@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TelaLoginCadastroComponent } from "./tela-login-cadastro/tela-login-cadastro.component";
+import { TelaLoginCadastroComponent } from './telas/tela-login-cadastro/tela-login-cadastro.component';
+
 
 @Component({
   selector: 'app-root',

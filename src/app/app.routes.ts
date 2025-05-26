@@ -1,9 +1,9 @@
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
 
-import { TelaLoginCadastroComponent } from './tela-login-cadastro/tela-login-cadastro.component';
-import { TelaLoginComponent }           from './tela-login/tela-login.component';
-import { TelaCadastroComponent }        from './tela-cadastro/tela-cadastro.component';
+import { TelaLoginCadastroComponent } from './telas/tela-login-cadastro/tela-login-cadastro.component';
+import { TelaLoginComponent }           from './telas/tela-login/tela-login.component';
+import { TelaCadastroComponent }        from './telas/tela-cadastro/tela-cadastro.component';
 
 export const routes: Routes = [
   { path: '',         component: TelaLoginCadastroComponent },
