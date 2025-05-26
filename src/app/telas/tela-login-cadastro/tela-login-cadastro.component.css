@@ -1,17 +1,39 @@
-.tela-cadastro-ou-login {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: auto;
-  width: auto;
-  background-color: #e8eef7;
-  font-family: 'Arial', sans-serif;
+/* 1) Reset total e background do body para o mesmo da tela */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #ebf2fa;
+  /* mesmo da .tela-cadastro-ou-login */
+  overflow-x: hidden;
+  /* remove scroll horizontal */
 }
 
+/* 2) Container full-screen ancorado */
+.tela-cadastro-ou-login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ebf2fa;
+  /* remova margin/padding negativos */
+  margin: 0;
+  padding: 0;
+}
 
+/* restante igual ao anterior */
 .lado-esquerdo {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
   gap: 3rem;
 }
 
@@ -20,10 +42,12 @@
   align-items: center;
   gap: 1rem;
 }
+
 .logo {
   height: 60px;
   width: auto;
 }
+
 .titulo {
   margin: 0;
   font-size: 2.5rem;
@@ -40,7 +64,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  width: 350px; 
+  width: 350px;
 }
 
 .botoes-container button {
@@ -58,6 +82,7 @@
   background-color: #4682b4;
   color: #fff;
 }
+
 .botao-primario:hover {
   filter: brightness(1.1);
 }
@@ -66,14 +91,15 @@
   background-color: #bfcad6;
   color: #333;
 }
+
 .botao-secundario:hover {
   filter: brightness(0.95);
 }
 
 .imagem-lateral {
-  flex: 1;                  
+  flex: 1;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
 }
 
 .imagem-lateral img {
