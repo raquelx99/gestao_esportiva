@@ -1,0 +1,69 @@
+.tela-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e8eef7;
+  font-family: 'Arial', sans-serif;
+}
+
+.login-card {
+  background-color: #dceaf5;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  width: 360px;
+}
+
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo-titulo .logo {
+  height: 40px;
+}
+
+.logo-titulo h1 {
+  font-size: 1.75rem;
+  margin: 0;
+  color: #333;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.btn-entrar {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #4682b4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: filter 0.2s;
+}
+
+.btn-entrar:hover {
+  filter: brightness(1.1);
+}

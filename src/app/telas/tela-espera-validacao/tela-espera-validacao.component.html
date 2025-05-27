@@ -1,0 +1,26 @@
+<app-top-bar></app-top-bar>
+
+<div class="page-container">
+  <div *ngIf="status === 'pending'" class="card pending">
+    <h3>Em avaliação</h3>
+    <p>
+      Sua solicitação está sendo avaliada. Aguard e notificação sobre aprovação ou rejeição da sua carteira.
+    </p>
+  </div>
+
+  <div *ngIf="status === 'approved'" class="card approved">
+    <h3>Carteira Válida!</h3>
+    <p>
+      Sua carteira foi aprovada, agora você poderá vê-la e seguir junto com os horários livres para os espaços.
+    </p>
+    <button (click)="onAdvance()">Avançar</button>
+  </div>
+
+  <div *ngIf="status === 'rejected'" class="card rejected">
+    <h3>Carteira rejeitada</h3>
+    <p>
+      Sua solicitação foi rejeitada. Caso queira tentar novamente, revise os dados e envie novamente com atenção.
+    </p>
+    <button (click)="onRetry()">Tentar novamente</button>
+  </div>
+</div>

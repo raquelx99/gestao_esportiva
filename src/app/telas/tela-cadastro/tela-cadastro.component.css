@@ -1,0 +1,128 @@
+.tela-cadastro {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #e8eef7;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+.cadastro-card {
+  background-color: #b1c9dd;
+  padding: 2.5rem;
+  border-radius: 12px;
+  width: 800px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo-titulo .logo {
+  height: 40px;
+}
+
+.logo-titulo h1 {
+  font-size: 1.75rem;
+  margin: 0;
+  color: #333;
+}
+
+.cadastro-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.65rem;
+  border: 1px solid #999;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.upload-group .upload-box {
+  border: 2px dashed #666;
+  border-radius: 6px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-group .upload-label {
+  cursor: pointer;
+  text-align: center;
+  color: #444;
+}
+
+.upload-group .icon {
+  font-size: 1.5rem;
+  display: block;
+}
+
+.upload-group .text {
+  font-size: 0.9rem;
+}
+
+.espacos-group {
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.espacos-group legend {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-concluir {
+  display: block;
+  margin: 0 auto;
+  padding: 0.9rem 2rem;
+  background-color: #4682b4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn-concluir:hover {
+  filter: brightness(1.1);
+}

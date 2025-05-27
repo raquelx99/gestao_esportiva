@@ -1,0 +1,46 @@
+.validar-carteiras-container {
+  background-color: #d1e1f2; /* Cor de fundo similar ao protótipo */
+  padding: 2rem;
+  border-radius: 8px;
+  height: 100%; /* Para ocupar a altura disponível */
+  box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
+  overflow-y: auto; /* Adiciona scroll se a lista for longa */
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-family: Arial, sans-serif; /* Adicionando uma fonte padrão */
+}
+
+.lista-requisicoes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requisicao-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff; /* Fundo branco para os itens */
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #b1c9dd; /* Borda sutil */
+  text-decoration: none;
+  color: #333;
+  transition: box-shadow 0.2s, transform 0.2s; /* Adicionando transição para transform */
+  font-family: Arial, sans-serif; /* Adicionando uma fonte padrão */
+}
+
+.requisicao-item a:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra mais pronunciada no hover */
+  transform: translateY(-2px); /* Leve elevação no hover */
+  cursor: pointer;
+}
+
+.requisicao-item span {
+  font-size: 0.95rem;
+}
