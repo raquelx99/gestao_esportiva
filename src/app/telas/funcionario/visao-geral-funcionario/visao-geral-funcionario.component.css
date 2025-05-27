@@ -1,14 +1,17 @@
 /* Em visao-geral-funcionario.component.css */
 
 .visao-geral-func-container {
-  padding: 1rem; /* Espaçamento geral da tela, ajuste se necessário.
-                     Lembre-se que .funcionario-content já tem padding.
-                     Você pode até remover este padding se o gap for suficiente. */
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Espaço ENTRE os cards de resumo */
+  gap: 2rem;
+  background-color: rgba(174, 198, 218, 1); /* Sua cor #aec6da */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   width: 100%;
-  /* REMOVIDO: background-color, border-radius, box-shadow daqui */
+  /* ADICIONADO/AJUSTADO: */
+  max-width: 1100px;
+  margin: 0 auto; /* Para centralizar o card na área de conteúdo maior */
 }
 
 .resumo-card {

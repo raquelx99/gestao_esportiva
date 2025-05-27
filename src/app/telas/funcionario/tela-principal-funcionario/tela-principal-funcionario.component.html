@@ -3,11 +3,12 @@
 <div class="funcionario-layout">
   <aside class="sidenav" [class.aberta]="sidebarAberta">
     <ul>
-      <li><a routerLink="validar-carteiras">Validar Carteiras</a></li>
-      <li><a routerLink="carteiras-ativas">Carteiras Ativas</a></li>
-      <li><a routerLink="horarios">Horários</a></li>
+        <li><a routerLink="/funcionario" (click)="sidebarAberta && toggleSidebar()">Visão Geral</a></li>
+        <li><a routerLink="validar-carteiras" (click)="sidebarAberta && toggleSidebar()">Validar Carteiras</a></li>
+        <li><a routerLink="carteiras-ativas" (click)="sidebarAberta && toggleSidebar()">Carteiras Ativas</a></li>
+        <li><a routerLink="horarios" (click)="sidebarAberta && toggleSidebar()">Horários</a></li>
     </ul>
-  </aside>
+    </aside>
   <main class="funcionario-content">
     <router-outlet></router-outlet>
   </main>

@@ -1,10 +1,15 @@
 .validar-carteiras-container {
-  background-color: rgba(174, 198, 218, 1); /* Cor de fundo similar ao protótipo */
+  background-color: rgba(174, 198, 218, 1);
   padding: 2rem;
   border-radius: 8px;
-  height: 100%; /* Para ocupar a altura disponível */
-  box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
-  overflow-y: auto; /* Adiciona scroll se a lista for longa */
+  box-sizing: border-box;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  /* ADICIONADO: */
+  min-height: 500px; /* Altura mínima de exemplo */
+  /* REMOVIDO: height: 100%; */
 }
 
 h1{
@@ -31,22 +36,29 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem; /* Mantém o padding */
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 8px; /* Já é 8px, igual ao .carteira-item */
   text-decoration: none;
   color: #333;
-  margin-bottom: 0.75rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  margin-bottom: 0.75rem; /* Um pouco menos de margem que o .carteira-item, pode ajustar */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Sombra similar */
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .requisicao-item a:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra mais pronunciada no hover */
-  transform: translateY(-2px); /* Leve elevação no hover */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
   cursor: pointer;
 }
 
-.requisicao-item span {
-  font-size: 0.95rem;
+.requisicao-item a span:first-child { /* Para o "Nome: ..." */
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1rem; /* Igual ao .nome em CarteirasAtivas */
+}
+
+.requisicao-item a span:last-child { /* Para a "Data da requisição: ..." */
+  font-size: 0.9rem; /* Igual ao .validade em CarteirasAtivas */
+  color: #666;
 }
