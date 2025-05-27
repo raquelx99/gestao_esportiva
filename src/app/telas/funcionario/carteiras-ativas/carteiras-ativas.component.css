@@ -150,7 +150,7 @@
 }
 
 .carteirinha-preview-card {
-  background-color: #f0f4f8;
+  background-color: rgba(174, 198, 218, 1);
   border: 1px solid #b1c9dd;
   border-radius: 12px;
   padding: 1.5rem;
@@ -166,7 +166,7 @@
   font-size: 1.25rem;
   margin-top: 0;
   margin-bottom: 1.5rem;
-  color: #2e7dbb;
+  color: #333;
 }
 
 .info-grid-carteira {
