@@ -5,8 +5,10 @@ import { TelaLoginCadastroComponent } from './telas/tela-login-cadastro/tela-log
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TelaLoginCadastroComponent],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
+  template: `<router-outlet></router-outlet>`,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
