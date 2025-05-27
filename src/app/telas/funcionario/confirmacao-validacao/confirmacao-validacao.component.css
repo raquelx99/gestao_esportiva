@@ -1,0 +1,79 @@
+.confirmacao-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem; /* Mais padding para centralizar melhor o card menor */
+  /* background-color: #e8eef7; /* O fundo já vem do layout pai */
+  min-height: calc(100vh - 60px - 4rem); /* Ajusta altura considerando top-bar e padding do .funcionario-content */
+  box-sizing: border-box;
+}
+
+.card {
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 480px; /* Um card um pouco menor */
+  text-align: center;
+  border-left: 8px solid #ccc; /* Borda padrão */
+}
+
+.card.approved {
+  border-left-color: #4caf50; /* Verde para aprovado */
+}
+
+.card.rejected {
+  border-left-color: #f44336; /* Vermelho para rejeitado */
+}
+
+.card.unknown {
+  border-left-color: #ff9800; /* Laranja para desconhecido/aviso */
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.card .mensagem {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.botoes-acao {
+  display: flex;
+  justify-content: center; /* Centraliza ou space-around se preferir */
+  gap: 1rem;
+  flex-wrap: wrap; /* Para o caso de telas menores */
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-primario {
+  background-color: #4682b4; /* Azul padrão */
+  color: white;
+}
+
+.btn-secundario {
+  background-color: #d3d9e0;
+  color: #333;
+  border: 1px solid #b0b8c0;
+}
