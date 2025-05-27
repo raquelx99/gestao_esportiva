@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router'; // <<< IMPORTAR
+import { RouterModule } from '@angular/router'; // Mantemos o RouterModule
 
 @Component({
   selector: 'app-tela-login-cadastro',
-  standalone: true, // <<< ADICIONAR
-  imports: [RouterLink], // <<< ADICIONAR
+  standalone: true,
+  imports: [RouterModule], // Mantemos o RouterModule
   templateUrl: './tela-login-cadastro.component.html',
-  styleUrl: './tela-login-cadastro.component.css' // <<< Use styleUrl (singular) para consistência
+  styleUrl: './tela-login-cadastro.component.css' // Ajustado para styleUrl
 })
 export class TelaLoginCadastroComponent {
 

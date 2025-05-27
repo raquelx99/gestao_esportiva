@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TelaLoginComponent } from './tela-login.component';
+import { TelaVisaoGeralComponent } from './tela-visao-geral.component';
 
-describe('TelaLoginComponent', () => {
-  let component: TelaLoginComponent;
-  let fixture: ComponentFixture<TelaLoginComponent>;
+describe('TelaVisaoGeralComponent', () => {
+  let component: TelaVisaoGeralComponent;
+  let fixture: ComponentFixture<TelaVisaoGeralComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TelaLoginComponent]
+      imports: [TelaVisaoGeralComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TelaLoginComponent);
+    fixture = TestBed.createComponent(TelaVisaoGeralComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,7 +20,4 @@ describe('TelaLoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 });
-
-

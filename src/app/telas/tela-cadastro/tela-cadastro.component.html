@@ -6,7 +6,7 @@
     </div>
 
     <h2>Cadastro</h2>
-    <form>
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
       <div class="grid-2">
         <div class="form-group">
           <label for="nome">Nome Completo</label>
@@ -95,8 +95,9 @@
           </label>
         </div>
       </fieldset>
-
-      <button type="submit" class="btn-concluir">Concluir</button>
+      <button type="submit" class="btn-concluir" [disabled]="form.invalid">
+        Concluir
+      </button>
     </form>
   </div>
 </div>

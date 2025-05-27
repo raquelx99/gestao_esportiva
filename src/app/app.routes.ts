@@ -6,13 +6,10 @@ import { TelaLoginComponent } from './telas/tela-login/tela-login.component';
 import { TelaCadastroComponent } from './telas/tela-cadastro/tela-cadastro.component';
 import { TelaEsperaValidacaoComponent } from './telas/tela-espera-validacao/tela-espera-validacao.component';
 
-// Telas de Aluno (Adicionar as que faltam quando tiver)
+// Telas de Aluno
 import { TelaNotificacoesAlunoComponent } from './telas/aluno/tela-notificacoes-aluno/tela-notificacoes-aluno.component';
-// import { TelaVisaoGeralAlunoComponent } from './telas/tela-visao-geral-aluno/tela-visao-geral-aluno.component'; // Exemplo
-// import { TelaHorariosAlunoComponent } from './telas/tela-horarios-aluno/tela-horarios-aluno.component'; // Exemplo
-// import { TelaCarteiraAlunoComponent } from './telas/tela-carteira-aluno/tela-carteira-aluno.component'; // Exemplo
-// import { TelaRenovacaoAlunoComponent } from './telas/tela-renovacao-aluno/tela-renovacao-aluno.component'; // Exemplo
-
+import { TelaVisaoGeralComponent } from './telas/tela-visao-geral/tela-visao-geral.component'; // <--- DA COLEGA
+// ... Outros imports de aluno ...
 
 // Telas de Funcionário
 import { TelaPrincipalFuncionarioComponent } from './telas/funcionario/tela-principal-funcionario/tela-principal-funcionario.component';
@@ -24,25 +21,16 @@ import { ConfirmacaoValidacaoComponent } from './telas/funcionario/confirmacao-v
 
 export const routes: Routes = [
   // --- Rotas Iniciais ---
-  { path: '', redirectTo: 'boas-vindas', pathMatch: 'full' }, // Mudei para 'boas-vindas' para clareza
+  { path: '', redirectTo: 'boas-vindas', pathMatch: 'full' },
   { path: 'boas-vindas', component: TelaLoginCadastroComponent },
   { path: 'login', component: TelaLoginComponent },
   { path: 'cadastro', component: TelaCadastroComponent },
   { path: 'espera-validacao', component: TelaEsperaValidacaoComponent },
 
   // --- Rotas de Aluno ---
-  // (Idealmente, poderíamos ter um layout/pai para aluno também, mas por agora:)
-  // { path: 'aluno', component: AlgumLayoutAlunoComponent, children: [ // <- SUGESTÃO FUTURA
-  //   { path: '', redirectTo: 'visao-geral', pathMatch: 'full' },
-  //   { path: 'visao-geral', component: TelaVisaoGeralAlunoComponent },
-  //   { path: 'notificacoes', component: TelaNotificacoesAlunoComponent },
-  //   { path: 'horarios', component: TelaHorariosAlunoComponent },
-  //   { path: 'carteira', component: TelaCarteiraAlunoComponent },
-  //   { path: 'renovacao', component: TelaRenovacaoAlunoComponent },
-  // ]},
-  // Por agora, apenas a que temos:
+  { path: 'visao-geral', component: TelaVisaoGeralComponent }, // <--- ROTA DA COLEGA
   { path: 'aluno/notificacoes', component: TelaNotificacoesAlunoComponent },
-
+  // ... Outras rotas de aluno ...
 
   // --- Rotas de Funcionário ---
   {
@@ -59,5 +47,5 @@ export const routes: Routes = [
   },
 
   // --- Rota Curinga ---
-  { path: '**', redirectTo: 'boas-vindas' } // Redireciona qualquer coisa não encontrada
+  { path: '**', redirectTo: 'boas-vindas' }
 ];

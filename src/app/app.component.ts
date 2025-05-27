@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router'; // <--- Apenas RouterOutlet
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule, // Pode manter, não atrapalha
-    RouterOutlet  // <--- Apenas o RouterOutlet aqui! Remova TelaLoginCadastroComponent.
+    CommonModule,
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
+  
 })
 export class AppComponent {
-  title = 'gestao-esportiva-frontend';
+  title = 'gestao_esportiva';
 }
