@@ -1,24 +1,36 @@
+/* Em visao-geral-funcionario.component.css */
+
 .visao-geral-func-container {
-  padding: 2rem; /* Padding interno para o conteúdo do card */
+  padding: 1rem; /* Espaçamento geral da tela, ajuste se necessário.
+                     Lembre-se que .funcionario-content já tem padding.
+                     Você pode até remover este padding se o gap for suficiente. */
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Espaço entre os cards de resumo internos */
-  background-color: #d1e1f2; /* Cor cinza-azulada do card (consistente com #d1e1f2) */
-  border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave, como outros cards */
-  width: 100%; /* Ocupa a largura do seu contêiner pai (.funcionario-content) */
-  /* Se quiser limitar a largura máxima deste card geral e centralizá-lo: */
-  /* max-width: 1200px; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
+  gap: 2rem; /* Espaço ENTRE os cards de resumo */
+  width: 100%;
+  /* REMOVIDO: background-color, border-radius, box-shadow daqui */
 }
 
 .resumo-card {
-  background-color: #fff; /* Fundo branco para os cards de resumo */
+  background-color: rgba(174, 198, 218, 1); /* <<< MUDANÇA AQUI: Cor cinza-azulada para os cards */
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Sombra um pouco mais pronunciada para os cards */
+  /* Você pode querer que cada card não ocupe 100% da largura se a tela for muito grande: */
+  /* max-width: 900px; */ /* Exemplo */
+  /* width: 100%; */ /* Ocupa o espaço disponível até o max-width */
+  /* Se usar max-width e quiser centralizar os cards,
+     o .visao-geral-func-container precisaria de align-items: center;
+     mas como ele é column, isso centralizaria horizontalmente.
+     Para este layout com dois cards um abaixo do outro,
+     geralmente eles ocupam a largura disponível ou são centralizados
+     individualmente se tiverem max-width e margin: auto.
+     Por enquanto, vamos deixá-los ocupar a largura.
+  */
 }
+
+/* O restante dos estilos (.resumo-header, .resumo-lista, etc.) permanece o mesmo,
+   pois eles estilizam o conteúdo DENTRO dos .resumo-card */
 
 .resumo-header {
   display: flex;
@@ -26,18 +38,18 @@
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #c0c9d3; /* Borda um pouco mais escura para contraste com o novo fundo */
 }
 
 .resumo-header h3 {
   margin: 0;
   font-size: 1.25rem;
-  color: #333;
+  color: #222; /* Cor do texto pode precisar de ajuste sobre o fundo #d1e1f2 */
 }
 
 .ver-todos-link {
   font-size: 0.9rem;
-  color: #2e7dbb;
+  color: #1a6b9f; /* Link um pouco mais escuro */
   text-decoration: none;
   font-weight: 500;
 }
@@ -46,7 +58,6 @@
   text-decoration: underline;
 }
 
-/* Estilo para a lista de resumo de carteiras */
 .resumo-lista {
   display: flex;
   flex-direction: column;
@@ -58,32 +69,32 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background-color: #f9f9f9;
+  background-color: #e8eef7; /* Fundo dos itens da lista (mais claro que o card) */
   border-radius: 6px;
   text-decoration: none;
-  color: #444;
+  color: #333; /* Cor do texto dos itens */
   transition: background-color 0.2s;
 }
 
 .resumo-item:hover {
-  background-color: #f0f0f0;
+  background-color: #dde7f0;
 }
 
 .resumo-item span:first-child {
   font-weight: 500;
 }
 
-/* Estilo para a lista de resumo de horários */
 .resumo-lista-horarios {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* Menor gap para os itens de horário */
+  gap: 0.5rem;
 }
 
 .espaco-item-resumo {
-  border: 1px solid #e0e0e0;
+  border: 1px solid #b0b8c0; /* Borda do item de horário */
   border-radius: 6px;
-  overflow: hidden; /* Para o border-radius funcionar com o header */
+  overflow: hidden;
+  background-color: #fff; /* Cabeçalho e detalhes do espaço podem ter fundo branco */
 }
 
 .espaco-header-resumo {
@@ -91,23 +102,23 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background-color: #f7f9fc;
+  /* background-color: #f7f9fc; */ /* Removido para usar o do .espaco-item-resumo */
   cursor: pointer;
 }
 
 .espaco-header-resumo:hover {
-  background-color: #eff3f7;
+  background-color: #f0f4f8;
 }
 
 .espaco-nome-resumo {
   font-weight: 500;
-  color: #333;
+  color: #333; /* Cor do nome do espaço */
 }
 
 .expand-button-resumo {
   background: none;
   border: none;
-  color: #555;
+  color: #444; /* Cor do ícone */
   cursor: pointer;
   padding: 0;
   transition: transform 0.3s ease-in-out;
@@ -119,62 +130,60 @@
 
 .espaco-detalhes-resumo {
   padding: 0.75rem 1rem;
-  background-color: #fff;
+  /* background-color: #fff; */ /* Removido para usar o do .espaco-item-resumo */
   font-size: 0.9rem;
   border-top: 1px solid #e0e0e0;
 }
 
-
 .resumo-lista p,
-.resumo-lista-horarios p { /* Este p é para a mensagem de 'Nenhum horário para exibir no resumo' */
-  color: #777;
+.resumo-lista-horarios p {
+  color: #666; /* Cor para as mensagens "Nenhum item" */
   font-style: italic;
   padding: 0.5rem 0;
+  text-align: center;
 }
 
-
 .tabela-horarios-wrapper {
-  overflow-x: auto; /* Scroll horizontal para a tabela em telas pequenas */
-  margin-top: 0.5rem; /* Um pouco de espaço acima da tabela */
+  overflow-x: auto;
+  margin-top: 0.5rem;
 }
 
 .espaco-detalhes-resumo table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem; /* Tabela um pouco menor no resumo */
+  font-size: 0.85rem;
 }
 
 .espaco-detalhes-resumo th,
 .espaco-detalhes-resumo td {
-  border: 1px solid #ddd;
+  border: 1px solid #c8d0d8; /* Borda da tabela */
   padding: 0.5rem 0.75rem;
   text-align: left;
   vertical-align: top;
 }
 
 .espaco-detalhes-resumo th {
-  background-color: #f0f4f8;
-  color: #444;
+  background-color: #e0e8f0; /* Fundo do cabeçalho da tabela */
+  color: #333;
   font-weight: bold;
 }
 
 .espaco-detalhes-resumo td {
-  background-color: #fff;
+  background-color: #f7f9fc; /* Fundo das células da tabela */
 }
 
 .slot-horario-resumo {
   padding: 0.2rem 0;
-  border-bottom: 1px dotted #eee;
+  border-bottom: 1px dotted #d0d9e0;
+  color: #444;
 }
-
 .slot-horario-resumo:last-child {
   border-bottom: none;
 }
-
 .slot-horario-resumo strong {
   margin-right: 0.3em;
+  color: #222;
 }
-
 .slot-horario-resumo em {
-  color: #888;
+  color: #777;
 }
