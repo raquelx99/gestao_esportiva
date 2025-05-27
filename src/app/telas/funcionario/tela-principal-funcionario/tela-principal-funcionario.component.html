@@ -1,5 +1,7 @@
-<app-funcionario-top-bar></app-funcionario-top-bar> <div class="funcionario-layout">
-  <aside class="sidenav">
+<app-funcionario-top-bar (menuToggle)="toggleSidebar()"></app-funcionario-top-bar>
+
+<div class="funcionario-layout">
+  <aside class="sidenav" [class.aberta]="sidebarAberta">
     <ul>
       <li><a routerLink="validar-carteiras">Validar Carteiras</a></li>
       <li><a routerLink="carteiras-ativas">Carteiras Ativas</a></li>

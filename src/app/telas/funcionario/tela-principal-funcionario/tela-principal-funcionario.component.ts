@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { FuncionarioTopBarComponent } from '../../../componentes/funcionario-top-bar/funcionario-top-bar.component'; // NOVO
+import { FuncionarioTopBarComponent } from '../../../componentes/funcionario-top-bar/funcionario-top-bar.component';
 
 @Component({
   selector: 'app-tela-principal-funcionario',
@@ -11,4 +11,12 @@ import { FuncionarioTopBarComponent } from '../../../componentes/funcionario-top
 })
 export class TelaPrincipalFuncionarioComponent {
 
+  sidebarAberta: boolean = false;
+
+  constructor() { } 
+
+  toggleSidebar(): void {
+    this.sidebarAberta = !this.sidebarAberta;
+    console.log('Novo estado da sidebarAberta:', this.sidebarAberta);
+  }
 }
