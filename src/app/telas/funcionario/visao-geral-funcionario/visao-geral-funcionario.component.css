@@ -1,0 +1,180 @@
+.visao-geral-func-container {
+  padding: 2rem; /* Padding interno para o conteúdo do card */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Espaço entre os cards de resumo internos */
+  background-color: #d1e1f2; /* Cor cinza-azulada do card (consistente com #d1e1f2) */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave, como outros cards */
+  width: 100%; /* Ocupa a largura do seu contêiner pai (.funcionario-content) */
+  /* Se quiser limitar a largura máxima deste card geral e centralizá-lo: */
+  /* max-width: 1200px; */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}
+
+.resumo-card {
+  background-color: #fff; /* Fundo branco para os cards de resumo */
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.resumo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.resumo-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.ver-todos-link {
+  font-size: 0.9rem;
+  color: #2e7dbb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ver-todos-link:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para a lista de resumo de carteiras */
+.resumo-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.resumo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #444;
+  transition: background-color 0.2s;
+}
+
+.resumo-item:hover {
+  background-color: #f0f0f0;
+}
+
+.resumo-item span:first-child {
+  font-weight: 500;
+}
+
+/* Estilo para a lista de resumo de horários */
+.resumo-lista-horarios {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Menor gap para os itens de horário */
+}
+
+.espaco-item-resumo {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden; /* Para o border-radius funcionar com o header */
+}
+
+.espaco-header-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #f7f9fc;
+  cursor: pointer;
+}
+
+.espaco-header-resumo:hover {
+  background-color: #eff3f7;
+}
+
+.espaco-nome-resumo {
+  font-weight: 500;
+  color: #333;
+}
+
+.expand-button-resumo {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+.espaco-item-resumo.expanded .expand-button-resumo {
+  transform: rotate(180deg);
+}
+
+.espaco-detalhes-resumo {
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  font-size: 0.9rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+
+.resumo-lista p,
+.resumo-lista-horarios p { /* Este p é para a mensagem de 'Nenhum horário para exibir no resumo' */
+  color: #777;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+
+.tabela-horarios-wrapper {
+  overflow-x: auto; /* Scroll horizontal para a tabela em telas pequenas */
+  margin-top: 0.5rem; /* Um pouco de espaço acima da tabela */
+}
+
+.espaco-detalhes-resumo table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem; /* Tabela um pouco menor no resumo */
+}
+
+.espaco-detalhes-resumo th,
+.espaco-detalhes-resumo td {
+  border: 1px solid #ddd;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.espaco-detalhes-resumo th {
+  background-color: #f0f4f8;
+  color: #444;
+  font-weight: bold;
+}
+
+.espaco-detalhes-resumo td {
+  background-color: #fff;
+}
+
+.slot-horario-resumo {
+  padding: 0.2rem 0;
+  border-bottom: 1px dotted #eee;
+}
+
+.slot-horario-resumo:last-child {
+  border-bottom: none;
+}
+
+.slot-horario-resumo strong {
+  margin-right: 0.3em;
+}
+
+.slot-horario-resumo em {
+  color: #888;
+}

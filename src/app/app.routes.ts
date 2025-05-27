@@ -13,6 +13,7 @@ import { TelaVisaoGeralComponent } from './telas/tela-visao-geral/tela-visao-ger
 
 // Telas de Funcionário
 import { TelaPrincipalFuncionarioComponent } from './telas/funcionario/tela-principal-funcionario/tela-principal-funcionario.component';
+import { VisaoGeralFuncionarioComponent } from './telas/funcionario/visao-geral-funcionario/visao-geral-funcionario.component';
 import { ValidarCarteirasComponent } from './telas/funcionario/validar-carteiras/validar-carteiras.component';
 import { CarteirasAtivasComponent } from './telas/funcionario/carteiras-ativas/carteiras-ativas.component';
 import { HorariosComponent } from './telas/funcionario/horarios/horarios.component';
@@ -28,23 +29,23 @@ export const routes: Routes = [
   { path: 'espera-validacao', component: TelaEsperaValidacaoComponent },
 
   // --- Rotas de Aluno ---
-  { path: 'visao-geral', component: TelaVisaoGeralComponent }, // <--- ROTA DA COLEGA
+  { path: 'visao-geral', component: TelaVisaoGeralComponent },
   { path: 'aluno/notificacoes', component: TelaNotificacoesAlunoComponent },
   // ... Outras rotas de aluno ...
 
   // --- Rotas de Funcionário ---
   {
-    path: 'funcionario',
-    component: TelaPrincipalFuncionarioComponent,
-    children: [
-      { path: '', redirectTo: 'validar-carteiras', pathMatch: 'full' },
-      { path: 'validar-carteiras', component: ValidarCarteirasComponent },
-      { path: 'carteiras-ativas', component: CarteirasAtivasComponent },
-      { path: 'horarios', component: HorariosComponent },
-      { path: 'validar-carteiras/:id', component: PreviewCarteiraValidacaoComponent },
-      { path: 'validacao-resultado', component: ConfirmacaoValidacaoComponent },
-    ]
-  },
+  path: 'funcionario',
+  component: TelaPrincipalFuncionarioComponent,
+  children: [
+    { path: '', component: VisaoGeralFuncionarioComponent, pathMatch: 'full' },
+    { path: 'validar-carteiras', component: ValidarCarteirasComponent },
+    { path: 'carteiras-ativas', component: CarteirasAtivasComponent },
+    { path: 'horarios', component: HorariosComponent },
+    { path: 'validar-carteiras/:id', component: PreviewCarteiraValidacaoComponent },
+    { path: 'validacao-resultado', component: ConfirmacaoValidacaoComponent },
+  ]
+},
 
   // --- Rota Curinga ---
   { path: '**', redirectTo: 'boas-vindas' }
