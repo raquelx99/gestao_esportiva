@@ -1,0 +1,223 @@
+.carteiras-ativas-container {
+  padding: 2rem;
+  background-color: #e8eef7; /* Fundo similar a outras telas de conteúdo */
+  min-height: calc(100vh - 60px - 4rem); /* Ajuste altura da top-bar e padding do .funcionario-content */
+  box-sizing: border-box;
+}
+
+/* Cabeçalho da seção: Título e Barra de Busca */
+.ca-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* Para responsividade */
+  gap: 1rem;
+}
+
+.ca-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.75rem;
+}
+
+/* Barra de Busca */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 0.25rem 0.5rem;
+  min-width: 300px; /* Largura mínima */
+  max-width: 400px; /* Largura máxima */
+}
+
+.search-bar input[type="text"] {
+  flex-grow: 1;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  background-color: transparent;
+}
+
+.search-bar .search-button {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar .search-button:hover {
+  color: #2e7dbb;
+}
+
+/* Lista de Carteiras */
+.lista-carteiras {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espaço entre os itens da lista */
+}
+
+/* Cada Item da Lista (Cartão da Carteira) */
+.carteira-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden; /* Para o caso de animações futuras */
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer; /* Indica que é clicável para expandir */
+  border-bottom: 1px solid transparent; /* Para transição suave */
+  transition: background-color 0.2s;
+}
+
+.carteira-item:hover .item-header {
+  background-color: #f9f9f9; /* Leve destaque no hover */
+}
+
+.info-principal {
+  display: flex;
+  flex-direction: column; /* Nome em cima, validade embaixo */
+  gap: 0.25rem;
+}
+
+.info-principal .nome {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.info-principal .validade {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.expand-button {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carteira-item.expanded .expand-button {
+  transform: rotate(180deg);
+}
+
+/* Detalhes do Item (inicialmente escondidos) */
+.item-details {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  background-color: #fdfdfd;
+}
+
+.item-details p {
+  margin: 0.5rem 0;
+}
+
+.carteira-preview-wrapper {
+  display: flex;
+  justify-content: center; /* Centraliza o card se ele for menor */
+  align-items: flex-start; /* Alinha o card no topo se o scrollable-content for maior */
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.carteirinha-preview-card {
+  background-color: #f0f4f8; /* Um pouco diferente para destacar que é um preview */
+  border: 1px solid #b1c9dd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%; /* Ocupa o espaço disponível no scrollable-content */
+  max-width: 450px; /* Largura máxima para o card, ajuste conforme necessário */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #333; /* Cor do texto padrão dentro do card */
+  font-family: Arial, sans-serif; /* Garantir uma fonte consistente */
+}
+
+.carteirinha-preview-card h2 {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2e7dbb; /* Cor do título */
+}
+
+.info-grid-carteira {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-grid-carteira div {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #d0d9e0;
+}
+
+.info-grid-carteira strong {
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.info-grid-carteira span {
+  font-size: 1rem;
+  color: #222;
+}
+
+.espacos-list-carteira {
+  margin-bottom: 1.25rem;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #d0d9e0;
+}
+.espacos-list-carteira strong{
+  display: block;
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.espacos-list-carteira span {
+  font-size: 1rem;
+  color: #222;
+  word-break: break-word; /* Para quebrar a linha se a string de espaços for longa */
+}
+
+.rodape-carteira {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #c0c9d3;
+  padding-top: 1rem;
+}
+
+.semestre-carteira, .validade-carteira {
+  background: #e7edf3;
+  padding: 0.75rem;
+  border-radius: 6px;
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+}

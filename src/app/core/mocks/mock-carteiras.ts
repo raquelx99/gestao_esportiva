@@ -14,6 +14,7 @@ export interface CarteiraDetalhes {
   fotoDocumentoUrl?: string;
   emissaoDetalhes?: string;
   dataRequisicao?: string;
+  isExpanded?: boolean;
 }
 
 export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
