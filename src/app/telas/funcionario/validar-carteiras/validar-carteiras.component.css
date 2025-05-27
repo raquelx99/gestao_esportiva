@@ -1,10 +1,17 @@
 .validar-carteiras-container {
-  background-color: #d1e1f2; /* Cor de fundo similar ao protótipo */
+  background-color: rgba(174, 198, 218, 1); /* Cor de fundo similar ao protótipo */
   padding: 2rem;
   border-radius: 8px;
   height: 100%; /* Para ocupar a altura disponível */
   box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
   overflow-y: auto; /* Adiciona scroll se a lista for longa */
+}
+
+h1{
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-family: Arial, sans-serif;
 }
 
 h2 {

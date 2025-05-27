@@ -1,11 +1,24 @@
 .carteiras-ativas-container {
   padding: 2rem;
   background-color: #e8eef7; /* Fundo similar a outras telas de conteúdo */
-  min-height: calc(100vh - 60px - 4rem); /* Ajuste altura da top-bar e padding do .funcionario-content */
+  min-height: calc(100vh - 60px - 4rem);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Cabeçalho da seção: Título e Barra de Busca */
+
+.ca-content-card {
+  background-color: rgba(174, 198, 218, 1); /* Cor de fundo do card, como em Validar Carteiras */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Cabeçalho da seção: Título e Barra de Busca (permanecem os mesmos) */
 .ca-header {
   display: flex;
   justify-content: space-between;
@@ -127,24 +140,25 @@
   margin: 0.5rem 0;
 }
 
+/* Estilos para a carteirinha expandida (que você já tinha) */
 .carteira-preview-wrapper {
   display: flex;
-  justify-content: center; /* Centraliza o card se ele for menor */
-  align-items: flex-start; /* Alinha o card no topo se o scrollable-content for maior */
+  justify-content: center;
+  align-items: flex-start;
   padding-top: 1rem;
   width: 100%;
 }
 
 .carteirinha-preview-card {
-  background-color: #f0f4f8; /* Um pouco diferente para destacar que é um preview */
+  background-color: #f0f4f8;
   border: 1px solid #b1c9dd;
   border-radius: 12px;
   padding: 1.5rem;
-  width: 100%; /* Ocupa o espaço disponível no scrollable-content */
-  max-width: 450px; /* Largura máxima para o card, ajuste conforme necessário */
+  width: 100%;
+  max-width: 700px; /* Você ajustou para 700px */
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  color: #333; /* Cor do texto padrão dentro do card */
-  font-family: Arial, sans-serif; /* Garantir uma fonte consistente */
+  color: #333;
+  font-family: Arial, sans-serif;
 }
 
 .carteirinha-preview-card h2 {
@@ -152,7 +166,7 @@
   font-size: 1.25rem;
   margin-top: 0;
   margin-bottom: 1.5rem;
-  color: #2e7dbb; /* Cor do título */
+  color: #2e7dbb;
 }
 
 .info-grid-carteira {
@@ -200,7 +214,7 @@
 .espacos-list-carteira span {
   font-size: 1rem;
   color: #222;
-  word-break: break-word; /* Para quebrar a linha se a string de espaços for longa */
+  word-break: break-word;
 }
 
 .rodape-carteira {
