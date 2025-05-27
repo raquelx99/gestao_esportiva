@@ -1,1 +1,12 @@
-<p>tela-principal-funcionario works!</p>
+<app-funcionario-top-bar></app-funcionario-top-bar> <div class="funcionario-layout">
+  <aside class="sidenav">
+    <ul>
+      <li><a routerLink="validar-carteiras">Validar Carteiras</a></li>
+      <li><a routerLink="carteiras-ativas">Carteiras Ativas</a></li>
+      <li><a routerLink="horarios">Horários</a></li>
+    </ul>
+  </aside>
+  <main class="funcionario-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
