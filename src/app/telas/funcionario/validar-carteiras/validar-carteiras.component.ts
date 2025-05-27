@@ -1,13 +1,22 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router'; // << IMPORTAR AQUI
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras';
 
 @Component({
   selector: 'app-validar-carteiras',
-  standalone: true, // << ADICIONAR AQUI
-  imports: [RouterLink], // << ADICIONAR AQUI
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './validar-carteiras.component.html',
   styleUrl: './validar-carteiras.component.css'
 })
-export class ValidarCarteirasComponent {
+export class ValidarCarteirasComponent implements OnInit {
+  listaDeCarteiras: CarteiraDetalhes[] = [];
 
+  constructor() { }
+
+  ngOnInit(): void {
+    this.listaDeCarteiras = MOCK_CARTEIRAS;
+    console.log('Carteiras para validar carregadas:', this.listaDeCarteiras);
+  }
 }

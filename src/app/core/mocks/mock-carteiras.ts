@@ -13,6 +13,7 @@ export interface CarteiraDetalhes {
   espacosSolicitados: string;
   fotoDocumentoUrl?: string;
   emissaoDetalhes?: string;
+  dataRequisicao?: string;
 }
 
 export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
@@ -30,7 +31,8 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     validade: '31/12/2025',
     espacosSolicitados: 'Piscina, Quadra, Society',
     fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+1',
-    emissaoDetalhes: '1° Semestre – 01/01/2025' // NOVO DADO
+    emissaoDetalhes: '1° Semestre – 01/01/2025',
+    dataRequisicao: '25/05/2025' // NOVO DADO
   },
   {
     id: '2',
@@ -46,7 +48,9 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     validade: '30/11/2025',
     espacosSolicitados: 'Quadra de Tênis, Pista de Atletismo',
     fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+2',
-    emissaoDetalhes: '2° Semestre – 15/07/2024'
+    emissaoDetalhes: '2° Semestre – 15/07/2024',
+    dataRequisicao: '24/05/2025'
+    
   },
   {
     id: '3',
@@ -62,6 +66,7 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     validade: '28/02/2026',
     espacosSolicitados: 'Piscina',
     fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+3',
-    emissaoDetalhes: '1° Semestre – 20/02/2025'
+    emissaoDetalhes: '1° Semestre – 20/02/2025',
+    dataRequisicao: '23/05/2025'
   }
 ];

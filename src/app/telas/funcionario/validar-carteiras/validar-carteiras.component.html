@@ -1,24 +1,16 @@
 <div class="validar-carteiras-container">
   <h2>Requisições: Validar carteiras</h2>
 
-  <ul class="lista-requisicoes">
-    <li class="requisicao-item">
-      <a [routerLink]="['/funcionario/validar-carteiras', 1]"> <span>Nome: Fulano de Tal</span>
-        <span>Data da requisição: 25/05/2025</span>
+  <ul class="lista-requisicoes" *ngIf="listaDeCarteiras.length > 0; else semRequisicoes">
+    <li *ngFor="let carteira of listaDeCarteiras" class="requisicao-item">
+      <a [routerLink]="['/funcionario/validar-carteiras', carteira.id]">
+        <span>Nome: {{ carteira.nome }}</span>
+        <span>Data da requisição: {{ carteira.dataRequisicao }}</span>
       </a>
     </li>
+  </ul>
 
-    <li class="requisicao-item">
-       <a [routerLink]="['/funcionario/validar-carteiras', 2]"> <span>Nome: Ciclana da Silva</span>
-        <span>Data da requisição: 24/05/2025</span>
-      </a>
-    </li>
-
-     <li class="requisicao-item">
-       <a [routerLink]="['/funcionario/validar-carteiras', 3]"> <span>Nome: Beltrano Souza</span>
-        <span>Data da requisição: 23/05/2025</span>
-      </a>
-    </li>
-    </ul>
-
+  <ng-template #semRequisicoes>
+    <p>Nenhuma requisição pendente no momento.</p>
+  </ng-template>
 </div>
