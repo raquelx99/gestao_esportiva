@@ -1,4 +1,3 @@
-/* Container principal - Centraliza e dá fundo */
 .preview-container {
   padding: 2rem;
   background-color: #e8eef7; /* Fundo geral */
@@ -152,4 +151,100 @@ h4 {
 
 .btn-aprovar {
   background-color: #588157; /* Verde */
+}
+
+/* INÍCIO DOS ESTILOS ADICIONADOS PARA A ABA "PREVIEW DA CARTEIRA" */
+.carteira-preview-wrapper {
+  display: flex;
+  justify-content: center; /* Centraliza o card se ele for menor */
+  align-items: flex-start; /* Alinha o card no topo se o scrollable-content for maior */
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.carteirinha-preview-card {
+  background-color: #f0f4f8; /* Um pouco diferente para destacar que é um preview */
+  border: 1px solid #b1c9dd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%; /* Ocupa o espaço disponível no scrollable-content */
+  max-width: 450px; /* Largura máxima para o card, ajuste conforme necessário */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #333; /* Cor do texto padrão dentro do card */
+  font-family: Arial, sans-serif; /* Garantir uma fonte consistente */
+}
+
+.carteirinha-preview-card h2 {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2e7dbb; /* Cor do título */
+}
+
+.info-grid-carteira {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-grid-carteira div {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #d0d9e0;
+}
+
+.info-grid-carteira strong {
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.info-grid-carteira span {
+  font-size: 1rem;
+  color: #222;
+}
+
+.espacos-list-carteira {
+  margin-bottom: 1.25rem;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #d0d9e0;
+}
+.espacos-list-carteira strong{
+  display: block;
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.espacos-list-carteira span {
+  font-size: 1rem;
+  color: #222;
+  word-break: break-word; /* Para quebrar a linha se a string de espaços for longa */
+}
+
+.rodape-carteira {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #c0c9d3;
+  padding-top: 1rem;
+}
+
+.semestre-carteira, .validade-carteira {
+  background: #e7edf3;
+  padding: 0.75rem;
+  border-radius: 6px;
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
 }

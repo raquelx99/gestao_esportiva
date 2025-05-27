@@ -38,17 +38,30 @@
           <p *ngIf="!dadosCarteira">Dados da carteira não encontrados para o ID: {{ carteiraId }}</p>
         </div>
 
-        <div *ngIf="abaAtiva === 'previewCarteira'" class="scrollable-content">
-          <h4>Preview da Carteira do Aluno</h4>
-          <p><i>(Aqui viria o visual da carteirinha do aluno, como no protótipo).</i></p>
-          <p><i>Por enquanto, vamos apenas mostrar os dados novamente para confirmar a troca de aba:</i></p>
-          <ng-container *ngIf="dadosCarteira">
-            <p><strong>Nome:</strong> {{ dadosCarteira.nome }}</p>
-            <p><strong>Matrícula:</strong> {{ dadosCarteira.matricula }}</p>
-            <p><strong>Curso:</strong> {{ dadosCarteira.curso }}</p>
-            <p><strong>Validade:</strong> {{ dadosCarteira.validade }}</p>
-          </ng-container>
+    <div *ngIf="abaAtiva === 'previewCarteira'" class="scrollable-content">
+    <h4>Preview da Carteira do Aluno</h4>
+
+    <div class="carteira-preview-wrapper"> <section class="card carteirinha-preview-card"> <h2>Carteira de Acesso</h2>
+
+        <div class="info-grid-carteira"> <div><strong>Nome</strong><span>{{ dadosCarteira?.nome }}</span></div>
+          <div><strong>Matrícula</strong><span>{{ dadosCarteira?.matricula }}</span></div>
+          <div><strong>Curso</strong><span>{{ dadosCarteira?.curso }}</span></div>
+          <div><strong>Centro</strong><span>{{ dadosCarteira?.centro }}</span></div>
+          <div><strong>Telefone</strong><span>{{ dadosCarteira?.telefone }}</span></div>
+          <div><strong>Telefone urgência</strong><span>{{ dadosCarteira?.contatoEmergenciaTel }}</span></div>
         </div>
+
+        <div class="espacos-list-carteira"> <strong>Espaços:</strong>
+          <span>{{ dadosCarteira?.espacosSolicitados }}</span>
+          </div>
+
+        <div class="rodape-carteira"> <div class="semestre-carteira">{{ dadosCarteira?.emissaoDetalhes }}</div>
+          <div class="validade-carteira">Validade: {{ dadosCarteira?.validade }}</div>
+        </div>
+      </section>
+    </div>
+
+    </div>
       </div>
       </div> <div class="right-panel">
       <h4>Foto Documento</h4>

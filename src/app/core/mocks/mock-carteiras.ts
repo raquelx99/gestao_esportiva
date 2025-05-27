@@ -12,7 +12,7 @@ export interface CarteiraDetalhes {
   validade: string;
   espacosSolicitados: string;
   fotoDocumentoUrl?: string;
-  // Poderíamos adicionar um status 'pendente', 'aprovada', 'rejeitada' aqui no futuro
+  emissaoDetalhes?: string;
 }
 
 export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
@@ -29,7 +29,8 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     contatoEmergenciaTel: '85 98888-8888',
     validade: '31/12/2025',
     espacosSolicitados: 'Piscina, Quadra, Society',
-    fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+1'
+    fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+1',
+    emissaoDetalhes: '1° Semestre – 01/01/2025' // NOVO DADO
   },
   {
     id: '2',
@@ -44,7 +45,8 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     contatoEmergenciaTel: '85 98666-6666',
     validade: '30/11/2025',
     espacosSolicitados: 'Quadra de Tênis, Pista de Atletismo',
-    fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+2'
+    fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+2',
+    emissaoDetalhes: '2° Semestre – 15/07/2024'
   },
   {
     id: '3',
@@ -59,6 +61,7 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     contatoEmergenciaTel: '85 98444-4444',
     validade: '28/02/2026',
     espacosSolicitados: 'Piscina',
-    fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+3'
+    fotoDocumentoUrl: 'https://via.placeholder.com/350x250.png?text=Doc+ID+3',
+    emissaoDetalhes: '1° Semestre – 20/02/2025'
   }
 ];
