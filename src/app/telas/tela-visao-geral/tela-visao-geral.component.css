@@ -1,9 +1,12 @@
 .visao-geral-container {
+  max-width: 1200px;
+  margin: 56px auto 2rem; 
   display: flex;
   gap: 2rem;
   padding: 2rem;
   background-color: #e8eef7;
-  min-height: calc(100vh - 56px); /* subtrai TopBar */
+  min-height: calc(100vh - 56px);
+  overflow-x: hidden;
 }
 
 .card {
@@ -16,6 +19,11 @@
 
 .carteirinha-card {
   max-width: 60%;
+  height: 500px;
+}
+
+.horarios-card {
+  max-width: 35%;
 }
 
 .info-grid {
@@ -68,10 +76,6 @@
   border-radius: 6px;
   flex: 1;
   text-align: center;
-}
-
-.horarios-card {
-  max-width: 35%;
 }
 
 .horarios-card .dia {
