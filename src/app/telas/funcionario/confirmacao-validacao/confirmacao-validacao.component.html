@@ -1,0 +1,14 @@
+<div class="confirmacao-container">
+  <div class="card" [ngClass]="corCard"> <h3>Resultado da Validação</h3>
+    <p class="mensagem">{{ mensagem }}</p>
+
+    <div class="botoes-acao">
+      <button (click)="voltarParaLista()" class="btn btn-secundario">
+        Voltar para Lista
+      </button>
+      <button *ngIf="status === 'aprovada' || status === 'rejeitada'" (click)="avaliarProxima()" class="btn btn-primario">
+        Avaliar Próxima
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,178 @@
+/* Container geral da página */
+.horarios-container {
+  padding: 2rem;
+  background-color: #e8eef7; /* Fundo geral da página */
+  min-height: calc(100vh - 60px - 4rem); /* Ajustar conforme altura da top-bar e padding do layout */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o card de conteúdo */
+}
+
+/* Card principal para o conteúdo */
+.hc-content-card {
+  background-color: rgba(174, 198, 218, 1); /* Fundo do card (azul-acinzentado) */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 1100px; /* Largura máxima do card de conteúdo */
+}
+
+/* Cabeçalho da seção: Título e Barra de Busca */
+.hc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hc-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.75rem;
+}
+
+/* Barra de Busca (reutilizando estilos de CarteirasAtivas, ajuste se necessário) */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 0.25rem 0.5rem;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.search-bar input[type="text"] {
+  flex-grow: 1;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  background-color: transparent;
+}
+
+.search-bar .search-button {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar .search-button:hover {
+  color: #2e7dbb;
+}
+
+/* Lista de Espaços (Quadras, etc.) */
+.lista-espacos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Cada Item da Lista (Espaço) */
+.espaco-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.espaco-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.2s;
+}
+
+.espaco-item:hover .espaco-header {
+  background-color: #f9f9f9;
+}
+
+.espaco-nome {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.2rem; /* Nome do espaço um pouco maior */
+}
+
+.expand-button {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.espaco-item.expanded .expand-button {
+  transform: rotate(180deg);
+}
+
+/* Detalhes do Espaço (Tabela de Horários) */
+.espaco-details {
+  padding: 1.5rem; /* Mais padding para a tabela */
+  border-top: 1px solid #eee;
+  background-color: #fdfdfd;
+}
+
+.tabela-horarios-wrapper {
+  overflow-x: auto; /* Scroll horizontal para a tabela em telas pequenas */
+}
+
+.espaco-details table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.espaco-details th,
+.espaco-details td {
+  border: 1px solid #ddd;
+  padding: 0.75rem; /* Padding nas células */
+  text-align: left;
+  vertical-align: top; /* Alinha conteúdo no topo da célula */
+}
+
+.espaco-details th {
+  background-color: #f0f4f8;
+  color: #444;
+  font-weight: bold;
+}
+
+.espaco-details td {
+  background-color: #fff;
+}
+
+.espaco-details .edit-button {
+  display: inline-flex; /* Para alinhar com o ícone */
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #6c757d; /* Cor secundária/cinza */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.espaco-details .edit-button:hover {
+  background-color: #5a6268;
+}
+
+.espaco-details .edit-button svg {
+  margin-right: 0.3rem; /* Espaço entre ícone e texto */
+}

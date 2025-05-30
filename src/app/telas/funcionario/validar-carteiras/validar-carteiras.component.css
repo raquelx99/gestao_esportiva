@@ -1,0 +1,64 @@
+.validar-carteiras-container {
+  background-color: rgba(174, 198, 218, 1);
+  padding: 4rem;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  /* ADICIONADO: */
+  min-height: 500px; /* Altura mínima de exemplo */
+  /* REMOVIDO: height: 100%; */
+}
+
+h1{
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-family: Arial, sans-serif; /* Adicionando uma fonte padrão */
+}
+
+.lista-requisicoes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requisicao-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem; /* Mantém o padding */
+  background-color: #fff;
+  border-radius: 8px; /* Já é 8px, igual ao .carteira-item */
+  text-decoration: none;
+  color: #333;
+  margin-bottom: 0.75rem; /* Um pouco menos de margem que o .carteira-item, pode ajustar */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Sombra similar */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.requisicao-item a:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.requisicao-item a span:first-child { /* Para o "Nome: ..." */
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1rem; /* Igual ao .nome em CarteirasAtivas */
+}
+
+.requisicao-item a span:last-child { /* Para a "Data da requisição: ..." */
+  font-size: 0.9rem; /* Igual ao .validade em CarteirasAtivas */
+  color: #666;
+}

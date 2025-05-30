@@ -1,0 +1,66 @@
+/* Mantém o layout flexível */
+.funcionario-layout {
+  display: flex;
+  min-height: calc(100vh - 60px); /* Ajuste se a altura do FuncionarioTopBar for diferente de 60px */
+  background-color: #e8eef7;
+}
+
+.sidenav {
+  /* Estado fechado por padrão */
+  width: 0;
+  padding-top: 1.5rem; /* Mantém padding vertical se desejar */
+  padding-bottom: 1.5rem;
+  padding-left: 0; /* Remove padding horizontal quando fechada */
+  padding-right: 0; /* Remove padding horizontal quando fechada */
+  background-color: #d1e1f2;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  overflow: hidden; /* ESSENCIAL para esconder o conteúdo quando width: 0 */
+  white-space: nowrap; /* Impede que o texto quebre linha durante a transição */
+  transition: width 0.3s ease-in-out, padding-left 0.3s ease-in-out, padding-right 0.3s ease-in-out;
+  /* display: flex e flex-direction: column podem ajudar se houver conteúdo interno complexo */
+}
+
+.sidenav.aberta {
+  /* Estado aberto */
+  width: 250px; /* Largura desejada quando aberta */
+  padding-left: 1.5rem; /* Restaura padding horizontal */
+  padding-right: 1.5rem; /* Restaura padding horizontal */
+}
+
+/* Estilos existentes para a lista e links podem permanecer como estão */
+.sidenav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* Você pode adicionar uma transição de opacidade aqui se quiser um efeito mais suave para o texto */
+  /* opacity: 0; */
+  /* transition: opacity 0.2s ease-in-out 0.1s; /* Pequeno delay */
+}
+
+.sidenav.aberta ul {
+  /* opacity: 1; */
+}
+
+.sidenav ul li {
+  margin-bottom: 1rem;
+}
+
+.sidenav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.sidenav ul li a:hover {
+  background-color: #b1c9dd;
+}
+
+.funcionario-content {
+  flex-grow: 1;
+  padding: 2rem;
+  /* O conteúdo principal se ajustará automaticamente por causa do flex-grow */
+}

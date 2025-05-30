@@ -29,4 +29,8 @@ export class TelaEsperaValidacaoComponent implements OnInit {
   onRetry() {
     this.router.navigate(['/cadastro']);
   }
+
 }
+
+
+
