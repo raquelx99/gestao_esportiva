@@ -30,7 +30,7 @@ export const routes: Routes = [
 
   // --- Rotas de Aluno ---
   { path: 'visao-geral', component: TelaVisaoGeralComponent },
-  { path: 'aluno/notificacoes', component: TelaNotificacoesAlunoComponent },
+  { path: 'notificacoes', component: TelaNotificacoesAlunoComponent },
   // ... Outras rotas de aluno ...
 
   // --- Rotas de Funcionário ---
