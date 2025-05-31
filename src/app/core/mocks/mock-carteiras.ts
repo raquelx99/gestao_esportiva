@@ -6,7 +6,6 @@ export interface CarteiraDetalhes {
   centro: string;
   cpf: string;
   telefone: string;
-  email: string;
   contatoEmergenciaNome: string;
   contatoEmergenciaTel: string;
   validade: string;
@@ -26,7 +25,6 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     centro: 'CCG',
     cpf: '111.222.333-44',
     telefone: '85 98999-9999',
-    email: 'joao.eduardo&#64;email.com',
     contatoEmergenciaNome: 'Maria Lima',
     contatoEmergenciaTel: '85 98888-8888',
     validade: '31/12/2025',
@@ -43,7 +41,6 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     centro: 'CCT',
     cpf: '222.333.444-55',
     telefone: '85 98777-7777',
-    email: 'ciclana.silva&#64;email.com',
     contatoEmergenciaNome: 'José Silva',
     contatoEmergenciaTel: '85 98666-6666',
     validade: '30/11/2025',
@@ -61,7 +58,6 @@ export const MOCK_CARTEIRAS: CarteiraDetalhes[] = [
     centro: 'CCJ',
     cpf: '333.444.555-66',
     telefone: '85 98555-5555',
-    email: 'beltrano.souza&#64;email.com',
     contatoEmergenciaNome: 'Ana Souza',
     contatoEmergenciaTel: '85 98444-4444',
     validade: '28/02/2026',
