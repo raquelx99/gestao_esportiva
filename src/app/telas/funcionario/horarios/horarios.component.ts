@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EspacoHorario, MOCK_ESPACOS_HORARIOS, HorarioSlot } from '../../../core/mocks/mock-horarios'; // Ou mock-carteiras.ts
+import { EspacoHorario, MOCK_ESPACOS_HORARIOS, HorarioSlot, DiaDaSemana } from '../../../core/mocks/mock-horarios'; 
 
-// Interface para representar um slot de horário fixo com sua descrição
 interface SlotFixo {
-  id: string;
+  id: string; // Ex: 'M_AB', 'T_CD'
   periodo: 'Manhã' | 'Tarde' | 'Noite';
   bloco: 'AB' | 'CD' | 'EF';
   descricao: string;
@@ -39,26 +38,27 @@ export class HorariosComponent implements OnInit {
       { id: 'N_CD', periodo: 'Noite', bloco: 'CD', descricao: '21:00 - 22:40' }
     ]}
   ];
-
-  todosOsSlotsFixos: SlotFixo[] = []; // Mantém a declaração
+  todosOsSlotsFixos: SlotFixo[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    // CORREÇÃO APLICADA AQUI:
     this.todosOsSlotsFixos = this.slotsFixosPorPeriodo.flatMap(periodo => periodo.slots);
 
     this.listaCompletaEspacos = MOCK_ESPACOS_HORARIOS.map(espaco => ({
       ...espaco,
-      isExpanded: espaco.isExpanded || false
+      isExpanded: espaco.isExpanded || false,
+      isEditing: false
     }));
     this.filtrarEspacos('');
     console.log('Espaços e horários carregados:', this.listaCompletaEspacos);
-    console.log('Todos os slots fixos para a tabela:', this.todosOsSlotsFixos); // Bom para depurar
   }
 
   toggleDetalhesEspaco(espaco: EspacoHorario): void {
     espaco.isExpanded = !espaco.isExpanded;
+    if (!espaco.isExpanded) {
+      espaco.isEditing = false;
+    }
   }
 
   filtrarEspacos(termoBuscaInput: string): void {
@@ -70,6 +70,7 @@ export class HorariosComponent implements OnInit {
         e.nomeDisplay.toLowerCase().includes(termo)
       );
     }
+    console.log('Termo buscado (horários):', termo, 'Resultados:', this.espacosFiltrados.length);
   }
 
   getStatusSlot(espaco: EspacoHorario, diaNome: string, slotFixo: SlotFixo): string {
@@ -79,5 +80,40 @@ export class HorariosComponent implements OnInit {
       return slotEncontrado ? slotEncontrado.status : ' ';
     }
     return ' ';
+  }
+
+  toggleModoEdicao(espaco: EspacoHorario): void {
+    espaco.isEditing = !espaco.isEditing;
+    console.log(`Modo de edição para ${espaco.nomeDisplay}:`, espaco.isEditing);
+  }
+
+  atualizarStatusSlot(espaco: EspacoHorario, diaNome: string, slotFixo: SlotFixo): void {
+    if (!espaco.isEditing) {
+      console.log('Modo de edição não está ativo. Não é possível alterar o status.');
+      return;
+    }
+
+    let diaParaAtualizar = espaco.horarios.find(d => d.nome === diaNome);
+
+    if (!diaParaAtualizar) {
+      diaParaAtualizar = { nome: diaNome, slots: [] };
+      espaco.horarios.push(diaParaAtualizar);
+    }
+
+    const indiceSlotExistente = diaParaAtualizar.slots.findIndex(s => s.hora === slotFixo.descricao);
+
+    if (indiceSlotExistente !== -1) {
+      const statusAtual = diaParaAtualizar.slots[indiceSlotExistente].status;
+      if (statusAtual === 'Livre' || statusAtual === 'Disponível') {
+        diaParaAtualizar.slots.splice(indiceSlotExistente, 1);
+        console.log(`Slot ${slotFixo.descricao} (${diaNome}) para ${espaco.nomeDisplay} agora está VAZIO.`);
+      } else {
+        diaParaAtualizar.slots[indiceSlotExistente].status = 'Livre';
+        console.log(`Slot ${slotFixo.descricao} (${diaNome}) para ${espaco.nomeDisplay} agora está Livre (era ${statusAtual}).`);
+      }
+    } else {
+      diaParaAtualizar.slots.push({ hora: slotFixo.descricao, status: 'Livre' });
+      console.log(`Slot ${slotFixo.descricao} (${diaNome}) para ${espaco.nomeDisplay} MARCADO como Livre.`);
+    }
   }
 }

@@ -1,22 +1,22 @@
 /* Container geral da página */
 .horarios-container {
   padding: 2rem;
-  background-color: #e8eef7; /* Fundo geral da página */
-  min-height: calc(100vh - 60px - 4rem); /* Ajustar conforme altura da top-bar e padding do layout */
+  background-color: #e8eef7;
+  min-height: calc(100vh - 60px - 4rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza o card de conteúdo */
+  align-items: center;
 }
 
 /* Card principal para o conteúdo */
 .hc-content-card {
-  background-color: rgba(174, 198, 218, 1); /* Fundo do card (azul-acinzentado) */
+  background-color: #d1e1f2;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   width: 100%;
-  max-width: 1100px; /* Largura máxima do card de conteúdo */
+  max-width: 1100px;
 }
 
 /* Cabeçalho da seção: Título e Barra de Busca */
@@ -35,7 +35,6 @@
   font-size: 1.75rem;
 }
 
-/* Barra de Busca (reutilizando estilos de CarteirasAtivas, ajuste se necessário) */
 .search-bar {
   display: flex;
   align-items: center;
@@ -71,14 +70,12 @@
   color: #2e7dbb;
 }
 
-/* Lista de Espaços (Quadras, etc.) */
 .lista-espacos {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-/* Cada Item da Lista (Espaço) */
 .espaco-item {
   background-color: #fff;
   border-radius: 8px;
@@ -103,7 +100,7 @@
 .espaco-nome {
   font-weight: bold;
   color: #333;
-  font-size: 1.2rem; /* Nome do espaço um pouco maior */
+  font-size: 1.2rem;
 }
 
 .expand-button {
@@ -119,15 +116,15 @@
   transform: rotate(180deg);
 }
 
-/* Detalhes do Espaço (Tabela de Horários) */
 .espaco-details {
-  padding: 1.5rem; /* Mais padding para a tabela */
+  padding: 1.5rem;
   border-top: 1px solid #eee;
   background-color: #fdfdfd;
 }
 
 .tabela-horarios-wrapper {
-  overflow-x: auto; /* Scroll horizontal para a tabela em telas pequenas */
+  overflow-x: auto;
+  margin-top: 0.5rem;
 }
 
 .espaco-details table {
@@ -139,9 +136,11 @@
 .espaco-details th,
 .espaco-details td {
   border: 1px solid #ddd;
-  padding: 0.75rem; /* Padding nas células */
-  text-align: left;
-  vertical-align: top; /* Alinha conteúdo no topo da célula */
+  padding: 0.75rem;
+  text-align: center; /* Centralizar texto nas células */
+  vertical-align: middle; /* Alinhar verticalmente no meio */
+  min-width: 100px;
+  height: 40px;
 }
 
 .espaco-details th {
@@ -154,13 +153,58 @@
   background-color: #fff;
 }
 
+.periodo-header-row td {
+  font-weight: bold;
+  background-color: #e9ecef;
+  text-align: center;
+  padding: 0.5rem;
+  border-top: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.periodo-header-row:first-child td {
+  border-top: 1px solid #ddd;
+}
+
+.slot-livre {
+  background-color: #d4edda !important; /* !important para sobrescrever td background */
+  color: #155724;
+}
+.slot-livre:hover, .celula-editavel.slot-livre:hover {
+  background-color: #c3e6cb !important;
+}
+
+.slot-ocupado {
+  background-color: #f8d7da !important;
+  color: #721c24;
+}
+/* .slot-ocupado:hover, .celula-editavel.slot-ocupado:hover {
+  background-color: #f5c6cb !important;
+} */
+
+.slot-vazio {
+  background-color: #fdfdfd !important;
+  color: #aaa;
+}
+/* .slot-vazio:hover, .celula-editavel.slot-vazio:hover {
+  background-color: #efefef !important;
+} */
+
+.espaco-details td.celula-editavel {
+  cursor: pointer;
+}
+/* Se precisar de um hover específico para edição quando não é livre/ocupado/vazio */
+.espaco-details td.celula-editavel:not(.slot-livre):not(.slot-ocupado):not(.slot-vazio):hover {
+  background-color: #e0e0e0 !important;
+}
+
+
 .espaco-details .edit-button {
-  display: inline-flex; /* Para alinhar com o ícone */
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem; /* Mais espaço acima do botão */
   padding: 0.6rem 1.2rem;
-  background-color: #6c757d; /* Cor secundária/cinza */
+  background-color: #007bff; /* Azul para ação primária de edição */
   color: white;
   border: none;
   border-radius: 6px;
@@ -170,9 +214,9 @@
 }
 
 .espaco-details .edit-button:hover {
-  background-color: #5a6268;
+  background-color: #0056b3;
 }
 
 .espaco-details .edit-button svg {
-  margin-right: 0.3rem; /* Espaço entre ícone e texto */
+  margin-right: 0.3rem;
 }
