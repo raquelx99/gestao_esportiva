@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core'; // Adicionado OnInit
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// Importar os dados mockados e a interface
-import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras'; // Ajuste o caminho se sua pasta mocks não estiver em core
+import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras';
 
 @Component({
   selector: 'app-carteiras-ativas',
@@ -10,25 +9,38 @@ import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carte
   templateUrl: './carteiras-ativas.component.html',
   styleUrl: './carteiras-ativas.component.css'
 })
-export class CarteirasAtivasComponent implements OnInit { // Implementar OnInit
-  // Lista para as carteiras que serão exibidas
-  listaDeCarteirasAtivas: CarteiraDetalhes[] = [];
+export class CarteirasAtivasComponent implements OnInit {
+  listaCompletaCarteirasAtivas: CarteiraDetalhes[] = [];
+  carteirasFiltradas: CarteiraDetalhes[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    // Inicializa a lista de carteiras
-    // Mapeamos para garantir que cada item tenha a propriedade 'isExpanded'
-    this.listaDeCarteirasAtivas = MOCK_CARTEIRAS.map(carteira => ({
+    this.listaCompletaCarteirasAtivas = MOCK_CARTEIRAS.map(carteira => ({
       ...carteira,
-      isExpanded: false // Todas começam fechadas por padrão
+      isExpanded: carteira.isExpanded || false
     }));
-    console.log('Carteiras ativas carregadas (com estado de expansão):', this.listaDeCarteirasAtivas);
+
+    this.filtrarCarteiras('');
+
+    console.log('Carteiras ativas carregadas (com estado de expansão):', this.listaCompletaCarteirasAtivas);
   }
 
-  // Método para alternar a visibilidade dos detalhes de uma carteira específica
   toggleDetalhes(carteira: CarteiraDetalhes): void {
     carteira.isExpanded = !carteira.isExpanded;
     console.log(`Detalhes para ${carteira.nome} visíveis:`, carteira.isExpanded);
+  }
+
+  filtrarCarteiras(termoBuscaInput: string): void {
+    const termo = termoBuscaInput.trim().toLowerCase();
+
+    if (!termo) {
+      this.carteirasFiltradas = [...this.listaCompletaCarteirasAtivas];
+    } else {
+      this.carteirasFiltradas = this.listaCompletaCarteirasAtivas.filter(carteira =>
+        carteira.nome.toLowerCase().includes(termo)
+      );
+    }
+    console.log('Termo buscado:', termo, 'Resultados na lista filtrada:', this.carteirasFiltradas.length);
   }
 }
