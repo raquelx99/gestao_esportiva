@@ -1,6 +1,5 @@
 <div class="horarios-container">
-  <div class="hc-content-card">
-    <header class="hc-header">
+  <div class="hc-content-card"> <header class="hc-header">
       <h2>Horários</h2>
       <div class="search-bar">
         <input #inputBuscaHorarios type="text" placeholder="Buscar por nome do espaço..." (keyup.enter)="filtrarEspacos(inputBuscaHorarios.value)" />
@@ -15,35 +14,37 @@
     <div class="lista-espacos">
       <div *ngFor="let espaco of espacosFiltrados" class="espaco-item" [class.expanded]="espaco.isExpanded">
         <div class="espaco-header" (click)="toggleDetalhesEspaco(espaco)">
-          <span class="espaco-nome">{{ espaco.nomeDisplay }}</span> <button class="expand-button" aria-label="Ver horários">
+          <span class="espaco-nome">{{ espaco.nomeDisplay }}</span>
+          <button class="expand-button" aria-label="Ver horários">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
               <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
             </svg>
           </button>
         </div>
+
         <div class="espaco-details" *ngIf="espaco.isExpanded">
           <div class="tabela-horarios-wrapper">
             <table>
               <thead>
                 <tr>
+                  <th>Horário</th>
                   <th *ngFor="let dia of diasDaSemanaCabecalho">{{ dia }}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td *ngFor="let diaNome of diasDaSemanaCabecalho">
-                    <ng-container *ngFor="let diaData of espaco.horarios">
-                      <div *ngIf="diaData.nome === diaNome">
-                        <div *ngFor="let slot of diaData.slots" class="slot-horario-resumo">
-                          <strong>{{ slot.hora }}</strong> - {{ slot.status }}
-                        </div>
-                        <div *ngIf="diaData.slots.length === 0" class="slot-horario-resumo">
-                          <em>Nenhum horário</em>
-                        </div>
-                      </div>
-                    </ng-container>
-                  </td>
-                </tr>
+                <ng-container *ngFor="let periodo of slotsFixosPorPeriodo">
+                  <tr class="periodo-header-row">
+                    <td [attr.colspan]="diasDaSemanaCabecalho.length + 1">{{ periodo.periodo }}</td>
+                  </tr>
+                  <tr *ngFor="let slotFixo of periodo.slots">
+                    <td>{{ slotFixo.bloco }} ({{ slotFixo.descricao }})</td>
+                    <td *ngFor="let diaNome of diasDaSemanaCabecalho"
+                        [ngClass]="getStatusSlot(espaco, diaNome, slotFixo) === 'Livre' ? 'slot-livre' :
+                                   getStatusSlot(espaco, diaNome, slotFixo) === ' ' ? 'slot-vazio' : 'slot-ocupado'"
+                        (click)="(false)"> {{ getStatusSlot(espaco, diaNome, slotFixo) }}
+                    </td>
+                  </tr>
+                </ng-container>
               </tbody>
             </table>
             <button class="edit-button" aria-label="Editar horários">
@@ -53,11 +54,8 @@
               Editar
             </button>
           </div>
-        </div>
+          </div> </div> <div *ngIf="espacosFiltrados.length === 0" class="sem-espacos">
+        <p>Nenhum espaço encontrado com o termo buscado.</p>
       </div>
+    </div> </div> </div> ```
 
-      <div *ngIf="espacosFiltrados.length === 0" class="sem-espacos"> <p>Nenhum espaço encontrado com o termo buscado.</p>
-      </div>
-    </div>
-  </div>
-</div>
