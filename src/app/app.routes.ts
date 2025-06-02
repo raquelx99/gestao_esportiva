@@ -33,7 +33,7 @@ export const routes: Routes = [
 
   // --- Rotas de Aluno ---
   // A TelaVisaoGeralComponent pode ser o dashboard principal do aluno
-  { path: 'aluno-visao-geral', component: TelaVisaoGeralComponent }, // Mantendo o path antigo ou ajustando para /aluno/dashboard, por exemplo
+  { path: 'visao-geral', component: TelaVisaoGeralComponent }, // Mantendo o path antigo ou ajustando para /aluno/dashboard, por exemplo
   { path: 'aluno/carteira', component: TelaCarteiraAlunoComponent },
   { path: 'aluno/horarios', component: TelaHorariosAlunoComponent },
   { path: 'aluno/notificacoes', component: TelaNotificacoesAlunoComponent }, // Movido para /aluno
