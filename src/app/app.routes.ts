@@ -7,9 +7,12 @@ import { TelaCadastroComponent } from './telas/tela-cadastro/tela-cadastro.compo
 import { TelaEsperaValidacaoComponent } from './telas/tela-espera-validacao/tela-espera-validacao.component';
 
 // Telas de Aluno
+import { TelaVisaoGeralComponent } from './telas/tela-visao-geral/tela-visao-geral.component'; // Dashboard do Aluno
+import { TelaCarteiraAlunoComponent } from './telas/aluno/tela-carteira-aluno/tela-carteira-aluno.component'; // <<< NOVO IMPORT
+import { TelaHorariosAlunoComponent } from './telas/aluno/tela-horarios-aluno/tela-horarios-aluno.component'; // <<< NOVO IMPORT
 import { TelaNotificacoesAlunoComponent } from './telas/aluno/tela-notificacoes-aluno/tela-notificacoes-aluno.component';
-import { TelaVisaoGeralComponent } from './telas/tela-visao-geral/tela-visao-geral.component'; // <--- DA COLEGA
-// ... Outros imports de aluno ...
+import { TelaConfirmacaoRenovacaoComponent } from './telas/aluno/tela-confirmacao-renovacao/tela-confirmacao-renovacao.component'; // <<< NOVO IMPORT
+import { TelaRenovacaoFormularioComponent } from './telas/aluno/tela-renovacao-formulario/tela-renovacao-formulario.component'; // <<< NOVO IMPORT
 
 // Telas de Funcionário
 import { TelaPrincipalFuncionarioComponent } from './telas/funcionario/tela-principal-funcionario/tela-principal-funcionario.component';
@@ -29,23 +32,27 @@ export const routes: Routes = [
   { path: 'espera-validacao', component: TelaEsperaValidacaoComponent },
 
   // --- Rotas de Aluno ---
-  { path: 'visao-geral', component: TelaVisaoGeralComponent },
-  { path: 'notificacoes', component: TelaNotificacoesAlunoComponent },
-  // ... Outras rotas de aluno ...
+  // A TelaVisaoGeralComponent pode ser o dashboard principal do aluno
+  { path: 'aluno-visao-geral', component: TelaVisaoGeralComponent }, // Mantendo o path antigo ou ajustando para /aluno/dashboard, por exemplo
+  { path: 'aluno/carteira', component: TelaCarteiraAlunoComponent },
+  { path: 'aluno/horarios', component: TelaHorariosAlunoComponent },
+  { path: 'aluno/notificacoes', component: TelaNotificacoesAlunoComponent }, // Movido para /aluno
+  { path: 'aluno/renovacao-confirmacao', component: TelaConfirmacaoRenovacaoComponent },
+  { path: 'aluno/renovacao-formulario', component: TelaRenovacaoFormularioComponent },
 
   // --- Rotas de Funcionário ---
   {
-  path: 'funcionario',
-  component: TelaPrincipalFuncionarioComponent,
-  children: [
-    { path: '', component: VisaoGeralFuncionarioComponent, pathMatch: 'full' },
-    { path: 'validar-carteiras', component: ValidarCarteirasComponent },
-    { path: 'carteiras-ativas', component: CarteirasAtivasComponent },
-    { path: 'horarios', component: HorariosComponent },
-    { path: 'validar-carteiras/:id', component: PreviewCarteiraValidacaoComponent },
-    { path: 'validacao-resultado', component: ConfirmacaoValidacaoComponent },
-  ]
-},
+    path: 'funcionario',
+    component: TelaPrincipalFuncionarioComponent,
+    children: [
+      { path: '', component: VisaoGeralFuncionarioComponent, pathMatch: 'full' },
+      { path: 'validar-carteiras', component: ValidarCarteirasComponent },
+      { path: 'carteiras-ativas', component: CarteirasAtivasComponent },
+      { path: 'horarios', component: HorariosComponent },
+      { path: 'validar-carteiras/:id', component: PreviewCarteiraValidacaoComponent },
+      { path: 'validacao-resultado', component: ConfirmacaoValidacaoComponent },
+    ]
+  },
 
   // --- Rota Curinga ---
   { path: '**', redirectTo: 'boas-vindas' }
