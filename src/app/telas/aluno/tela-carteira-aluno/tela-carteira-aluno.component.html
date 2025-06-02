@@ -1,1 +1,39 @@
-<p>tela-carteira-aluno works!</p>
+<app-top-bar></app-top-bar>
+
+<div class="carteira-aluno-page-container">
+  <div class="ca-card-wrapper"> <ng-container *ngIf="dadosCarteira; else carregandoOuErro">
+      <section class="card carteira-aluno-display-card">
+        <h2>Carteira de Acesso</h2>
+
+        <div class="info-grid"> <div><strong>Nome</strong><span>{{ dadosCarteira.nome }}</span></div>
+          <div><strong>Matrícula</strong><span>{{ dadosCarteira.matricula }}</span></div>
+          <div><strong>Curso</strong><span>{{ dadosCarteira.curso }}</span></div>
+          <div><strong>Centro</strong><span>{{ dadosCarteira.centro }}</span></div>
+          <div><strong>Telefone</strong><span>{{ dadosCarteira.telefone }}</span></div>
+          <div><strong>Telefone urgência</strong><span>{{ dadosCarteira.contatoEmergenciaTel }}</span></div>
+        </div>
+
+        <div class="espacos-info"> <strong>Espaços Autorizados:</strong>
+          <p>{{ dadosCarteira.espacosSolicitados || 'Nenhum espaço especificado' }}</p>
+        </div>
+
+        <div class="rodape-carteira">
+          <div class="emissao-info">{{ dadosCarteira.emissaoDetalhes }}</div>
+          <div class="validade-info" [class.expirada]="isExpired">
+            <strong>Validade:</strong> {{ dadosCarteira.validade }}
+          </div>
+        </div>
+
+        <div class="acoes-carteira" *ngIf="isExpired">
+          <button class="btn btn-renovar" (click)="iniciarRenovacao()">Renovar Carteirinha</button>
+        </div>
+      </section>
+    </ng-container>
+
+    <ng-template #carregandoOuErro>
+      <div class="mensagem-feedback">
+        <p *ngIf="!dadosCarteira">Carregando dados da carteira ou carteira não encontrada...</p>
+        </div>
+    </ng-template>
+  </div>
+</div>
