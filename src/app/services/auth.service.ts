@@ -1,30 +1,19 @@
 // src/app/services/auth.service.ts
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable }      from 'rxjs';
 
-export interface User {
-  nome: string;
-  matricula: string;
-}
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  private userSubject = new BehaviorSubject<User | null>(null);
-  public user$: Observable<User | null> = this.userSubject.asObservable();
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:3000';  
 
-  loginDummy(username: string, password: string): void {
-    const user: User = {
-      nome: 'João Eduardo Lima Sousa',
-      matricula: '2320222'
-    };
-    this.userSubject.next(user);
-  }
+  constructor() {}
 
-  logout(): void {
-    this.userSubject.next(null);
+  login(matricula: string, senha: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/auth`, { matricula, senha });
   }
-
-  get currentUser(): User | null {
-    return this.userSubject.value;
-  }
+  
 }
