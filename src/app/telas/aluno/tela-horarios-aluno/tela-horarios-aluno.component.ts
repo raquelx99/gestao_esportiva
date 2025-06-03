@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component';
-import { EspacoHorario, MOCK_ESPACOS_HORARIOS, HorarioSlot, DiaDaSemana } from '../../../core/mocks/mock-horarios'; // Ou mock-carteiras.ts
+import { EspacoHorario, MOCK_ESPACOS_HORARIOS,} from '../../../core/mocks/mock-horarios'; // Ou mock-carteiras.ts
+import { RouterLink } from '@angular/router';
 
 interface SlotFixo { /* ... (definição de SlotFixo como antes) ... */
   id: string;
@@ -13,7 +14,7 @@ interface SlotFixo { /* ... (definição de SlotFixo como antes) ... */
 @Component({
   selector: 'app-tela-horarios-aluno',
   standalone: true,
-  imports: [CommonModule, TopBarComponent],
+  imports: [CommonModule, TopBarComponent, RouterLink],
   templateUrl: './tela-horarios-aluno.component.html',
   styleUrl: './tela-horarios-aluno.component.css'
 })

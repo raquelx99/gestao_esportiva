@@ -9,7 +9,9 @@
     <section class="mapa-espacos-container">
       <h3>Nossos Espaços</h3>
       <div class="mapa-grid-img">
-        <a *ngFor="let espaco of listaDeEspacos" href="#espaco-detalhe-{{espaco.id}}" class="mapa-espaco-item-img">
+        <a *ngFor="let espaco of listaDeEspacos"
+            [routerLink]="[]" [fragment]="'espaco-detalhe-' + espaco.id"
+             class="mapa-espaco-item-img">
           <figure class="mapa-espaco-figure">
             <img [src]="getImagemEspaco(espaco.id)" [alt]="espaco.nomeDisplay">
             <figcaption>{{ espaco.nomeDisplay }}</figcaption>
