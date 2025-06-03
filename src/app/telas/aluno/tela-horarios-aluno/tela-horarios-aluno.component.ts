@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component'; // Ajuste o caminho se necessário
-// Importar as interfaces e os dados mockados dos horários
+import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component';
 import { EspacoHorario, MOCK_ESPACOS_HORARIOS, HorarioSlot, DiaDaSemana } from '../../../core/mocks/mock-horarios'; // Ou mock-carteiras.ts
 
-// Interface para SlotFixo (pode ser movida para um arquivo compartilhado se usada em múltiplos lugares)
-interface SlotFixo {
+interface SlotFixo { /* ... (definição de SlotFixo como antes) ... */
   id: string;
   periodo: 'Manhã' | 'Tarde' | 'Noite';
   bloco: 'AB' | 'CD' | 'EF';
@@ -20,11 +18,10 @@ interface SlotFixo {
   styleUrl: './tela-horarios-aluno.component.css'
 })
 export class TelaHorariosAlunoComponent implements OnInit {
-  listaDeEspacos: EspacoHorario[] = []; // Para o *ngFor que vai listar cada espaço e sua tabela
-  diasDaSemanaCabecalho: string[] = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta']; // E Sábado/Domingo se aplicável
-
-  // Definição dos slots de horário fixos (igual ao do funcionário)
+  listaDeEspacos: EspacoHorario[] = [];
+  diasDaSemanaCabecalho: string[] = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
   slotsFixosPorPeriodo: { periodo: string, slots: SlotFixo[] }[] = [
+    // ... (definição de slotsFixosPorPeriodo como antes) ...
     { periodo: 'Manhã', slots: [
       { id: 'M_AB', periodo: 'Manhã', bloco: 'AB', descricao: '07:30 - 09:10' },
       { id: 'M_CD', periodo: 'Manhã', bloco: 'CD', descricao: '09:30 - 11:10' },
@@ -40,25 +37,48 @@ export class TelaHorariosAlunoComponent implements OnInit {
       { id: 'N_CD', periodo: 'Noite', bloco: 'CD', descricao: '21:00 - 22:40' }
     ]}
   ];
-  // Não precisamos de 'todosOsSlotsFixos' aqui, pois vamos iterar dentro de cada espaço no HTML
 
   constructor() { }
 
   ngOnInit(): void {
-    // Carrega todos os espaços com seus respectivos horários mockados
-    // Não precisamos do isExpanded ou isEditing aqui, pois todas as tabelas serão visíveis (ao rolar)
     this.listaDeEspacos = MOCK_ESPACOS_HORARIOS;
     console.log('Dados de horários para aluno carregados:', this.listaDeEspacos);
   }
 
-  // Método para obter o status de um slot específico para um dia e espaço
-  // (idêntico ao do HorariosComponent do funcionário)
   getStatusSlot(espaco: EspacoHorario, diaNome: string, slotFixoDescricao: string): string {
+    // ... (seu método getStatusSlot como antes) ...
     const diaEncontrado = espaco.horarios.find(d => d.nome === diaNome);
     if (diaEncontrado) {
       const slotEncontrado = diaEncontrado.slots.find(s => s.hora === slotFixoDescricao);
-      return slotEncontrado ? slotEncontrado.status : ' '; // Retorna status ou string vazia
+      return slotEncontrado ? slotEncontrado.status : ' ';
     }
-    return ' '; // Retorna string vazia se o dia não tem slots definidos
+    return ' ';
   }
+
+  // PASSO 2.1: Novo método para retornar o caminho da imagem
+  getImagemEspaco(espacoId: string): string {
+  const basePath = '/';
+  let imageName = 'default-espaco.png';
+  switch (espacoId.toLowerCase()) {
+    case 'piscina':
+      imageName = 'Piscina.png';
+      break;
+    case 'quadra-poliesportiva':
+      imageName = 'Quadra.png';
+      break;
+    case 'campo-society':
+      imageName = 'Society.png';
+      break;
+    case 'quadra-tenis':
+      imageName = 'Tenis.png';
+      break;
+    case 'quadra-areia':
+      imageName = 'Areia.png';
+      break;
+    case 'pista-atletismo':
+      imageName = 'Atletismo.png';
+      break;
+  }
+  return basePath + imageName;
+}
 }

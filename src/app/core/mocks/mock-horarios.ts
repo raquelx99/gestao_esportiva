@@ -1,15 +1,15 @@
 export interface HorarioSlot {
-  hora: string; // Ex: "07:30 - 09:10" (deve corresponder ao SlotFixo.descricao)
-  status: string; // Ex: "Livre", "Reservado - Futsal", "Manutenção"
+  hora: string; // Ex: "07:30 - 09:10"
+  status: string;
 }
 
 export interface DiaDaSemana {
-  nome: string; // Ex: "Segunda"
+  nome: string;
   slots: HorarioSlot[];
 }
 
 export interface EspacoHorario {
-  id: string;
+  id: string; // Usaremos para identificar a imagem também
   nomeDisplay: string;
   horarios: DiaDaSemana[];
   isExpanded?: boolean;
@@ -18,63 +18,54 @@ export interface EspacoHorario {
 
 export const MOCK_ESPACOS_HORARIOS: EspacoHorario[] = [
   {
-    id: 'quadra-a',
-    nomeDisplay: 'QUADRA A',
-    isExpanded: false,
+    id: 'piscina',
+    nomeDisplay: 'PISCINA',
     horarios: [
-      { nome: 'Segunda', slots: [
-          { hora: '07:30 - 09:10', status: 'Livre' },             // Era '08:00 - 09:00' -> Mapeado para Manhã AB
-          { hora: '09:30 - 11:10', status: 'Reservado - Vôlei' }  // Era '09:00 - 10:00' -> Mapeado para Manhã CD
-        ]
-      },
-      { nome: 'Terça', slots: [
-          { hora: '07:30 - 09:10', status: 'Manutenção' },         // Era '08:00 - 09:00' -> Mapeado para Manhã AB
-          { hora: '13:30 - 15:10', status: 'Livre' }              // Era '14:00 - 15:00' -> Mapeado para Tarde AB
-        ]
-      },
-      { nome: 'Quarta', slots: [
-          { hora: '09:30 - 11:10', status: 'Livre' }              // Era '10:00 - 11:00' -> Mapeado para Manhã CD
-        ]
-      },
-      { nome: 'Quinta', slots: [
-          { hora: '07:30 - 09:10', status: 'Reservado - Basquete' } // Era '08:00 - 09:00' -> Mapeado para Manhã AB
-        ]
-      },
-      { nome: 'Sexta', slots: [
-          { hora: '15:20 - 17:10', status: 'Livre' }              // Era '16:00 - 17:00' -> Mapeado para Tarde CD
-        ]
-      }
-      // Você pode adicionar entradas para Sábado e Domingo se quiser, ou outros slots.
-      // Ex: { nome: 'Sábado', slots: [ { hora: '09:30 - 11:10', status: 'Livre' } ] },
+      { nome: 'Segunda', slots: [{ hora: '07:30 - 09:10', status: 'Aula Natação' }, { hora: '09:30 - 11:10', status: 'Livre' }] },
+      { nome: 'Quarta', slots: [{ hora: '07:30 - 09:10', status: 'Aula Hidro' }, { hora: '09:30 - 11:10', status: 'Livre' }] },
+      { nome: 'Sexta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }] },
     ]
   },
   {
-    id: 'quadra-b',
-    nomeDisplay: 'QUADRA B',
-    isExpanded: false,
+    id: 'quadra-poliesportiva', // Um nome genérico para "Quadra"
+    nomeDisplay: 'QUADRA',
     horarios: [
-      { nome: 'Segunda', slots: [
-          { hora: '09:30 - 11:10', status: 'Reservado - Handebol' } // Era '10:00 - 11:00' -> Mapeado para Manhã CD
-        ]
-      },
-      { nome: 'Terça', slots: [
-          { hora: '11:20 - 13:00', status: 'Livre' }                  // Era '11:00 - 12:00' -> Mapeado para Manhã EF
-        ]
-      },
-      { nome: 'Quarta', slots: [
-          { hora: '07:30 - 09:10', status: 'Livre' },                 // Era '08:00 - 09:00' -> Mapeado para Manhã AB
-          { hora: '09:30 - 11:10', status: 'Manutenção' }             // Era '09:00 - 10:00' -> Mapeado para Manhã CD
-        ]
-      },
-      { nome: 'Quinta', slots: [
-          { hora: '15:20 - 17:10', status: 'Livre' }                  // Era '15:00 - 16:00' -> Mapeado para Tarde CD (assumindo que ocupa este bloco)
-        ]
-      },
-      { nome: 'Sexta', slots: [
-          { hora: '09:30 - 11:10', status: 'Reservado - Futsal' }     // Era '10:00 - 11:00' -> Mapeado para Manhã CD
-        ]
-      }
+      { nome: 'Terça', slots: [{ hora: '13:30 - 15:10', status: 'Treino Futsal' }, { hora: '15:20 - 17:10', status: 'Livre' }] },
+      { nome: 'Quinta', slots: [{ hora: '13:30 - 15:10', status: 'Treino Vôlei' }, { hora: '15:20 - 17:10', status: 'Livre' }] },
+    ]
+  },
+  {
+    id: 'campo-society',
+    nomeDisplay: 'CAMPO SOCIETY',
+    horarios: [
+      { nome: 'Segunda', slots: [{ hora: '17:10 - 19:00', status: 'Livre' }] },
+      { nome: 'Quarta', slots: [{ hora: '19:00 - 20:40', status: 'Reservado Equipe' }] },
+    ]
+  },
+  {
+    id: 'quadra-tenis',
+    nomeDisplay: 'QUADRA DE TÊNIS',
+    horarios: [
+      { nome: 'Terça', slots: [{ hora: '09:30 - 11:10', status: 'Aula Tênis' }] },
+      { nome: 'Quinta', slots: [{ hora: '09:30 - 11:10', status: 'Livre' }] },
+    ]
+  },
+  {
+    id: 'quadra-areia',
+    nomeDisplay: 'QUADRA DE AREIA',
+    horarios: [
+      { nome: 'Sexta', slots: [{ hora: '17:10 - 19:00', status: 'Livre (Vôlei de Praia)' }] },
+    ]
+  },
+  {
+    id: 'pista-atletismo',
+    nomeDisplay: 'PISTA DE ATLETISMO',
+    horarios: [ // Pistas de atletismo geralmente são mais abertas
+      { nome: 'Segunda', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }, { hora: '17:10 - 19:00', status: 'Treino Corrida' }] },
+      { nome: 'Terça', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }] },
+      { nome: 'Quarta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }, { hora: '17:10 - 19:00', status: 'Treino Corrida' }] },
+      { nome: 'Quinta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }] },
+      { nome: 'Sexta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }, { hora: '17:10 - 19:00', status: 'Treino Corrida' }] },
     ]
   }
-  // Adicione mais espaços (Piscina, etc.) se desejar, seguindo o mesmo modelo.
 ];

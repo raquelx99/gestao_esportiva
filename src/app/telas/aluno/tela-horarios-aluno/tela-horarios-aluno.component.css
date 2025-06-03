@@ -8,6 +8,7 @@
   align-items: flex-start;
 }
 
+
 .ha-content-card {
   background-color: #d1e1f2;
   padding: 2rem;
@@ -31,7 +32,6 @@
   font-size: 1.75rem;
 }
 
-
 .mapa-espacos-container {
   margin-bottom: 2.5rem;
 }
@@ -44,31 +44,51 @@
   text-align: center;
 }
 
-.mapa-grid {
+.mapa-grid-img {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
 }
 
-.mapa-espaco-item {
-  background-color: #fff;
-  color: #333;
-  padding: 1.5rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center;
+.mapa-espaco-item-img {
   text-decoration: none;
-  min-width: 150px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  color: #333;
+  width: calc(33.333% - 1rem); /* Para 3 itens por linha, ajuste o gap no cálculo */
+  min-width: 200px; /* Largura mínima */
+  display: flex; /* Para que o figure ocupe o espaço */
+  transition: transform 0.2s ease-in-out;
+}
+.mapa-espaco-item-img:hover {
+  transform: translateY(-5px);
 }
 
-.mapa-espaco-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.mapa-espaco-figure {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden; /* Para o border-radius cortar a imagem */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
+
+.mapa-espaco-figure img {
+  width: 100%;
+  height: 150px; /* Altura fixa para as imagens no mapa, ajuste */
+  object-fit: cover; /* Para a imagem preencher sem distorcer */
+}
+
+.mapa-espaco-figure figcaption {
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: #f8f9fa; /* Um fundo leve para a legenda */
+}
+
 
 hr.secao-divisor {
   border: 0;
@@ -77,29 +97,49 @@ hr.secao-divisor {
   margin: 2.5rem 0;
 }
 
+/* Seção com os Detalhes e Tabelas de Horário de Cada Espaço */
 .detalhes-horarios-container {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
 }
 
-.espaco-detalhe-bloco {
+/* MODIFICADO: Bloco de detalhe com imagem */
+.espaco-detalhe-bloco-img {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
-.espaco-detalhe-bloco h4 {
-  font-size: 1.4rem;
-  color: #2e7dbb;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 0.5rem;
+/* NOVO/MODIFICADO: Representação do espaço com imagem ao lado da tabela */
+.representacao-espaco-img {
+  flex-basis: 250px; /* Largura para a imagem e título */
+  flex-shrink: 0;
+  text-align: center;
 }
 
+.representacao-espaco-img img {
+  width: 100%;
+  max-width: 220px; /* Limita a largura da imagem */
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.representacao-espaco-img h4 {
+  font-size: 1.2rem; /* Nome do espaço ao lado da tabela */
+  color: #2e7dbb;
+  margin: 0;
+}
+
+/* Estilos da Tabela (como antes, mas garanta que estão aqui) */
 .tabela-horarios-aluno-wrapper {
+  flex-grow: 1;
   overflow-x: auto;
 }
 
@@ -125,7 +165,6 @@ hr.secao-divisor {
   background-color: #f8f9fa;
 }
 
-
 .tabela-horarios-aluno-wrapper th {
   background-color: #f0f4f8;
   color: #444;
@@ -144,7 +183,6 @@ hr.secao-divisor {
   border-top: 1px solid #ddd;
 }
 
-
 .slot-livre {
   background-color: #d4edda !important;
   color: #155724;
@@ -160,10 +198,12 @@ hr.secao-divisor {
   color: #aaa;
 }
 
-.mapa-espacos-container p,
-.detalhes-horarios-container > div > p {
+/* Mensagens de "Nenhum..." */
+.mapa-espacos-container p, /* Para o "Nenhum espaço disponível" no mapa */
+.detalhes-horarios-container > div > p { /* Para o "Não há horários para exibir" */
   color: #777;
   font-style: italic;
   padding: 1rem 0;
   text-align: center;
+  width: 100%; /* Para ocupar a largura do flex container se for o único filho */
 }
