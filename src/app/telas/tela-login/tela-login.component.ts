@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CarteirinhaService } from '../../services/carteirinha.service';
 
 @Component({
   selector: 'app-tela-login',
@@ -23,23 +24,42 @@ export class TelaLoginComponent {
   senha     = '';
 
   private authService = inject(AuthService);
+  private carteirinhaService = inject(CarteirinhaService);
   constructor(private router: Router) {}
 
   onSubmit() {
-  this.authService.login(this.matricula, this.senha).subscribe({
-    next: (res) => {
-      console.log('Login realizado:', res);
-      const role = res.usuario.role;
+    this.authService.login(this.matricula, this.senha).subscribe({
+      next: (res) => {
+        this.authService.usuarioLogado = res;
 
-      if (role === 'estudante') {
-        this.router.navigate(['/visao-geral']);
-      } else if (role === 'funcionario') {
-        this.router.navigate(['/funcionario']);
-      }
-    },
-    error: (err) => {
-      console.error('Erro no login:', err);
-    }
-  });
-}
+        const role = res.usuario.role;
+
+        if (role === 'estudante') {
+          const carteirinha = res.carteirinha;
+
+          if (!carteirinha) {
+            this.router.navigate(['/cadastro']);
+            return;
+          }
+
+          if (
+            carteirinha.status === 'aprovado' &&
+            carteirinha.liberadoPosValidacao
+          ) {
+            this.router.navigate(['/visao-geral']);
+          }
+          else {
+            this.router.navigate(['/espera-validacao']);
+          }
+        }
+        else if (role === 'funcionario') {
+          this.router.navigate(['/funcionario']);
+        }
+        else {
+          this.router.navigate(['/boas-vindas']);
+        }
+      },
+      error: () => alert('Erro no login')
+    });
+  }
 }
