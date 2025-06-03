@@ -7,6 +7,7 @@ body {
   font-family: Arial, sans-serif;
   box-sizing: border-box;
   background-color: #e8eef7;
+  scroll-behavior: smooth;
 }
 
 *, *::before, *::after {

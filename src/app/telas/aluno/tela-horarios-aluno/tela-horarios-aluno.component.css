@@ -113,6 +113,7 @@ hr.secao-divisor {
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  scroll-margin-top: 70px;
 }
 
 /* NOVO/MODIFICADO: Representação do espaço com imagem ao lado da tabela */
