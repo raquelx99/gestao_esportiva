@@ -1,0 +1,190 @@
+/* Contêiner principal da página */
+.renovacao-confirmacao-page {
+  padding: 2rem;
+  background-color: #e8eef7; /* Fundo geral da página */
+  min-height: calc(100vh - 60px); /* Altura da top-bar (ajuste se for diferente) */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha o card no topo */
+}
+
+/* Card principal do conteúdo */
+.rc-content-card {
+  background-color: #fff; /* Fundo branco para o card principal */
+  padding: 2.5rem; /* Mais padding interno */
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 700px; /* Largura do card, ajuste conforme necessário */
+  margin-top: 3rem; /* Espaço do topo */
+  text-align: center; /* Centraliza o texto dentro do card */
+}
+
+.rc-content-card h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-size: 1.75rem;
+}
+
+.pergunta-principal {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.botoes-escolha {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; /* Espaço entre os botões Sim/Não */
+  margin-bottom: 2rem;
+}
+
+.btn { /* Estilo base para os botões */
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-width: 120px; /* Largura mínima para os botões */
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-sim {
+  background-color: #4CAF50; /* Verde para Sim */
+  color: white;
+}
+
+.btn-nao {
+  background-color: #f44336; /* Vermelho para Não */
+  color: white;
+}
+
+hr.separador-visual {
+  border: 0;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 2rem auto; /* Centraliza a linha */
+  width: 80%; /* Linha não ocupa 100% */
+}
+
+.preview-dados-atuais {
+  margin-top: 1.5rem;
+  text-align: left; /* Alinha o conteúdo do preview à esquerda */
+}
+
+.preview-dados-atuais h3 {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1rem;
+  text-align: center; /* Título do preview centralizado */
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* Estilos para o card de preview da carteirinha DENTRO desta tela */
+.card-preview-renovacao {
+  background-color: #f0f4f8; /* Fundo levemente diferente para o preview */
+  border: 1px solid #d1e1f2;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  /* Os estilos internos como .info-grid, .espacos-info, .rodape-carteira
+     podem ser copiados/adaptados de tela-carteira-aluno.component.css
+     ou tela-visao-geral.component.css para manter a consistência. */
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Mais responsivo */
+  gap: 1rem 1.5rem; /* Espaçamento vertical e horizontal */
+  margin-bottom: 1.5rem;
+}
+
+.info-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-grid strong {
+  font-size: 0.85rem; /* Rótulo um pouco menor */
+  color: #4a5568; /* Cor do rótulo */
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.info-grid span {
+  background: #fff;
+  padding: 0.6rem 0.8rem; /* Padding do campo de valor */
+  border-radius: 6px;
+  border: 1px solid #caced4; /* Borda mais suave */
+  font-size: 1rem;
+  color: #2d3748; /* Cor do valor */
+  word-break: break-word;
+}
+
+/* Seção de Espaços Autorizados */
+.espacos-info {
+  margin-bottom: 1.5rem;
+  background: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #caced4;
+}
+
+.espacos-info strong {
+  font-size: 0.85rem;
+  color: #4a5568;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  display: block;
+}
+
+.espacos-info p {
+  margin: 0;
+  font-size: 1rem;
+  color: #2d3748;
+  line-height: 1.5;
+}
+
+/* Rodapé da Carteirinha (Emissão e Validade) */
+.rodape-carteira {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #9aadc0;
+}
+
+.emissao-info, .validade-info {
+  background: #e8eef7; /* Fundo um pouco mais claro para destacar */
+  padding: 0.75rem;
+  border-radius: 6px;
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.validade-info strong { /* Se quiser destacar a palavra "Validade:" */
+  font-weight: bold;
+  margin-right: 0.3em;
+}
+
+/* Mensagem de "carregando" */
+.mensagem-feedback {
+  text-align: center;
+  padding: 2rem;
+  color: #555;
+  font-style: italic;
+}
