@@ -1,0 +1,169 @@
+.horarios-aluno-page-container {
+  padding: 2rem;
+  background-color: #e8eef7;
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ha-content-card {
+  background-color: #d1e1f2;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 2rem;
+}
+
+.ha-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  border-bottom: 1px solid #b0b8c0;
+  padding-bottom: 1rem;
+}
+
+.ha-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.75rem;
+}
+
+
+.mapa-espacos-container {
+  margin-bottom: 2.5rem;
+}
+
+.mapa-espacos-container h3 {
+  font-size: 1.3rem;
+  color: #444;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.mapa-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.mapa-espaco-item {
+  background-color: #fff;
+  color: #333;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  min-width: 150px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mapa-espaco-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+hr.secao-divisor {
+  border: 0;
+  height: 1px;
+  background-color: #c0c9d3;
+  margin: 2.5rem 0;
+}
+
+.detalhes-horarios-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.espaco-detalhe-bloco {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.espaco-detalhe-bloco h4 {
+  font-size: 1.4rem;
+  color: #2e7dbb;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.tabela-horarios-aluno-wrapper {
+  overflow-x: auto;
+}
+
+.tabela-horarios-aluno-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabela-horarios-aluno-wrapper th,
+.tabela-horarios-aluno-wrapper td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 90px;
+  height: 35px;
+}
+.tabela-horarios-aluno-wrapper td:first-child {
+  min-width: 120px;
+  text-align: left;
+  font-weight: 500;
+  background-color: #f8f9fa;
+}
+
+
+.tabela-horarios-aluno-wrapper th {
+  background-color: #f0f4f8;
+  color: #444;
+  font-weight: bold;
+}
+
+.periodo-header-row td {
+  font-weight: bold;
+  background-color: #e9ecef;
+  text-align: center;
+  padding: 0.5rem;
+  border-top: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.periodo-header-row:first-child td {
+  border-top: 1px solid #ddd;
+}
+
+
+.slot-livre {
+  background-color: #d4edda !important;
+  color: #155724;
+}
+
+.slot-ocupado {
+  background-color: #f8d7da !important;
+  color: #721c24;
+}
+
+.slot-vazio {
+  background-color: #fdfdfd !important;
+  color: #aaa;
+}
+
+.mapa-espacos-container p,
+.detalhes-horarios-container > div > p {
+  color: #777;
+  font-style: italic;
+  padding: 1rem 0;
+  text-align: center;
+}

@@ -1,1 +1,58 @@
-<p>tela-horarios-aluno works!</p>
+<app-top-bar></app-top-bar>
+
+<div class="horarios-aluno-page-container">
+  <div class="ha-content-card"> <header class="ha-header">
+      <h2>Horários dos Espaços</h2>
+    </header>
+
+    <section class="mapa-espacos-container">
+      <h3>Nossos Espaços</h3>
+      <div class="mapa-grid">
+        <a *ngFor="let espaco of listaDeEspacos" href="#espaco-{{espaco.id}}" class="mapa-espaco-item">
+          {{ espaco.nomeDisplay }}
+        </a>
+        <div *ngIf="listaDeEspacos.length === 0">
+          <p>Nenhum espaço disponível no momento.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="secao-divisor">
+
+    <section class="detalhes-horarios-container">
+      <div *ngFor="let espaco of listaDeEspacos" id="espaco-{{espaco.id}}" class="espaco-detalhe-bloco">
+        <h4>{{ espaco.nomeDisplay }}</h4>
+        <div class="tabela-horarios-aluno-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Horário</th> <th *ngFor="let dia of diasDaSemanaCabecalho">{{ dia }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let periodo of slotsFixosPorPeriodo">
+                <tr class="periodo-header-row">
+                  <td [attr.colspan]="diasDaSemanaCabecalho.length + 1">{{ periodo.periodo }}</td>
+                </tr>
+                <tr *ngFor="let slotFixo of periodo.slots">
+                  <td>{{ slotFixo.bloco }} ({{ slotFixo.descricao }})</td> <td *ngFor="let diaNome of diasDaSemanaCabecalho"
+                      [ngClass]="{
+                        'slot-livre': getStatusSlot(espaco, diaNome, slotFixo.descricao) === 'Livre' || getStatusSlot(espaco, diaNome, slotFixo.descricao) === 'Disponível',
+                        'slot-ocupado': getStatusSlot(espaco, diaNome, slotFixo.descricao) !== 'Livre' && getStatusSlot(espaco, diaNome, slotFixo.descricao) !== 'Disponível' && getStatusSlot(espaco, diaNome, slotFixo.descricao) !== ' ',
+                        'slot-vazio': getStatusSlot(espaco, diaNome, slotFixo.descricao) === ' '
+                      }">
+                    {{ getStatusSlot(espaco, diaNome, slotFixo.descricao) }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="listaDeEspacos.length === 0">
+        <p>Não há horários para exibir.</p>
+      </div>
+    </section>
+
+  </div> </div> ```
+
