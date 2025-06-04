@@ -54,8 +54,15 @@ export class TelaCarteiraAlunoComponent implements OnInit {
     }
   }
 
+  get espacosArray(): string[] {
+    if (this.dadosCarteira && this.dadosCarteira.espacosSolicitados) {
+      return this.dadosCarteira.espacosSolicitados.split(',').map(espaco => espaco.trim()).filter(espaco => espaco.length > 0);
+    }
+    return [];
+  }
+
   iniciarRenovacao(): void {
     console.log('Iniciando fluxo de renovação para carteira ID:', this.dadosCarteira?.id);
-    this.router.navigate(['/aluno/renovacao-confirmacao']); // Rota que definimos
+    this.router.navigate(['/aluno/renovacao-confirmacao']);
   }
 }

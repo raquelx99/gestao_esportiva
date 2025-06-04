@@ -40,7 +40,11 @@
               </div>
               <div class="espacos-list-carteira">
                 <strong>Espaços:</strong>
-                <span>{{ carteira.espacosSolicitados }}</span>
+                  <div class="tags-container"> <span *ngFor="let espaco of carteira.espacosArray" class="espaco-tag-ca">{{ espaco }}</span>
+                  <span *ngIf="!carteira.espacosArray || carteira.espacosArray.length === 0" class="sem-espacos-tag-ca">
+                  Nenhum espaço especificado
+                  </span>
+              </div>
               </div>
               <div class="rodape-carteira">
                 <div class="semestre-carteira">{{ carteira.emissaoDetalhes }}</div>

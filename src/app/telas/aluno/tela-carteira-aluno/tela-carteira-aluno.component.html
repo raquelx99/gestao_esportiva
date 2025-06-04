@@ -13,27 +13,27 @@
           <div><strong>Telefone urgência</strong><span>{{ dadosCarteira.contatoEmergenciaTel }}</span></div>
         </div>
 
-        <div class="espacos-info"> <strong>Espaços Autorizados:</strong>
-          <p>{{ dadosCarteira.espacosSolicitados || 'Nenhum espaço especificado' }}</p>
+        <div class="espacos-info">
+          <strong>Espaços:</strong>
+          <div class="espacos-list"> <span *ngFor="let espaco of espacosArray" class="espaco-tag">{{ espaco }}</span>
+            <span *ngIf="espacosArray.length === 0" class="sem-espacos-tag">Nenhum espaço especificado</span>
+          </div>
         </div>
 
-        <div class="rodape-carteira">
-          <div class="emissao-info">{{ dadosCarteira.emissaoDetalhes }}</div>
+        <div class="rodape-carteira"> <div class="emissao-info">{{ dadosCarteira.emissaoDetalhes }}</div>
           <div class="validade-info" [class.expirada]="isExpired">
             <strong>Validade:</strong> {{ dadosCarteira.validade }}
           </div>
         </div>
+      </section> <div class="acoes-carteira-externa" *ngIf="isExpired">
+        <button class="btn btn-renovar" (click)="iniciarRenovacao()">Renovar Carteirinha</button>
+      </div>
 
-        <div class="acoes-carteira" *ngIf="isExpired">
-          <button class="btn btn-renovar" (click)="iniciarRenovacao()">Renovar Carteirinha</button>
-        </div>
-      </section>
     </ng-container>
 
     <ng-template #carregandoOuErro>
       <div class="mensagem-feedback">
         <p *ngIf="!dadosCarteira">Carregando dados da carteira ou carteira não encontrada...</p>
-        </div>
+      </div>
     </ng-template>
-  </div>
-</div>
+  </div> </div>
