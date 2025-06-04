@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component';
 import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras';
 
-// Definição do tipo DadosRenovacaoForm SEM o campo 'senha'
-type DadosRenovacaoForm = Partial<Omit<CarteiraDetalhes, 'espacosSolicitados' | 'email' | 'senha' >> & { // Adicionado 'senha' ao Omit
+type DadosRenovacaoForm = Partial<Omit<CarteiraDetalhes, 'espacosSolicitados' | 'email' | 'senha'>> & {
   espacoPiscina?: boolean;
   espacoQuadra?: boolean;
   espacoSociety?: boolean;
@@ -14,7 +13,6 @@ type DadosRenovacaoForm = Partial<Omit<CarteiraDetalhes, 'espacosSolicitados' | 
   espacoAreia?: boolean;
   espacoAtletismo?: boolean;
   espacosSolicitados?: string;
-  // novaFotoDocumento?: File; // Se for implementar o upload
 };
 
 @Component({
@@ -22,19 +20,18 @@ type DadosRenovacaoForm = Partial<Omit<CarteiraDetalhes, 'espacosSolicitados' | 
   standalone: true,
   imports: [CommonModule, FormsModule, TopBarComponent],
   templateUrl: './tela-renovacao-formulario.component.html',
-  styleUrl: './tela-renovacao-formulario.component.css' // Usaremos o CSS do cadastro
+  styleUrl: './tela-renovacao-formulario.component.css'
 })
-export class TelaRenovacaoFormularioComponent implements OnInit {
-  // A propriedade 'senha' não precisa ser inicializada aqui se não existe no tipo
-  dadosRenovacao: DadosRenovacaoForm = {};
 
-  // nomeArquivoSelecionado: string | null = null;
+export class TelaRenovacaoFormularioComponent implements OnInit {
+  dadosRenovacao: DadosRenovacaoForm = {};
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     if (MOCK_CARTEIRAS.length > 0) {
       const dadosAtuais = MOCK_CARTEIRAS[0];
+
       this.dadosRenovacao = {
         nome: dadosAtuais.nome,
         matricula: dadosAtuais.matricula,
@@ -43,23 +40,23 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
         telefone: dadosAtuais.telefone,
         contatoEmergenciaNome: dadosAtuais.contatoEmergenciaNome,
         contatoEmergenciaTel: dadosAtuais.contatoEmergenciaTel,
-        // Propriedade 'senha' REMOVIDA daqui
-
-        espacoPiscina: dadosAtuais.espacosSolicitados?.toLowerCase().includes('piscina'),
-        espacoQuadra: dadosAtuais.espacosSolicitados?.toLowerCase().includes('quadra'),
-        espacoSociety: dadosAtuais.espacosSolicitados?.toLowerCase().includes('campo society'),
-        espacoTenis: dadosAtuais.espacosSolicitados?.toLowerCase().includes('quadra de tênis'),
-        espacoAreia: dadosAtuais.espacosSolicitados?.toLowerCase().includes('quadra de areia'),
-        espacoAtletismo: dadosAtuais.espacosSolicitados?.toLowerCase().includes('pista de atletismo'),
       };
-      console.log('Dados carregados para formulário de renovação (sem senha):', this.dadosRenovacao);
+
+      const espacosAtuaisStr = dadosAtuais.espacosSolicitados?.toLowerCase() || '';
+      this.dadosRenovacao.espacoPiscina = espacosAtuaisStr.includes('piscina');
+      this.dadosRenovacao.espacoQuadra = espacosAtuaisStr.includes('quadra');
+      this.dadosRenovacao.espacoSociety = espacosAtuaisStr.includes('campo society');
+      this.dadosRenovacao.espacoTenis = espacosAtuaisStr.includes('quadra de tênis');
+      this.dadosRenovacao.espacoAreia = espacosAtuaisStr.includes('quadra de areia');
+      this.dadosRenovacao.espacoAtletismo = espacosAtuaisStr.includes('pista de atletismo');
+
+      console.log('Dados carregados para formulário de renovação:', this.dadosRenovacao);
     } else {
       console.error("Mock de carteiras não encontrado para TelaRenovacaoFormulario.");
     }
   }
 
   onSubmitRenovacao(): void {
-    // ... (lógica de reconstruir espacosSolicitados permanece a mesma) ...
     const espacosSelecionadosArray: string[] = [];
     if (this.dadosRenovacao.espacoPiscina) espacosSelecionadosArray.push('Piscina');
     if (this.dadosRenovacao.espacoQuadra) espacosSelecionadosArray.push('Quadra');
@@ -67,20 +64,17 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
     if (this.dadosRenovacao.espacoTenis) espacosSelecionadosArray.push('Quadra de Tênis');
     if (this.dadosRenovacao.espacoAreia) espacosSelecionadosArray.push('Quadra de Areia');
     if (this.dadosRenovacao.espacoAtletismo) espacosSelecionadosArray.push('Pista de Atletismo');
+
     this.dadosRenovacao.espacosSolicitados = espacosSelecionadosArray.join(', ');
 
-    // A propriedade 'senha' não fará mais parte de this.dadosRenovacao aqui
-    console.log('Formulário de renovação enviado (sem senha):', this.dadosRenovacao);
+    console.log('Formulário de renovação enviado:', this.dadosRenovacao);
     this.router.navigate(['/espera-validacao'], { state: { mensagem: 'Sua solicitação de renovação com dados atualizados foi enviada e está em análise.', origem: 'renovacao_atualizada' } });
   }
 
-  // O método onFileSelected pode continuar existindo se você ainda tem o input de arquivo no HTML
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
       console.log('Arquivo selecionado para renovação:', file.name);
-      // this.nomeArquivoSelecionado = file.name;
-      // this.dadosRenovacao.novaFotoDocumento = file;
     }
   }
 }

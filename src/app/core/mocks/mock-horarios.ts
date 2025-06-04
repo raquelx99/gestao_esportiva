@@ -21,8 +21,8 @@ export const MOCK_ESPACOS_HORARIOS: EspacoHorario[] = [
     id: 'piscina',
     nomeDisplay: 'PISCINA',
     horarios: [
-      { nome: 'Segunda', slots: [{ hora: '07:30 - 09:10', status: 'Aula Natação' }, { hora: '09:30 - 11:10', status: 'Livre' }] },
-      { nome: 'Quarta', slots: [{ hora: '07:30 - 09:10', status: 'Aula Hidro' }, { hora: '09:30 - 11:10', status: 'Livre' }] },
+      { nome: 'Segunda', slots: [{ hora: '09:30 - 11:10', status: 'Livre' }] },
+      { nome: 'Quarta', slots: [{ hora: '09:30 - 11:10', status: 'Livre' }] },
       { nome: 'Sexta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }] },
     ]
   },
