@@ -103,6 +103,9 @@ body {
 }
 
 .imagem-lateral img {
+  position: fixed;
+  right: 0;
+  bottom: 0;
   max-height: 80vh;
   width: auto;
   object-fit: contain;

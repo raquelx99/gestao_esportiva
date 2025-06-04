@@ -4,7 +4,7 @@
   align-items: center;
   padding: 2rem;
   background-color: #e8eef7;
-  min-height: calc(100vh - 56px); /* Ajuste se a altura do top-bar for diferente */
+  min-height: calc(100vh); /* Ajuste se a altura do top-bar for diferente */
 }
 
 .card {
