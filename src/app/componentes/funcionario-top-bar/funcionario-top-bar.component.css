@@ -32,19 +32,22 @@
   height: 28px;
 }
 
-.logo-title-container {
+.logo-title-container{
   display: flex;
   align-items: center;
-  gap: 0.75rem; /* Espaço entre a logo e o título */
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
 }
 
 .logo-title-container .logo {
-  height: 36px; /* Ajuste o tamanho da logo conforme necessário */
+  height: 32px;
   width: auto;
 }
 
 .logo-title-container .title {
-  font-size: 1.6rem; /* Ajuste o tamanho do título */
+  font-size: 1.5rem;
   font-weight: 600;
-  white-space: nowrap; /* Para não quebrar o título */
+  white-space: nowrap;
+  color: #fff;
 }

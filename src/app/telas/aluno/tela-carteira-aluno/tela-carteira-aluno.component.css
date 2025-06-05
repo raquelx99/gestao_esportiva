@@ -67,7 +67,6 @@
   word-break: break-word;
 }
 
-/* MODIFICADO: Seção de Espaços Autorizados */
 .espacos-info {
   margin-bottom: 1.5rem;
   /* Removido background, padding e border daqui para as pílulas ficarem sobre o card principal */
