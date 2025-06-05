@@ -2,46 +2,59 @@
 
 <div class="page-wrapper">
   <div class="visao-geral-container">
+
     <section class="card carteirinha-card">
       <h2>Carteira de acesso</h2>
+
       <div class="info-grid">
-        <div><strong>Nome</strong><span>João Eduardo Lima Sousa</span></div>
-        <div><strong>Matrícula</strong><span>2320222</span></div>
-        <div><strong>Curso</strong><span>Comércio Exterior</span></div>
-        <div><strong>Centro</strong><span>CCG</span></div>
-        <div><strong>Telefone</strong><span>85 99999-9999</span></div>
-        <div><strong>Telefone urgência</strong><span>85 98888-8888</span></div>
+        <div><strong>Nome</strong><span>{{ usuarioNome }}</span></div>
+        <div><strong>Matrícula</strong><span>{{ matricula }}</span></div>
+        <div><strong>Curso</strong><span>{{ curso }}</span></div>
+        <div><strong>Centro</strong><span>{{ centro }}</span></div>
+        <div><strong>Telefone</strong><span>{{ telefone }}</span></div>
+        <div><strong>Telefone urgência</strong><span>{{ telefoneUrgencia }}</span></div>
       </div>
 
       <div class="espacos-list">
         <strong>Espaços:</strong>
-        <span>Piscina</span>
-        <span>Quadra</span>
-        <span>Society</span>
-        <span>Tênis</span>
-        <span>Quadra de Areia</span>
-        <span>Atletismo</span>
+        <span *ngFor="let espaco of espacosCarteirinha">
+          {{ espaco }}
+        </span>
       </div>
 
       <div class="rodape">
-        <div class="semestre">1° Semestre – 01/01/2025</div>
-        <div class="validade">Validade: 31/12/2025</div>
+        <div class="semestre">
+          1° Semestre – {{ semestreInicioFormatted }}
+        </div>
+        <div class="validade">
+          Validade: {{ validadeFormatted }}
+        </div>
       </div>
     </section>
 
     <section class="card horarios-card">
       <h2>Horários Livres</h2>
-      <div class="dia">Quinta-feira</div>
-      <table>
+
+      <div class="dia">
+        {{ nomeDoDiaAtual | titlecase }}
+      </div>
+
+      <table *ngIf="horariosAgrupados.length > 0; else semHorarios">
         <thead>
           <tr><th>Hora</th><th>Espaços</th></tr>
         </thead>
         <tbody>
-          <tr><td>14:40</td><td>Piscina, Quadra</td></tr>
-          <tr><td>16:50</td><td>Campo Society</td></tr>
-          <tr><td>18:10</td><td>Quadra de Areia, Tênis</td></tr>
+          <tr *ngFor="let linha of horariosAgrupados">
+            <td>{{ linha.hora }}</td>
+            <td>{{ linha.espacos.join(', ') }}</td>
+          </tr>
         </tbody>
       </table>
+
+      <ng-template #semHorarios>
+        <p class="no-data">Nenhum horário livre encontrado para hoje.</p>
+      </ng-template>
     </section>
+
   </div>
 </div>

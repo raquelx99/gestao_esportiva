@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule }       from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-import { TopBarComponent }    from '../../componentes/top-bar/top-bar.component';
 import { CarteirinhaService } from '../../services/carteirinha.service';
 import { AuthService }        from '../../services/auth.service';
+import { TopBarComponent } from "../../componentes/top-bar/top-bar.component";
 
 type Status = 'pending' | 'approved' | 'rejected';
 
