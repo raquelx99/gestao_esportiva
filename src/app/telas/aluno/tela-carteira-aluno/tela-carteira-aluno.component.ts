@@ -24,7 +24,7 @@ export class TelaCarteiraAlunoComponent implements OnInit {
       // this.dadosCarteira = MOCK_CARTEIRAS[0]; // Carteira Válida (João)
       this.dadosCarteira = { // Carteira Expirada para Teste (Ciclana)
         ...MOCK_CARTEIRAS[0], // Pega os dados da Ciclana
-        validade: '31/12/2020' // Define uma data de validade passada
+        validade: '31/12/2026' // Define uma data de validade passada
       };
       
       this.verificarValidade();
