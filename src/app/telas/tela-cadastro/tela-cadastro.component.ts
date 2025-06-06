@@ -51,8 +51,8 @@ export class TelaCadastroComponent {
     const estudantePayload: EstudanteCreateDTO = {
       nome: this.nome,
       senha: this.senha,
-      role: 'estudante',
       matricula: this.matricula,
+      role: 'estudante',
       curso: this.curso,
       centro: this.centro,
       telefone: this.telefone,

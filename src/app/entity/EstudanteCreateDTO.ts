@@ -1,8 +1,8 @@
 export interface EstudanteCreateDTO {
   nome: string;
   senha: string;
-  role: 'estudante';
   matricula: string;
+  role: 'estudante';
   curso: string;
   centro: string;
   telefone: string;

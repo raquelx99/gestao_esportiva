@@ -72,9 +72,10 @@ export class TelaVisaoGeralComponent implements OnInit {
     const estudanteEmMemoria = perfil.dados as Estudante & { _id: string };
 
     this.carteirinhaService
-      .getCarteirinhaPorEstudante(estudanteEmMemoria._id)
+      .getCarteirinhaPorMatricula(estudanteEmMemoria.user.matricula)
       .subscribe({
         next: (carteirinha: Carteirinha) => {
+          console.log(carteirinha);
           if (!carteirinha) {
             this.router.navigate(['/cadastro']);
             return;
@@ -94,7 +95,7 @@ export class TelaVisaoGeralComponent implements OnInit {
     const estudante: Estudante = carteirinha.estudante;
 
     this.usuarioNome        = estudante.user.nome;
-    this.matricula          = estudante.matricula;
+    this.matricula          = estudante.user.matricula;
     this.curso              = estudante.curso;
     this.centro             = estudante.centro;
     this.telefone           = estudante.telefone;
