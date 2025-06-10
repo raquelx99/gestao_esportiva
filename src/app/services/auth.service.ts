@@ -19,6 +19,8 @@ export class AuthService {
       .pipe(
         tap(res => {
           this.usuarioLogado = res;
+          localStorage.setItem('usuario', JSON.stringify(res));
+          console.log(localStorage.getItem('usuario'));;
         })
       );
   }
@@ -42,5 +44,5 @@ export class AuthService {
   get liberado(): boolean {
     return this.usuarioLogado?.carteirinha?.liberadoPosValidacao || false;
   }
-  
+
 }

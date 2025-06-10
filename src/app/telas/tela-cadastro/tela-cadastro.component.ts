@@ -56,7 +56,7 @@ export class TelaCadastroComponent {
       curso: this.curso,
       centro: this.centro,
       telefone: this.telefone,
-      telefoneUrgencia: this.telefoneUrgencia
+      telefoneUrgencia: this.telefoneUrgencia,
     };
 
     this.authService.cadastrarEstudante(estudantePayload).subscribe({

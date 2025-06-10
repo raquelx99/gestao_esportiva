@@ -69,10 +69,11 @@ export class TelaVisaoGeralComponent implements OnInit {
       return;
     }
 
-    const estudanteEmMemoria = perfil.dados as Estudante & { _id: string };
+    const estudanteEmMemoria = usuarioLogado.carteirinha.estudante._id//perfil.dados as Estudante & { _id: string };
+
 
     this.carteirinhaService
-      .getCarteirinhaPorMatricula(estudanteEmMemoria.user.matricula)
+      .getCarteirinhaPorEstudante(estudanteEmMemoria)
       .subscribe({
         next: (carteirinha: Carteirinha) => {
           console.log(carteirinha);
@@ -90,12 +91,14 @@ export class TelaVisaoGeralComponent implements OnInit {
       });
   }
 
-  private preencherTelaComCarteirinha(carteirinha: Carteirinha) {
-  
-    const estudante: Estudante = carteirinha.estudante;
+  private preencherTelaComCarteirinha(carteirinha: any) {
 
-    this.usuarioNome        = estudante.user.nome;
-    this.matricula          = estudante.user.matricula;
+    const usuarioLogado = this.authService.usuarioLogado;
+  
+    const estudante = carteirinha.estudante;
+
+    this.usuarioNome        = estudante.nome;
+    this.matricula          = usuarioLogado.usuario.matricula;
     this.curso              = estudante.curso;
     this.centro             = estudante.centro;
     this.telefone           = estudante.telefone;
@@ -179,10 +182,14 @@ export class TelaVisaoGeralComponent implements OnInit {
     });
   }
 
-  private formatDate(dt: Date): string {
-    const dia = String(dt.getDate()).padStart(2, '0');
-    const mes = String(dt.getMonth() + 1).padStart(2, '0');
-    const ano = dt.getFullYear();
+  private formatDate(dt: any): string {
+    const dateObj = dt instanceof Date ? dt : new Date(dt);
+    if (isNaN(dateObj.getTime())) {
+      return '—';
+    }
+    const dia = String(dateObj.getDate()).padStart(2, '0');
+    const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const ano = dateObj.getFullYear();
     return `${dia}/${mes}/${ano}`;
   }
 

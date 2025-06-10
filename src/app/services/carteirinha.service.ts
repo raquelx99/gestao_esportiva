@@ -26,12 +26,11 @@ export class CarteirinhaService {
     }
 
     getCarteirinhaPorEstudante(estudanteId: string): Observable<Carteirinha> {
-    return this.http.get<Carteirinha>(`${this.apiUrl}/carteirinhas/estudante/${estudanteId}`);
+    return this.http.get<Carteirinha>(`${this.apiUrl}/api/carteirinhas/estudante/${estudanteId}`);
     }
 
-    getCarteirinhaPorMatricula(matrcula: string): Observable<Carteirinha> {
-    return this.http.get<Carteirinha>(`${this.apiUrl}/carteirinhas//matricula/:matricula`);
+    getCarteirinhaPorMatricula(matricula: string): Observable<Carteirinha> {
+    return this.http.get<Carteirinha>(`${this.apiUrl}/api/carteirinhas/matricula/${matricula}`);
     }
-
 
 }
