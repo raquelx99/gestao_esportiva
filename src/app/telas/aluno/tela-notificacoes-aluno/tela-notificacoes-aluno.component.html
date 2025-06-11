@@ -1,1 +1,35 @@
-<p>tela-notificacoes-aluno works!</p>
+<app-top-bar></app-top-bar>
+
+<div class="notificacoes-page-container">
+  <div class="na-content-card"> <h2>Notificações</h2>
+
+    <div *ngIf="listaDeNotificacoes.length > 0; else semNotificacoes" class="lista-notificacoes">
+      <div *ngFor="let notificacao of listaDeNotificacoes"
+           class="notificacao-item"
+           [class.lida]="notificacao.lida"
+           [ngClass]="{
+             'tipo-aviso': notificacao.tipo === 'aviso',
+             'tipo-sucesso': notificacao.tipo === 'sucesso',
+             'tipo-erro': notificacao.tipo === 'erro',
+             'tipo-info': notificacao.tipo === 'info'
+           }">
+
+        <div class="notificacao-conteudo">
+          <p class="notificacao-mensagem">{{ notificacao.mensagem }}</p>
+          <p class="notificacao-data">{{ notificacao.data }}</p>
+        </div>
+
+        <div class="notificacao-acoes" *ngIf="!notificacao.lida">
+          <button (click)="marcarComoLida(notificacao)" class="btn-marcar-lida">
+            Marcar como lida
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #semNotificacoes>
+      <p class="nenhuma-notificacao">Nenhuma notificação no momento.</p>
+    </ng-template>
+
+  </div>
+</div>

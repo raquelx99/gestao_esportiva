@@ -129,7 +129,6 @@
   transform: rotate(180deg);
 }
 
-/* Detalhes do Item (inicialmente escondidos) */
 .item-details {
   padding: 1rem 1.5rem;
   border-top: 1px solid #eee;
@@ -140,7 +139,6 @@
   margin: 0.5rem 0;
 }
 
-/* Estilos para a carteirinha expandida (que você já tinha) */
 .carteira-preview-wrapper {
   display: flex;
   justify-content: center;
@@ -200,21 +198,41 @@
 .espacos-list-carteira {
   margin-bottom: 1.25rem;
   padding: 0.6rem 0.8rem;
-  background: #fff;
-  border-radius: 6px;
-  border: 1px solid #d0d9e0;
+  border-radius: 6px;;
 }
 .espacos-list-carteira strong{
   display: block;
   font-size: 0.8rem;
-  color: #555;
-  margin-bottom: 0.4rem;
+  color: #222;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 .espacos-list-carteira span {
   font-size: 1rem;
   color: #222;
   word-break: break-word;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+}
+
+.espaco-tag-ca {
+  background: #fff;
+  color: #2e7dbb;
+  padding: 0.3rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  border: 1px solid #d0d9e0;
+  white-space: nowrap;
+}
+
+.sem-espacos-tag-ca {
+  font-style: italic;
+  color: #777;
+  font-size: 0.9rem;
 }
 
 .rodape-carteira {

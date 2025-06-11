@@ -1,12 +1,10 @@
 <div class="carteiras-ativas-container">
-
   <div class="ca-content-card">
-
     <header class="ca-header">
       <h2>Carteiras Ativas</h2>
       <div class="search-bar">
-        <input type="text" placeholder="Buscar por nome, matrícula..." />
-        <button class="search-button" aria-label="Buscar">
+        <input #inputBusca type="text" placeholder="Buscar por nome..." (keyup.enter)="filtrarCarteiras(inputBusca.value)" />
+        <button class="search-button" aria-label="Buscar" (click)="filtrarCarteiras(inputBusca.value)">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14z"></path>
           </svg>
@@ -15,7 +13,7 @@
     </header>
 
     <div class="lista-carteiras">
-      <div *ngFor="let carteira of listaDeCarteirasAtivas" class="carteira-item" [class.expanded]="carteira.isExpanded">
+      <div *ngFor="let carteira of carteirasFiltradas" class="carteira-item" [class.expanded]="carteira.isExpanded">
         <div class="item-header" (click)="toggleDetalhes(carteira)">
           <div class="info-principal">
             <span class="nome">Nome: {{ carteira.nome }}</span>
@@ -32,7 +30,6 @@
           <div class="carteira-preview-wrapper">
             <section class="card carteirinha-preview-card">
               <h2>Carteira de Acesso</h2>
-
               <div class="info-grid-carteira">
                 <div><strong>Nome</strong><span>{{ carteira.nome }}</span></div>
                 <div><strong>Matrícula</strong><span>{{ carteira.matricula }}</span></div>
@@ -41,12 +38,14 @@
                 <div><strong>Telefone</strong><span>{{ carteira.telefone }}</span></div>
                 <div><strong>Telefone urgência</strong><span>{{ carteira.contatoEmergenciaTel }}</span></div>
               </div>
-
               <div class="espacos-list-carteira">
                 <strong>Espaços:</strong>
-                <span>{{ carteira.espacosSolicitados }}</span>
+                  <div class="tags-container"> <span *ngFor="let espaco of carteira.espacosArray" class="espaco-tag-ca">{{ espaco }}</span>
+                  <span *ngIf="!carteira.espacosArray || carteira.espacosArray.length === 0" class="sem-espacos-tag-ca">
+                  Nenhum espaço especificado
+                  </span>
               </div>
-
+              </div>
               <div class="rodape-carteira">
                 <div class="semestre-carteira">{{ carteira.emissaoDetalhes }}</div>
                 <div class="validade-carteira">Validade: {{ carteira.validade }}</div>
@@ -56,9 +55,10 @@
         </div>
       </div>
 
-      <div *ngIf="listaDeCarteirasAtivas.length === 0" class="sem-carteiras">
-        <p>Nenhuma carteira ativa encontrada.</p>
+      <div *ngIf="carteirasFiltradas.length === 0" class="sem-carteiras">
+        <p>Nenhuma carteira ativa encontrada com o termo buscado.</p>
       </div>
     </div>
 
-  </div> </div>
+  </div>
+</div>

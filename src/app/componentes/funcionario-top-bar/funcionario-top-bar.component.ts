@@ -1,10 +1,11 @@
 import { Component, Output, EventEmitter } from '@angular/core'; // ADICIONE Output e EventEmitter
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-funcionario-top-bar',
   standalone: true,
-  imports: [CommonModule ],
+  imports: [CommonModule, RouterLink ],
   templateUrl: './funcionario-top-bar.component.html',
   styleUrl: './funcionario-top-bar.component.css'
 })

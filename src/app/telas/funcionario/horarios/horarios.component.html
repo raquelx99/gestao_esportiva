@@ -3,8 +3,8 @@
     <header class="hc-header">
       <h2>Horários</h2>
       <div class="search-bar">
-        <input type="text" placeholder="Buscar por espaço, dia, horário..." />
-        <button class="search-button" aria-label="Buscar">
+        <input #inputBuscaHorarios type="text" placeholder="Buscar por nome do espaço..." (keyup.enter)="filtrarEspacos(inputBuscaHorarios.value)" />
+        <button class="search-button" aria-label="Buscar" (click)="filtrarEspacos(inputBuscaHorarios.value)">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14z"></path>
           </svg>
@@ -13,51 +13,57 @@
     </header>
 
     <div class="lista-espacos">
-    <div *ngFor="let espaco of listaDeEspacos" class="espaco-item" [class.expanded]="espaco.isExpanded">
-    <div class="espaco-header" (click)="toggleDetalhesEspaco(espaco)">
-      <span class="espaco-nome">{{ espaco.nomeDisplay }}</span>
-      <button class="expand-button" aria-label="Ver horários">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-          <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-        </svg>
-      </button>
-    </div>
-    <div class="espaco-details" *ngIf="espaco.isExpanded">
-      <div class="tabela-horarios-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th *ngFor="let dia of diasDaSemanaCabecalho">{{ dia }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td *ngFor="let diaNome of diasDaSemanaCabecalho">
-                <ng-container *ngFor="let diaData of espaco.horarios">
-                  <div *ngIf="diaData.nome === diaNome">
-                    <div *ngFor="let slot of diaData.slots" class="slot-horario">
-                      <strong>{{ slot.hora }}</strong> - {{ slot.status }}
-                    </div>
-                    <div *ngIf="diaData.slots.length === 0" class="slot-horario">
-                      <em>Nenhum horário</em>
-                    </div>
-                  </div>
+      <div *ngFor="let espaco of espacosFiltrados" class="espaco-item" [class.expanded]="espaco.isExpanded">
+        <div class="espaco-header" (click)="toggleDetalhesEspaco(espaco)">
+          <span class="espaco-nome">{{ espaco.nomeDisplay }}</span>
+          <button class="expand-button" aria-label="Ver horários">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="espaco-details" *ngIf="espaco.isExpanded">
+          <div class="tabela-horarios-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Horário</th> <th *ngFor="let dia of diasDaSemanaCabecalho">{{ dia }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let periodo of slotsFixosPorPeriodo">
+                  <tr class="periodo-header-row">
+                    <td [attr.colspan]="diasDaSemanaCabecalho.length + 1">{{ periodo.periodo }}</td>
+                  </tr>
+                  <tr *ngFor="let slotFixo of periodo.slots">
+                    <td>{{ slotFixo.bloco }} ({{ slotFixo.descricao }})</td> <td *ngFor="let diaNome of diasDaSemanaCabecalho"
+                        [ngClass]="{
+                          'slot-livre': getStatusSlot(espaco, diaNome, slotFixo) === 'Livre' || getStatusSlot(espaco, diaNome, slotFixo) === 'Disponível',
+                          'slot-ocupado': getStatusSlot(espaco, diaNome, slotFixo) !== 'Livre' && getStatusSlot(espaco, diaNome, slotFixo) !== 'Disponível' && getStatusSlot(espaco, diaNome, slotFixo) !== ' ',
+                          'slot-vazio': getStatusSlot(espaco, diaNome, slotFixo) === ' ',
+                          'celula-editavel': espaco.isEditing
+                        }"
+                        (click)="atualizarStatusSlot(espaco, diaNome, slotFixo)">
+                      {{ getStatusSlot(espaco, diaNome, slotFixo) }}
+                    </td>
+                  </tr>
                 </ng-container>
-              </td>
-            </tr>
-            </tbody>
-        </table>
-        <button class="edit-button" aria-label="Editar horários">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
-          </svg>
-          Editar
-        </button>
+              </tbody>
+            </table>
+            <button class="edit-button" aria-label="Editar horários" (click)="toggleModoEdicao(espaco)">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+              </svg>
+              {{ espaco.isEditing ? 'Concluir Edição' : 'Editar Horários' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="espacosFiltrados.length === 0" class="sem-espacos">
+        <p>Nenhum espaço encontrado com o termo buscado.</p>
       </div>
     </div>
   </div>
-
-  <div *ngIf="listaDeEspacos.length === 0" class="sem-espacos">
-    <p>Nenhum espaço encontrado.</p>
-  </div>
-</div> </div> </div>
+</div>

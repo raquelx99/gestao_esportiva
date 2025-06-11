@@ -24,6 +24,11 @@
 
 .horarios-card {
   max-width: 35%;
+  min-height: 250px;
+  height: auto;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
 }
 
 .info-grid {

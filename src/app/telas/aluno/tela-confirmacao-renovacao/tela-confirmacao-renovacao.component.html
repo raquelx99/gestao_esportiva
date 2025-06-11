@@ -1,0 +1,47 @@
+<app-top-bar></app-top-bar>
+
+<div class="renovacao-confirmacao-page">
+  <div class="rc-content-card">
+    <h2>Renovar carteira</h2>
+
+    <p class="pergunta-principal">Todas suas informações pessoais continuam as mesmas?</p>
+
+    <div class="botoes-escolha">
+      <button class="btn btn-sim" (click)="confirmarDadosIguais()">Sim ✓</button>
+      <button class="btn btn-nao" (click)="dadosMudaram()">Não X</button>
+    </div>
+
+    <hr class="separador-visual">
+
+    <div class="preview-dados-atuais">
+      <h3>Dados Atuais da Carteirinha:</h3>
+      <ng-container *ngIf="dadosCarteiraAtual; else carregandoDados">
+        <section class="card-preview-renovacao">
+          <div class="info-grid">
+            <div><strong>Nome</strong><span>{{ dadosCarteiraAtual.nome }}</span></div>
+            <div><strong>Matrícula</strong><span>{{ dadosCarteiraAtual.matricula }}</span></div>
+            <div><strong>Curso</strong><span>{{ dadosCarteiraAtual.curso }}</span></div>
+            <div><strong>Centro</strong><span>{{ dadosCarteiraAtual.centro }}</span></div>
+            <div><strong>Telefone</strong><span>{{ dadosCarteiraAtual.telefone }}</span></div>
+            <div><strong>Telefone urgência</strong><span>{{ dadosCarteiraAtual.contatoEmergenciaTel }}</span></div>
+          </div>
+
+          <div class="espacos-info">
+            <strong>Espaços Autorizados:</strong>
+            <p>{{ dadosCarteiraAtual.espacosSolicitados || 'Nenhum espaço especificado' }}</p>
+          </div>
+
+          <div class="rodape-carteira">
+            <div class="emissao-info">{{ dadosCarteiraAtual.emissaoDetalhes }}</div>
+            <div class="validade-info"> <strong>Validade:</strong> {{ dadosCarteiraAtual.validade }}
+            </div>
+          </div>
+        </section>
+      </ng-container>
+      <ng-template #carregandoDados>
+        <p>Carregando dados da carteira...</p>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

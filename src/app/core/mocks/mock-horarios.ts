@@ -1,43 +1,71 @@
 export interface HorarioSlot {
-  hora: string; // Ex: "08:00 - 09:00"
-  status: string; // Ex: "Livre", "Reservado - Futsal", "Manutenção"
+  hora: string; // Ex: "07:30 - 09:10"
+  status: string;
 }
 
 export interface DiaDaSemana {
-  nome: string; // Ex: "Segunda"
+  nome: string;
   slots: HorarioSlot[];
 }
 
 export interface EspacoHorario {
-  id: string; // Ex: 'quadra-a'
-  nomeDisplay: string; // Ex: "QUADRA A"
+  id: string; // Usaremos para identificar a imagem também
+  nomeDisplay: string;
   horarios: DiaDaSemana[];
-  isExpanded?: boolean; // Para controlar a expansão
+  isExpanded?: boolean;
+  isEditing?: boolean;
 }
 
 export const MOCK_ESPACOS_HORARIOS: EspacoHorario[] = [
   {
-    id: 'quadra-a',
-    nomeDisplay: 'QUADRA A',
-    isExpanded: false,
+    id: 'piscina',
+    nomeDisplay: 'PISCINA',
     horarios: [
-      { nome: 'Segunda', slots: [ { hora: '08:00 - 09:00', status: 'Livre' }, { hora: '09:00 - 10:00', status: 'Reservado - Vôlei' } ] },
-      { nome: 'Terça', slots: [ { hora: '08:00 - 09:00', status: 'Manutenção' }, { hora: '14:00 - 15:00', status: 'Livre' } ] },
-      { nome: 'Quarta', slots: [ { hora: '10:00 - 11:00', status: 'Livre' } ] },
-      { nome: 'Quinta', slots: [ { hora: '08:00 - 09:00', status: 'Reservado - Basquete' } ] },
-      { nome: 'Sexta', slots: [ { hora: '16:00 - 17:00', status: 'Livre' } ] }
+      { nome: 'Segunda', slots: [{ hora: '09:30 - 11:10', status: 'Livre' }] },
+      { nome: 'Quarta', slots: [{ hora: '09:30 - 11:10', status: 'Livre' }] },
+      { nome: 'Sexta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }] },
     ]
   },
   {
-    id: 'quadra-b',
-    nomeDisplay: 'QUADRA B',
-    isExpanded: false,
+    id: 'quadra-poliesportiva', // Um nome genérico para "Quadra"
+    nomeDisplay: 'QUADRA',
     horarios: [
-      { nome: 'Segunda', slots: [ { hora: '10:00 - 11:00', status: 'Reservado - Handebol' } ] },
-      { nome: 'Terça', slots: [ { hora: '11:00 - 12:00', status: 'Livre' } ] },
-      { nome: 'Quarta', slots: [ { hora: '08:00 - 09:00', status: 'Livre' }, { hora: '09:00 - 10:00', status: 'Manutenção' } ] },
-      { nome: 'Quinta', slots: [ { hora: '15:00 - 16:00', status: 'Livre' } ] },
-      { nome: 'Sexta', slots: [ { hora: '10:00 - 11:00', status: 'Reservado - Futsal' } ] }
+      { nome: 'Terça', slots: [{ hora: '13:30 - 15:10', status: 'Treino Futsal' }, { hora: '15:20 - 17:10', status: 'Livre' }] },
+      { nome: 'Quinta', slots: [{ hora: '13:30 - 15:10', status: 'Treino Vôlei' }, { hora: '15:20 - 17:10', status: 'Livre' }] },
+    ]
+  },
+  {
+    id: 'campo-society',
+    nomeDisplay: 'CAMPO SOCIETY',
+    horarios: [
+      { nome: 'Segunda', slots: [{ hora: '17:10 - 19:00', status: 'Livre' }] },
+      { nome: 'Quarta', slots: [{ hora: '19:00 - 20:40', status: 'Reservado Equipe' }] },
+    ]
+  },
+  {
+    id: 'quadra-tenis',
+    nomeDisplay: 'QUADRA DE TÊNIS',
+    horarios: [
+      { nome: 'Terça', slots: [{ hora: '09:30 - 11:10', status: 'Aula Tênis' }] },
+      { nome: 'Quinta', slots: [{ hora: '09:30 - 11:10', status: 'Livre' }] },
+    ]
+  },
+  {
+    id: 'quadra-areia',
+    nomeDisplay: 'QUADRA DE AREIA',
+    horarios: [
+      { nome: 'Sexta', slots: [{ hora: '17:10 - 19:00', status: 'Livre (Vôlei de Praia)' }] },
+    ]
+  },
+  {
+    id: 'pista-atletismo',
+    nomeDisplay: 'PISTA DE ATLETISMO',
+    horarios: [ // Pistas de atletismo geralmente são mais abertas
+      { nome: 'Segunda', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }, { hora: '17:10 - 19:00', status: 'Treino Corrida' }] },
+      { nome: 'Terça', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }] },
+      { nome: 'Quarta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }, { hora: '17:10 - 19:00', status: 'Treino Corrida' }] },
+      { nome: 'Quinta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }] },
+      { nome: 'Sexta', slots: [{ hora: '07:30 - 09:10', status: 'Livre' }, { hora: '17:10 - 19:00', status: 'Treino Corrida' }] },
     ]
   }
 ];

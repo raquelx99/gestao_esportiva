@@ -1,0 +1,171 @@
+.carteira-aluno-page-container {
+  padding: 2rem;
+  background-color: #e8eef7;
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ca-card-wrapper {
+  width: 100%;
+  max-width: 750px;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* O card principal que exibe a carteirinha */
+.carteira-aluno-display-card {
+  background-color: #b1c9dd; /* Fundo cinza-azulado do card */
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  /*color: #333;*/
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+.carteira-aluno-display-card h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #9aadc0;
+  padding-bottom: 0.75rem;
+}
+
+/* Grid para informações (Nome, Matrícula, etc.) - Estilo como na Visão Geral */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-grid strong {
+  font-size: 0.9rem; /* Igual ao da Visão Geral */
+  color: #333;     /* Igual ao da Visão Geral */
+  margin-bottom: 0.25rem;
+  text-transform: uppercase; /* Adicionado para consistência se desejar */
+}
+
+.info-grid span {
+  background: #fff;      /* Igual ao da Visão Geral */
+  padding: 0.5rem;       /* Igual ao da Visão Geral */
+  border-radius: 6px;    /* Igual ao da Visão Geral */
+  border: 1px solid #999;/* Igual ao da Visão Geral */
+  font-size: 1rem;
+  color: #2d3748;
+  word-break: break-word;
+}
+
+.espacos-info {
+  margin-bottom: 1.5rem;
+  /* Removido background, padding e border daqui para as pílulas ficarem sobre o card principal */
+}
+
+.espacos-info strong {
+  font-size: 0.9rem;  /* Igual ao da Visão Geral para o rótulo "Espaços:" */
+  /* color: #333; */
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* Lista de tags/pílulas de espaços - Estilo como na Visão Geral */
+.espacos-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+
+.espaco-tag { /* Usando a classe que definimos no HTML */
+  background: #fff;             /* Fundo branco para as pílulas, como na Visão Geral */
+  color: #333;                 /* Cor do texto, ajuste se necessário */
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;          /* Raio para formato de pílula */
+  font-size: 0.9rem;
+  border: 1px solid #ccc;       /* Borda sutil se desejar */
+  white-space: nowrap;
+}
+
+.sem-espacos-tag {
+  font-style: italic;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Rodapé da Carteirinha - Estilo como na Visão Geral */
+.rodape-carteira {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #9aadc0;
+}
+
+.emissao-info, .validade-info {
+  background: #fff;      /* Fundo branco como na Visão Geral */
+  padding: 0.75rem;
+  border-radius: 6px;
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+  border: 1px solid #999; /* Adicionando borda como nos outros campos span */
+}
+
+.validade-info strong {
+  font-weight: bold;
+  margin-right: 0.3em;
+}
+
+.validade-info.expirada {
+  color: #c53030;
+  background-color: #fed7d7;
+  font-weight: bold;
+  border-color: #f5c6cb; /* Borda para o estado expirado */
+}
+.validade-info.expirada strong{
+  color: #c53030;
+}
+
+/* Seção de Ações (Botão Renovar) - externo ao card */
+.acoes-carteira-externa {
+  margin-top: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.btn-renovar {
+  background-color: #2e7dbb;
+  color: white;
+  padding: 0.9rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-renovar:hover {
+  background-color: #256599;
+  transform: translateY(-2px);
+}
+
+.mensagem-feedback {
+  text-align: center;
+  padding: 2rem;
+  color: #555;
+  font-style: italic;
+}
