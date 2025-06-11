@@ -10,26 +10,15 @@
       <div class="grid-2">
         <div class="form-group">
           <label for="nome">Nome Completo</label>
-          <input
-            id="nome"
-            name="nome"
-            type="text"
-            required
-            [(ngModel)]="nome"
-          />
+          <input id="nome" name="nome" type="text" required [(ngModel)]="nome" />
         </div>
 
         <div class="form-group">
           <label for="matricula">Matrícula</label>
-          <input
-            id="matricula"
-            name="matricula"
-            type="text"
-            required
-            [(ngModel)]="matricula"
-          />
+          <input id="matricula" name="matricula" type="text" required [(ngModel)]="matricula" />
         </div>
 
+        <!-- MODIFICADO: Dropdown de Centro agora é dinâmico -->
         <div class="form-group">
           <label for="centro">Centro</label>
           <select
@@ -39,14 +28,13 @@
             [(ngModel)]="centro"
             (ngModelChange)="onCentroChange($event)"
           >
-            <option value="" disabled selected>Selecione</option>
-            <option value="CEAC">CEAC</option>
-            <option value="CCT">CCT</option>
-            <option value="CTSA">CTSA</option>
-            <option value="CED">CED</option>
+            <option value="" disabled selected>Selecione um centro</option>
+            <!-- Loop sobre a lista de centros do TypeScript -->
+            <option *ngFor="let centroOpt of centros" [value]="centroOpt">{{ centroOpt }}</option>
           </select>
         </div>
 
+        <!-- O dropdown de Curso já estava correto, usando availableCursos -->
         <div class="form-group">
           <label for="curso">Curso</label>
           <select
@@ -56,31 +44,19 @@
             [(ngModel)]="curso"
             [disabled]="availableCursos.length === 0"
           >
-            <option value="" disabled selected>Selecione</option>
+            <option value="" disabled selected>Selecione um curso</option>
             <option *ngFor="let c of availableCursos" [value]="c">{{ c }}</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="telefone">Telefone</label>
-          <input
-            id="telefone"
-            name="telefone"
-            type="tel"
-            required
-            [(ngModel)]="telefone"
-          />
+          <input id="telefone" name="telefone" type="tel" required [(ngModel)]="telefone" />
         </div>
 
         <div class="form-group">
           <label for="senha">Senha</label>
-          <input
-            id="senha"
-            name="senha"
-            type="password"
-            required
-            [(ngModel)]="senha"
-          />
+          <input id="senha" name="senha" type="password" required [(ngModel)]="senha" />
         </div>
 
         <div class="form-group upload-group">
@@ -98,84 +74,24 @@
       <div class="grid-2">
         <div class="form-group">
           <label for="telefoneUrgencia">Telefone do contato de emergência</label>
-          <input
-            id="telefoneUrgencia"
-            name="telefoneUrgencia"
-            type="tel"
-            required
-            [(ngModel)]="telefoneUrgencia"
-          />
+          <input id="telefoneUrgencia" name="telefoneUrgencia" type="tel" required [(ngModel)]="telefoneUrgencia" />
         </div>
-        <div class="form-group"></div>
+        <div class="form-group"></div> <!-- Espaço vazio para alinhar o grid -->
       </div>
 
       <fieldset class="espacos-group">
         <legend>Espaços que serão utilizados</legend>
         <div class="checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              name="espacos"
-              value="Piscina"
-              (change)="atualizarEspacos($event)"
-            />
-            Piscina
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="espacos"
-              value="Quadra"
-              (change)="atualizarEspacos($event)"
-            />
-            Quadra
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="espacos"
-              value="Campo Society"
-              (change)="atualizarEspacos($event)"
-            />
-            Campo Society
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="espacos"
-              value="Quadra de Tênis"
-              (change)="atualizarEspacos($event)"
-            />
-            Quadra de Tênis
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="espacos"
-              value="Quadra de Areia"
-              (change)="atualizarEspacos($event)"
-            />
-            Quadra de Areia
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="espacos"
-              value="Pista de Atletismo"
-              (change)="atualizarEspacos($event)"
-            />
-            Pista de Atletismo
-          </label>
+          <label><input type="checkbox" name="espacos" value="Piscina" (change)="atualizarEspacos($event)" /> Piscina</label>
+          <label><input type="checkbox" name="espacos" value="Quadra" (change)="atualizarEspacos($event)" /> Quadra</label>
+          <label><input type="checkbox" name="espacos" value="Campo Society" (change)="atualizarEspacos($event)" /> Campo Society</label>
+          <label><input type="checkbox" name="espacos" value="Quadra de Tênis" (change)="atualizarEspacos($event)" /> Quadra de Tênis</label>
+          <label><input type="checkbox" name="espacos" value="Quadra de Areia" (change)="atualizarEspacos($event)" /> Quadra de Areia</label>
+          <label><input type="checkbox" name="espacos" value="Pista de Atletismo" (change)="atualizarEspacos($event)" /> Pista de Atletismo</label>
         </div>
       </fieldset>
 
-      <button
-        type="submit"
-        class="btn-concluir"
-        [disabled]="form.invalid"
-      >
-        Concluir
-      </button>
+      <button type="submit" class="btn-concluir" [disabled]="form.invalid">Concluir</button>
     </form>
   </div>
 </div>

@@ -1,14 +1,12 @@
-// src/app/telas/tela-cadastro/tela-cadastro.component.ts
-
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService }   from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { CarteirinhaService } from '../../services/carteirinha.service';
 
 import { EstudanteCreateDTO } from '../../entity/EstudanteCreateDTO';
-import { Carteirinha }        from '../../entity/Carteirinha';
+import { Carteirinha } from '../../entity/Carteirinha';
 
 @Component({
   selector: 'app-tela-cadastro',
@@ -17,7 +15,7 @@ import { Carteirinha }        from '../../entity/Carteirinha';
   templateUrl: './tela-cadastro.component.html',
   styleUrl: './tela-cadastro.component.css'
 })
-export class TelaCadastroComponent {
+export class TelaCadastroComponent implements OnInit {
   nome = '';
   matricula = '';
   centro = '';
@@ -27,13 +25,30 @@ export class TelaCadastroComponent {
   telefoneUrgencia = '';
   espacosSelecionados: string[] = [];
 
+  // Objeto completo com a relação entre Centros e Cursos
   cursosPorCentro: { [centro: string]: string[] } = {
-    CCCG: ['Administração', 'Ciências Contábeis'],
-    CCT: ['Engenharia de Computação', 'Engenharia Civil', 'Engenharia Mecânica'],
-    CCS: ['Design Gráfico', 'Arquitetura', 'Publicidade'],
-    CCD: ['Direito', 'Serviço Social'],
+    'CCS': [
+      'Biomedicina', 'Educação Física', 'Enfermagem', 'Estética e Cosmética',
+      'Farmácia', 'Fisioterapia', 'Fonoaudiologia', 'Medicina Veterinária',
+      'Nutrição', 'Odontologia', 'Psicologia', 'Terapia Ocupacional'
+    ],
+    'CCT': [
+      'Análise e Desenvolvimento de Sistemas', 'Arquitetura e Urbanismo', 'Ciência da Computação',
+      'Engenharia Civil', 'Engenharia Elétrica', 'Engenharia Mecânica',
+      'Engenharia da Computação', 'Engenharia de Produção'
+    ],
+    'CCCG': [
+      'Administração', 'Cinema e Audiovisual', 'Ciências Contábeis', 'Ciências Econômicas',
+      'Comércio Exterior', 'Design', 'Design de Interiores', 'Design de Moda',
+      'Finanças', 'Jornalismo', 'Marketing', 'Moda', 'Negócios', 'Publicidade e Propaganda'
+    ],
+    'CCD': [
+      'Direito'
+    ]
   };
 
+  // Listas para popular os dropdowns
+  centros: string[] = [];
   availableCursos: string[] = [];
 
   constructor(
@@ -42,12 +57,18 @@ export class TelaCadastroComponent {
     private carteirinhaService: CarteirinhaService
   ) {}
 
+  ngOnInit(): void {
+    // Popula a lista de centros a partir das chaves do objeto cursosPorCentro
+    this.centros = Object.keys(this.cursosPorCentro);
+  }
+
   onCentroChange(novoCentro: string) {
     this.availableCursos = this.cursosPorCentro[novoCentro] || [];
-    this.curso = '';
+    this.curso = ''; // Reseta a seleção de curso para evitar inconsistências
   }
 
   onSubmit() {
+    // Seu método onSubmit existente permanece o mesmo
     const estudantePayload: EstudanteCreateDTO = {
       nome: this.nome,
       senha: this.senha,
@@ -63,7 +84,6 @@ export class TelaCadastroComponent {
       next: (res) => {
         const novoEstudante = res.perfil.dados as { _id: string };
         const estudanteId = novoEstudante._id;
-
         this.carteirinhaService
           .criarCarteirinha(estudanteId, this.espacosSelecionados)
           .subscribe({
