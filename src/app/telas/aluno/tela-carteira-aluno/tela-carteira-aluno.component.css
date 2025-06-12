@@ -69,31 +69,39 @@
 
 .espacos-info {
   margin-bottom: 1.5rem;
-  /* Removido background, padding e border daqui para as pílulas ficarem sobre o card principal */
 }
 
 .espacos-info strong {
-  font-size: 0.9rem;  /* Igual ao da Visão Geral para o rótulo "Espaços:" */
+  font-size: 0.9rem;
   /* color: #333; */
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   display: block;
 }
 
-/* Lista de tags/pílulas de espaços - Estilo como na Visão Geral */
+
 .espacos-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 0.75rem;
 }
 
-.espaco-tag { /* Usando a classe que definimos no HTML */
-  background: #fff;             /* Fundo branco para as pílulas, como na Visão Geral */
-  color: #333;                 /* Cor do texto, ajuste se necessário */
+/*.espacos-list span {
+  background: #fff;
   padding: 0.4rem 0.8rem;
-  border-radius: 20px;          /* Raio para formato de pílula */
+  border-radius: 20px;
   font-size: 0.9rem;
-  border: 1px solid #ccc;       /* Borda sutil se desejar */
+  border: 1px solid #ccc;
+  white-space: nowrap;
+}*/
+
+.espaco-tag {
+  background: #fff; 
+  color: #333;         
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px; 
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
   white-space: nowrap;
 }
 
@@ -113,7 +121,7 @@
   border-top: 1px dashed #9aadc0;
 }
 
-.emissao-info, .validade-info {
+.emissao, .validade, .semestre {
   background: #fff;      /* Fundo branco como na Visão Geral */
   padding: 0.75rem;
   border-radius: 6px;
@@ -124,18 +132,18 @@
   border: 1px solid #999; /* Adicionando borda como nos outros campos span */
 }
 
-.validade-info strong {
+.validade strong {
   font-weight: bold;
   margin-right: 0.3em;
 }
 
-.validade-info.expirada {
+.validade.expirada {
   color: #c53030;
   background-color: #fed7d7;
   font-weight: bold;
   border-color: #f5c6cb; /* Borda para o estado expirado */
 }
-.validade-info.expirada strong{
+.validade.expirada strong{
   color: #c53030;
 }
 

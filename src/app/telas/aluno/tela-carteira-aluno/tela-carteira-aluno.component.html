@@ -16,14 +16,17 @@
         <div class="espacos-info">
           <strong>Espaços:</strong>
           <div class="espacos-list">
-            <span *ngIf="espacosCarteirinha?.length === 0" class="sem-espacos-tag">Nenhum espaço especificado</span>
-            <span *ngFor="let espaco of espacosCarteirinha; let last = last">
-              {{ espaco }}<span *ngIf="!last">, </span>
+            <span *ngFor="let espaco of espacosCarteirinha" class="espaco-tag">
+              {{ espaco }}
+            </span>
+
+            <span *ngIf="!espacosCarteirinha || espacosCarteirinha.length === 0" class="sem-espacos-tag">
+              Nenhum espaço especificado
             </span>
           </div>
         </div>
 
-        <div class="rodape">
+        <div class="rodape-carteira">
           <div class="semestre">
             1° Semestre – {{ semestreInicioFormatted }}
           </div>
