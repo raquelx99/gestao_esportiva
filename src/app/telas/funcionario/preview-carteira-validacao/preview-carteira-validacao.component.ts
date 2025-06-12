@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras';
+import { Carteirinha } from '../../../entity/Carteirinha';
+import { AuthService } from '../../../services/auth.service';
+import { CarteirinhaService } from '../../../services/carteirinha.service';
 
 @Component({
   selector: 'app-preview-carteira-validacao',
@@ -11,12 +14,14 @@ import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carte
   styleUrl: './preview-carteira-validacao.component.css'
 })
 export class PreviewCarteiraValidacaoComponent implements OnInit {
+  fotoUrlCompleta: string | null = null;
   carteiraId: string | null = null;
-  dadosCarteira: CarteiraDetalhes | undefined = undefined;
+  dadosCarteira: Carteirinha | null = null;
   abaAtiva: string = 'formulario';
 
 
   constructor(
+    private carteirinhaService: CarteirinhaService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -26,10 +31,28 @@ export class PreviewCarteiraValidacaoComponent implements OnInit {
     console.log('ID da Carteira para validar:', this.carteiraId);
 
     if (this.carteiraId) {
-      this.dadosCarteira = MOCK_CARTEIRAS.find(c => c.id === this.carteiraId);
+      this.carteirinhaService.getCarteirinhaPorId(this.carteiraId).subscribe({
+        next: (carteira) => {
+          this.dadosCarteira = carteira;
+          if (!this.dadosCarteira) {
+            console.error('Carteira não encontrada com o ID:', this.carteiraId);
+          } else {
+            if (carteira.urlFoto) {
+              this.fotoUrlCompleta = 'http://localhost:3000' + carteira.urlFoto;
+            } else {
+              this.fotoUrlCompleta = null;
+            }
+          }
+          console.log(this.dadosCarteira);
+        },
+        error: (err) => {
+          console.error('Erro ao buscar carteira:', err);
+        }
+      });
     }
-    if (!this.dadosCarteira) {
-      console.error('Carteira não encontrada com o ID:', this.carteiraId);
+    else {
+      console.error('ID da carteira não fornecido na rota.');
+      this.router.navigate(['/funcionario/validar-carteiras']);
     }
   }
 
@@ -39,11 +62,25 @@ export class PreviewCarteiraValidacaoComponent implements OnInit {
 
   aprovarCarteira(): void {
     console.log(`Carteira ${this.carteiraId} APROVADA`, this.dadosCarteira);
-    this.router.navigate(['/funcionario/validacao-resultado'], { state: { status: 'aprovada', id: this.carteiraId, nome: this.dadosCarteira?.nome } });
+    this.carteirinhaService.aprovarCarteirinha(this.carteiraId!).subscribe({
+      next: () => {
+      this.router.navigate(['/funcionario/validacao-resultado']);
+      },
+      error: (err) => {
+      console.error('Erro ao aprovar carteira:', err);
+      }
+    });
   }
 
   rejeitarCarteira(): void {
     console.log(`Carteira ${this.carteiraId} REJEITADA`, this.dadosCarteira);
-    this.router.navigate(['/funcionario/validacao-resultado'], { state: { status: 'rejeitada', id: this.carteiraId, nome: this.dadosCarteira?.nome } });
+    this.carteirinhaService.rejeitarCarteirinha(this.carteiraId!).subscribe({
+      next: () => {
+        this.router.navigate(['/funcionario/validacao-resultado']);
+      },
+      error: (err) => {
+        console.error('Erro ao rejeitar carteira:', err);
+      }
+    });
   }
 }

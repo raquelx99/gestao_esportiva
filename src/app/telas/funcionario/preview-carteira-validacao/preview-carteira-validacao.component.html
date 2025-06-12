@@ -21,18 +21,16 @@
         <div *ngIf="abaAtiva === 'formulario'" class="scrollable-content">
           <h4>Infos Cadastro</h4>
           <ng-container *ngIf="dadosCarteira">
-            <p><strong>Nome:</strong> {{ dadosCarteira.nome }}</p>
-            <p><strong>Matrícula:</strong> {{ dadosCarteira.matricula }}</p>
-            <p><strong>Curso:</strong> {{ dadosCarteira.curso }}</p>
-            <p><strong>Centro:</strong> {{ dadosCarteira.centro }}</p>
-            <p><strong>CPF:</strong> {{ dadosCarteira.cpf }}</p>
-            <p><strong>Telefone:</strong> {{ dadosCarteira.telefone }}</p>
-            <p><strong>Contato Emergência:</strong> {{ dadosCarteira.contatoEmergenciaNome }}</p>
-            <p><strong>Tel. Emergência:</strong> {{ dadosCarteira.contatoEmergenciaTel }}</p>
+            <p><strong>Nome:</strong> {{ dadosCarteira.estudante.user.nome }}</p>
+            <p><strong>Matrícula:</strong> {{ dadosCarteira.estudante.user.matricula }}</p>
+            <p><strong>Curso:</strong> {{ dadosCarteira.estudante.curso }}</p>
+            <p><strong>Centro:</strong> {{ dadosCarteira.estudante.centro }}</p>
+            <p><strong>Telefone:</strong> {{ dadosCarteira.estudante.telefone }}</p>
+            <p><strong>Tel. Emergência:</strong> {{ dadosCarteira.estudante.telefoneUrgencia }}</p>
             <p><strong>Validade:</strong> {{ dadosCarteira.validade }}</p>
             <hr>
             <h4>Espaços Solicitados:</h4>
-            <p>{{ dadosCarteira.espacosSolicitados }}</p>
+            <p>{{ dadosCarteira.espacos }}</p>
           </ng-container>
           <p *ngIf="!dadosCarteira">Dados da carteira não encontrados para o ID: {{ carteiraId }}</p>
         </div>
@@ -42,19 +40,19 @@
 
     <div class="carteira-preview-wrapper"> <section class="card carteirinha-preview-card"> <h2>Carteira de Acesso</h2>
 
-        <div class="info-grid-carteira"> <div><strong>Nome</strong><span>{{ dadosCarteira?.nome }}</span></div>
-          <div><strong>Matrícula</strong><span>{{ dadosCarteira?.matricula }}</span></div>
-          <div><strong>Curso</strong><span>{{ dadosCarteira?.curso }}</span></div>
-          <div><strong>Centro</strong><span>{{ dadosCarteira?.centro }}</span></div>
-          <div><strong>Telefone</strong><span>{{ dadosCarteira?.telefone }}</span></div>
-          <div><strong>Telefone urgência</strong><span>{{ dadosCarteira?.contatoEmergenciaTel }}</span></div>
+        <div class="info-grid-carteira"> <div><strong>Nome</strong><span>{{ dadosCarteira?.estudante?.user?.nome }}</span></div>
+          <div><strong>Matrícula</strong><span>{{ dadosCarteira?.estudante?.user?.matricula }}</span></div>
+          <div><strong>Curso</strong><span>{{ dadosCarteira?.estudante?.curso }}</span></div>
+          <div><strong>Centro</strong><span>{{ dadosCarteira?.estudante?.centro }}</span></div>
+          <div><strong>Telefone</strong><span>{{ dadosCarteira?.estudante?.telefone }}</span></div>
+          <div><strong>Telefone urgência</strong><span>{{ dadosCarteira?.estudante?.telefoneUrgencia }}</span></div>
         </div>
 
         <div class="espacos-list-carteira"> <strong>Espaços:</strong>
-          <span>{{ dadosCarteira?.espacosSolicitados }}</span>
+          <span>{{ dadosCarteira?.espacos }}</span>
           </div>
 
-        <div class="rodape-carteira"> <div class="semestre-carteira">{{ dadosCarteira?.emissaoDetalhes }}</div>
+        <div class="rodape-carteira"> <div class="semestre-carteira">{{ dadosCarteira?.estudante?.semestreInicio }}</div>
           <div class="validade-carteira">Validade: {{ dadosCarteira?.validade }}</div>
         </div>
       </section>
@@ -65,7 +63,12 @@
       </div> <div class="right-panel">
       <h4>Foto Documento</h4>
       <div class="photo-box">
-        <img [src]="dadosCarteira?.fotoDocumentoUrl || 'https://via.placeholder.com/350x250.png?text=Documento+Indisponível'" alt="Foto do Documento" />
+        <div class="photo-box">
+        <img 
+          [src]="fotoUrlCompleta || 'https://via.placeholder.com/350x250.png?text=Documento+Indispon%C3%ADvel'" 
+          alt="Foto do Documento" 
+        />
+      </div>
       </div>
     </div> </div> <div class="action-buttons">
     <button class="btn btn-rejeitar" (click)="rejeitarCarteira()">Rejeitar ❌</button>

@@ -8,4 +8,6 @@ export interface Carteirinha {
   status: 'pendente' | 'aprovado' | 'rejeitada' | 'expirado';
   liberadoPosValidacao: boolean;
   dataRequisicao: Date;
+  temFoto?: boolean;
+  urlFoto?: string;
 }

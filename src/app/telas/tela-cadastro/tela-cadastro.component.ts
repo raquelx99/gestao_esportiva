@@ -13,7 +13,7 @@ import { Carteirinha } from '../../entity/Carteirinha';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './tela-cadastro.component.html',
-  styleUrl: './tela-cadastro.component.css'
+  styleUrls: ['./tela-cadastro.component.css']
 })
 export class TelaCadastroComponent implements OnInit {
   nome = '';
@@ -25,7 +25,9 @@ export class TelaCadastroComponent implements OnInit {
   telefoneUrgencia = '';
   espacosSelecionados: string[] = [];
 
-  // Objeto completo com a relação entre Centros e Cursos
+  selectedFile: File | null = null;
+  selectedFileName: string = '';
+
   cursosPorCentro: { [centro: string]: string[] } = {
     'CCS': [
       'Biomedicina', 'Educação Física', 'Enfermagem', 'Estética e Cosmética',
@@ -47,7 +49,6 @@ export class TelaCadastroComponent implements OnInit {
     ]
   };
 
-  // Listas para popular os dropdowns
   centros: string[] = [];
   availableCursos: string[] = [];
 
@@ -58,17 +59,36 @@ export class TelaCadastroComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Popula a lista de centros a partir das chaves do objeto cursosPorCentro
     this.centros = Object.keys(this.cursosPorCentro);
   }
 
   onCentroChange(novoCentro: string) {
     this.availableCursos = this.cursosPorCentro[novoCentro] || [];
-    this.curso = ''; // Reseta a seleção de curso para evitar inconsistências
+    this.curso = '';
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files && event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.selectedFileName = file.name;
+    } else {
+      this.selectedFile = null;
+      this.selectedFileName = '';
+    }
+  }
+
+  atualizarEspacos(event: any) {
+    const valor = event.target.value;
+    if (event.target.checked) {
+      this.espacosSelecionados.push(valor);
+    } else {
+      this.espacosSelecionados = this.espacosSelecionados.filter(e => e !== valor);
+    }
   }
 
   onSubmit() {
-    // Seu método onSubmit existente permanece o mesmo
+    // 1) Cadastrar estudante primeiro
     const estudantePayload: EstudanteCreateDTO = {
       nome: this.nome,
       senha: this.senha,
@@ -82,33 +102,40 @@ export class TelaCadastroComponent implements OnInit {
 
     this.authService.cadastrarEstudante(estudantePayload).subscribe({
       next: (res) => {
+        // Supondo que res.perfil.dados._id contenha o ID do estudante criado
         const novoEstudante = res.perfil.dados as { _id: string };
         const estudanteId = novoEstudante._id;
-        this.carteirinhaService
-          .criarCarteirinha(estudanteId, this.espacosSelecionados)
-          .subscribe({
-            next: (novaCarteirinha: Carteirinha) => {
-              console.log('Carteirinha criada:', novaCarteirinha);
-              this.router.navigate(['/espera-validacao']);
-            },
-            error: (errCarteira) => {
-              console.error('Erro ao criar carteirinha:', errCarteira);
-              this.router.navigate(['/espera-validacao']);
-            }
-          });
+
+        // 2) Agora criar a carteirinha, com FormData incluindo arquivo
+        if (!this.selectedFile) {
+          console.error('Erro: foto não selecionada');
+          // Você pode mostrar mensagem ao usuário aqui e não prosseguir
+          return;
+        }
+
+        // Monta FormData
+        const formData = new FormData();
+        formData.append('estudanteId', estudanteId);
+        // append de cada espaco. No backend, se o parser aceitar múltiplos campos 'espacos', isso vira array.
+        this.espacosSelecionados.forEach(e => formData.append('espacos', e));
+        // Se quiser incluir periodoEmSemestres:
+        // formData.append('periodoEmSemestres', '1');
+        formData.append('foto', this.selectedFile, this.selectedFile.name);
+
+        this.carteirinhaService.criarCarteirinha(formData).subscribe({
+          next: (novaCarteirinha: Carteirinha) => {
+            console.log('Carteirinha criada:', novaCarteirinha);
+            this.router.navigate(['/espera-validacao']);
+          },
+          error: (errCarteira) => {
+            console.error('Erro ao criar carteirinha:', errCarteira);
+            this.router.navigate(['/espera-validacao']);
+          }
+        });
       },
       error: (errEstudo) => {
         console.error('Erro ao cadastrar estudante:', errEstudo);
       }
     });
-  }
-
-  atualizarEspacos(event: any) {
-    const valor = event.target.value;
-    if (event.target.checked) {
-      this.espacosSelecionados.push(valor);
-    } else {
-      this.espacosSelecionados = this.espacosSelecionados.filter(e => e !== valor);
-    }
   }
 }

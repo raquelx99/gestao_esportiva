@@ -13,16 +13,16 @@ export class CarteirinhaService {
 
   constructor() {}
 
-    criarCarteirinha(estudanteId: string, espacos: string[]): Observable<Carteirinha> {
-    const payload = { estudanteId, espacos };
-    return this.http.post<Carteirinha>(
-        `${this.apiUrl}/api/carteirinhas`, 
-        payload
-    );
+    criarCarteirinha(formData: FormData): Observable<Carteirinha> {
+    return this.http.post<Carteirinha>(`${this.apiUrl}/api/carteirinhas`, formData);
     }
 
     marcarComoLiberado(estudanteId: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/api/carteirinhas/liberar/${estudanteId}`, {});
+    }
+
+    getCarteirinhaPorId(carteirinhaId: string): Observable<Carteirinha> {
+    return this.http.get<Carteirinha>(`${this.apiUrl}/api/carteirinhas/${carteirinhaId}`);
     }
 
     getCarteirinhaPorEstudante(estudanteId: string): Observable<Carteirinha> {
@@ -35,6 +35,20 @@ export class CarteirinhaService {
 
     getCarteirinhasPendentes(): Observable<Carteirinha[]> {
     return this.http.get<Carteirinha[]>(`${this.apiUrl}/api/carteirinhas/pendentes`);
+    }
+
+    aprovarCarteirinha(carteirinhaId: string): Observable<Carteirinha> {
+    return this.http.put<Carteirinha>(
+        `${this.apiUrl}/api/carteirinhas/aprovar/${carteirinhaId}`, 
+        {}
+    );
+    }
+
+    rejeitarCarteirinha(carteirinhaId: string): Observable<Carteirinha> {
+    return this.http.put<Carteirinha>(
+        `${this.apiUrl}/api/carteirinhas/rejeitar/${carteirinhaId}`, 
+        {}
+    );
     }
 
 }

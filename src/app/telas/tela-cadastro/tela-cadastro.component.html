@@ -60,23 +60,31 @@
         </div>
 
         <div class="form-group upload-group">
-          <label>Foto de documento de identificação</label>
+          <label for="docUpload">Foto de documento de identificação</label>
           <div class="upload-box">
-            <input type="file" id="docUpload" hidden />
+            
+            <input 
+              type="file" 
+              id="docUpload" 
+              accept="image/*"
+              (change)="onFileSelected($event)" 
+              style="display: none;"
+            />
             <label for="docUpload" class="upload-label">
               <span class="icon">⭳</span>
-              <span class="text">Anexar foto do documento</span>
+              <span class="text">
+                {{ selectedFileName || 'Anexar foto do documento' }}
+              </span>
             </label>
           </div>
         </div>
-      </div>
 
       <div class="grid-2">
         <div class="form-group">
           <label for="telefoneUrgencia">Telefone do contato de emergência</label>
           <input id="telefoneUrgencia" name="telefoneUrgencia" type="tel" required [(ngModel)]="telefoneUrgencia" />
         </div>
-        <div class="form-group"></div> <!-- Espaço vazio para alinhar o grid -->
+        <div class="form-group"></div>
       </div>
 
       <fieldset class="espacos-group">
@@ -92,6 +100,7 @@
       </fieldset>
 
       <button type="submit" class="btn-concluir" [disabled]="form.invalid">Concluir</button>
+      </div>
     </form>
   </div>
 </div>
