@@ -11,7 +11,7 @@ type Status = 'pending' | 'approved' | 'rejected';
 @Component({
   selector: 'app-tela-espera-validacao',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TopBarComponent],
   templateUrl: './tela-espera-validacao.component.html',
   styleUrls: ['./tela-espera-validacao.component.css']
 })
