@@ -4,8 +4,8 @@
 
   <ul class="lista-requisicoes" *ngIf="listaDeCarteiras.length > 0; else semRequisicoes">
     <li *ngFor="let carteira of listaDeCarteiras" class="requisicao-item">
-      <a [routerLink]="['/funcionario/validar-carteiras', carteira.id]">
-        <span>Nome: {{ carteira.nome }}</span>
+      <a [routerLink]="['/funcionario/validar-carteiras', carteira._id]">
+        <span>Nome: {{ carteira.estudante.user.nome }}</span>
         <span>Data da requisição: {{ carteira.dataRequisicao }}</span>
       </a>
     </li>

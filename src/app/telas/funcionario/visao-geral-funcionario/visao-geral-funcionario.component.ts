@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras';
 import { EspacoHorario, MOCK_ESPACOS_HORARIOS } from '../../../core/mocks/mock-horarios'; // Ou do seu mock-horarios.ts
+import { CarteirinhaService } from '../../../services/carteirinha.service';
+import { LocalService } from '../../../services/localService';
+import { Carteirinha } from '../../../entity/Carteirinha';
 
 @Component({
   selector: 'app-visao-geral-funcionario',
@@ -12,20 +15,24 @@ import { EspacoHorario, MOCK_ESPACOS_HORARIOS } from '../../../core/mocks/mock-h
   styleUrl: './visao-geral-funcionario.component.css'
 })
 export class VisaoGeralFuncionarioComponent implements OnInit {
-  primeirasCarteirasPendentes: CarteiraDetalhes[] = [];
+  primeirasCarteirasPendentes: Carteirinha[] = [];
   temCarteirasPendentes: boolean = false;
   algunsEspacosHorarios: EspacoHorario[] = [];
   temHorariosResumo: boolean = false;
   horariosResumoExpandidos: { [espacoId: string]: boolean } = {};
 
-  // <<< ADICIONE ESTA LINHA ABAIXO >>>
   diasDaSemanaCabecalho: string[] = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
 
-  constructor() { }
+  constructor(
+    private carteirinhaService: CarteirinhaService,
+    private localService: LocalService
+  ) { }
 
   ngOnInit(): void {
-    this.primeirasCarteirasPendentes = MOCK_CARTEIRAS.slice(0, 3);
-    this.temCarteirasPendentes = this.primeirasCarteirasPendentes.length > 0;
+    this.carteirinhaService.getCarteirinhasPendentes().subscribe(carteirinhas => {
+      this.primeirasCarteirasPendentes = carteirinhas.slice(0, 3);
+      this.temCarteirasPendentes = this.primeirasCarteirasPendentes.length > 0;
+    });
     this.algunsEspacosHorarios = MOCK_ESPACOS_HORARIOS.slice(0, 2).map(espaco => {
       this.horariosResumoExpandidos[espaco.id] = false;
       return espaco;

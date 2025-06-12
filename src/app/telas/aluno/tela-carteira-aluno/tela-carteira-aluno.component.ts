@@ -1,20 +1,24 @@
+// src/app/telas/tela-carteira-aluno/tela-carteira-aluno.component.ts
+
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component';
-import { AuthService } from '../../../services/auth.service';
+import { CommonModule }      from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+
+import { TopBarComponent }   from '../../../componentes/top-bar/top-bar.component';
+import { AuthService }       from '../../../services/auth.service';
 import { CarteirinhaService } from '../../../services/carteirinha.service';
-import { Carteirinha } from '../../../entity/Carteirinha';
+import { Carteirinha }       from '../../../entity/Carteirinha';
 
 @Component({
   selector: 'app-tela-carteira-aluno',
   standalone: true,
-  imports: [CommonModule, TopBarComponent],
+  imports: [CommonModule, RouterModule, TopBarComponent],
   templateUrl: './tela-carteira-aluno.component.html',
-  styleUrl: './tela-carteira-aluno.component.css'
+  styleUrls: ['./tela-carteira-aluno.component.css']
 })
 export class TelaCarteiraAlunoComponent implements OnInit {
 
+  // Campos para exibição
   usuarioNome!: string;
   matricula!: string;
   curso!: string;
@@ -25,8 +29,8 @@ export class TelaCarteiraAlunoComponent implements OnInit {
   semestreInicioFormatted!: string;
   validadeFormatted!: string;
 
+  // Status de expiração, vindo do backend
   isExpired: boolean = false;
-  dataAtual: Date = new Date();
 
   constructor(
     private authService: AuthService,
@@ -37,45 +41,52 @@ export class TelaCarteiraAlunoComponent implements OnInit {
   ngOnInit(): void {
     const usuarioLogado = this.authService.usuarioLogado;
     if (!usuarioLogado) {
+      // não está logado
       this.router.navigate(['/boas-vindas']);
       return;
     }
 
     const perfil = usuarioLogado.perfil;
     if (!perfil || perfil.tipo !== 'estudante' || !perfil.dados) {
+      // não é estudante ou dados faltando
       this.router.navigate(['/boas-vindas']);
       return;
     }
 
-    const estudanteEmMemoria = usuarioLogado.carteirinha.estudante._id;
+    // Pega ID do estudante a partir do objeto populado em usuarioLogado (assumindo que login retornou carteirinha populada)
+    // Se no AuthService você guardou `usuarioLogado.carteirinha.estudante._id`, use essa informação:
+    const estudanteId = usuarioLogado.carteirinha?.estudante?._id;
+    if (!estudanteId) {
+      console.error('ID do estudante não encontrado em memória.');
+      this.router.navigate(['/cadastro']);
+      return;
+    }
 
-    this.carteirinhaService
-      .getCarteirinhaPorEstudante(estudanteEmMemoria)
-      .subscribe({
-        next: (carteirinha: Carteirinha) => {
-          console.log(carteirinha);
-          if (!carteirinha) {
-            this.router.navigate(['/cadastro']);
-            return;
-          }
-          this.preencherTelaComCarteirinha(carteirinha);
-        },
-        error: (err) => {
-          console.error('Erro ao buscar carteirinha:', err);
+    // Busca a carteirinha atualizada do backend
+    this.carteirinhaService.getCarteirinhaPorEstudante(estudanteId).subscribe({
+      next: (carteirinha: Carteirinha) => {
+        if (!carteirinha) {
+          // sem carteirinha, redireciona para cadastro/fluxo
           this.router.navigate(['/cadastro']);
+          return;
         }
-      });
-
-    this.verificarValidade();
-    console.log('Expirada:', this.isExpired);
+        this.preencherTelaComCarteirinha(carteirinha);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar carteirinha:', err);
+        // redireciona ou mostrar mensagem
+        this.router.navigate(['/cadastro']);
+      }
+    });
   }
 
-  private preencherTelaComCarteirinha(carteirinha: any) {
-    const usuarioLogado = this.authService.usuarioLogado;
+  private preencherTelaComCarteirinha(carteirinha: Carteirinha) {
     const estudante = carteirinha.estudante;
+    const usuarioLogado = this.authService.usuarioLogado;
 
-    this.usuarioNome = estudante.nome;
-    this.matricula = usuarioLogado.usuario.matricula;
+    // Preenche campos de exibição:
+    this.usuarioNome = estudante.user.nome;
+    this.matricula = usuarioLogado.user.matricula;
     this.curso = estudante.curso;
     this.centro = estudante.centro;
     this.telefone = estudante.telefone;
@@ -85,25 +96,20 @@ export class TelaCarteiraAlunoComponent implements OnInit {
     this.semestreInicioFormatted = estudante.semestreInicio
       ? this.formatDate(estudante.semestreInicio)
       : '—';
-    this.validadeFormatted = this.formatDate(carteirinha.validade);
-  }
 
-  verificarValidade(): void {
-    if (this.validadeFormatted) {
-      const partesData = this.validadeFormatted.split('/');
-      if (partesData.length === 3) {
-        const dia = parseInt(partesData[0], 10);
-        const mes = parseInt(partesData[1], 10) - 1;
-        const ano = parseInt(partesData[2], 10);
-        const dataValidade = new Date(ano, mes, dia);
-        dataValidade.setHours(23, 59, 59, 999);
+    this.validadeFormatted = carteirinha.validade
+      ? this.formatDate(carteirinha.validade)
+      : '—';
 
-        this.isExpired = this.dataAtual > dataValidade;
-      }
+    if (carteirinha.status === 'expirado') {
+      this.isExpired = true;
+    } else {
+      this.isExpired = false;
     }
+
   }
 
-  private formatDate(dt: any): string {
+  private formatDate(dt: string | Date): string {
     const dateObj = dt instanceof Date ? dt : new Date(dt);
     if (isNaN(dateObj.getTime())) {
       return '—';
@@ -112,13 +118,6 @@ export class TelaCarteiraAlunoComponent implements OnInit {
     const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
     const ano = dateObj.getFullYear();
     return `${dia}/${mes}/${ano}`;
-  }
-
-  get espacosArray(): string[] {
-    if (this.espacosCarteirinha && Array.isArray(this.espacosCarteirinha)) {
-      return this.espacosCarteirinha;
-    }
-    return [];
   }
 
   iniciarRenovacao(): void {

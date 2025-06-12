@@ -33,4 +33,8 @@ export class CarteirinhaService {
     return this.http.get<Carteirinha>(`${this.apiUrl}/api/carteirinhas/matricula/${matricula}`);
     }
 
+    getCarteirinhasPendentes(): Observable<Carteirinha[]> {
+    return this.http.get<Carteirinha[]>(`${this.apiUrl}/api/carteirinhas/pendentes`);
+    }
+
 }

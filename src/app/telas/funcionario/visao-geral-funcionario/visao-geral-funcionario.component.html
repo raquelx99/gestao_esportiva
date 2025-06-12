@@ -6,8 +6,8 @@
       <a routerLink="/funcionario/validar-carteiras" class="ver-todos-link">Ver Todas &rarr;</a>
     </header>
     <div class="resumo-lista">
-      <a *ngFor="let carteira of primeirasCarteirasPendentes" [routerLink]="['/funcionario/validar-carteiras', carteira.id]" class="resumo-item">
-        <span>Nome: {{ carteira.nome }}</span>
+      <a *ngFor="let carteira of primeirasCarteirasPendentes" [routerLink]="['/funcionario/validar-carteiras', carteira._id]" class="resumo-item">
+        <span>Nome: {{ carteira.estudante.user.nome }}</span>
         <span>Data: {{ carteira.dataRequisicao }}</span>
       </a>
       <p *ngIf="!temCarteirasPendentes">Nenhuma requisição pendente no momento.</p>

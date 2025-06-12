@@ -5,6 +5,7 @@ export interface Carteirinha {
   estudante: Estudante;
   validade: Date;
   espacos: string[];
-  status: 'pendente' | 'aprovado' | 'rejeitada';
+  status: 'pendente' | 'aprovado' | 'rejeitada' | 'expirado';
   liberadoPosValidacao: boolean;
+  dataRequisicao: Date;
 }
