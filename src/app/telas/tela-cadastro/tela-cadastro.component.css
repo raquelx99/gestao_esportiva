@@ -71,6 +71,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  margin-bottom: 2rem;
 }
 
 .upload-group .upload-label {
@@ -87,6 +89,7 @@
 .upload-group .text {
   font-size: 0.9rem;
 }
+
 
 .espacos-group {
   border: none;
@@ -108,11 +111,18 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.9rem;
 }
 
+
+.button-container {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Botão Concluir */
 .btn-concluir {
-  display: block;
-  margin: 0 auto;
+  display: inline-block;
   padding: 0.9rem 2rem;
   background-color: #4682b4;
   color: #fff;
@@ -121,8 +131,33 @@
   font-size: 1.1rem;
   cursor: pointer;
   transition: filter 0.2s;
+  width: 100%;
+  max-width: 200px;
 }
 
-.btn-concluir:hover {
+.btn-concluir:hover:not(:disabled) {
   filter: brightness(1.1);
+}
+
+.btn-concluir:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .cadastro-card {
+    width: 100%;
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .button-container {
+    text-align: center;
+  }
+  .btn-concluir {
+    max-width: none;
+    width: 100%;
+  }
 }

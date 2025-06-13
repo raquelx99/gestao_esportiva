@@ -12,13 +12,13 @@
           <label for="nome">Nome Completo</label>
           <input id="nome" name="nome" type="text" required [(ngModel)]="nome" />
         </div>
-
         <div class="form-group">
           <label for="matricula">Matrícula</label>
           <input id="matricula" name="matricula" type="text" required [(ngModel)]="matricula" />
         </div>
+      </div>
 
-        <!-- MODIFICADO: Dropdown de Centro agora é dinâmico -->
+      <div class="grid-2">
         <div class="form-group">
           <label for="centro">Centro</label>
           <select
@@ -29,12 +29,9 @@
             (ngModelChange)="onCentroChange($event)"
           >
             <option value="" disabled selected>Selecione um centro</option>
-            <!-- Loop sobre a lista de centros do TypeScript -->
             <option *ngFor="let centroOpt of centros" [value]="centroOpt">{{ centroOpt }}</option>
           </select>
         </div>
-
-        <!-- O dropdown de Curso já estava correto, usando availableCursos -->
         <div class="form-group">
           <label for="curso">Curso</label>
           <select
@@ -48,42 +45,44 @@
             <option *ngFor="let c of availableCursos" [value]="c">{{ c }}</option>
           </select>
         </div>
+      </div>
 
+      <div class="grid-2">
         <div class="form-group">
           <label for="telefone">Telefone</label>
           <input id="telefone" name="telefone" type="tel" required [(ngModel)]="telefone" />
         </div>
-
         <div class="form-group">
           <label for="senha">Senha</label>
           <input id="senha" name="senha" type="password" required [(ngModel)]="senha" />
         </div>
+      </div>
 
-        <div class="form-group upload-group">
-          <label for="docUpload">Foto de documento de identificação</label>
-          <div class="upload-box">
-            
-            <input 
-              type="file" 
-              id="docUpload" 
-              accept="image/*"
-              (change)="onFileSelected($event)" 
-              style="display: none;"
-            />
-            <label for="docUpload" class="upload-label">
-              <span class="icon">⭳</span>
-              <span class="text">
-                {{ selectedFileName || 'Anexar foto do documento' }}
-              </span>
-            </label>
-          </div>
+      <div class="form-group upload-group">
+        <label for="docUpload">Foto de documento de identificação</label>
+        <div class="upload-box">
+          <input 
+            type="file" 
+            id="docUpload" 
+            accept="image/*"
+            (change)="onFileSelected($event)" 
+            style="display: none;"
+          />
+          <label for="docUpload" class="upload-label">
+            <span class="icon">⭳</span>
+            <span class="text">
+              {{ selectedFileName || 'Anexar foto do documento' }}
+            </span>
+          </label>
         </div>
+      </div>
 
       <div class="grid-2">
         <div class="form-group">
           <label for="telefoneUrgencia">Telefone do contato de emergência</label>
           <input id="telefoneUrgencia" name="telefoneUrgencia" type="tel" required [(ngModel)]="telefoneUrgencia" />
         </div>
+ 
         <div class="form-group"></div>
       </div>
 
@@ -99,8 +98,10 @@
         </div>
       </fieldset>
 
-      <button type="submit" class="btn-concluir" [disabled]="form.invalid">Concluir</button>
+      <div class="button-container">
+        <button type="submit" class="btn-concluir" [disabled]="form.invalid">Concluir</button>
       </div>
+
     </form>
   </div>
 </div>
