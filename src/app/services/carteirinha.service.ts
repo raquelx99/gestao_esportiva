@@ -30,6 +30,7 @@ export class CarteirinhaService {
     }
 
     getCarteirinhaPorMatricula(matricula: string): Observable<Carteirinha> {
+      console.log(`Buscando carteirinha para matrícula: ${matricula}`);
     return this.http.get<Carteirinha>(`${this.apiUrl}/api/carteirinhas/matricula/${matricula}`);
     }
 
@@ -45,10 +46,10 @@ export class CarteirinhaService {
     }
 
     rejeitarCarteirinha(carteirinhaId: string): Observable<Carteirinha> {
-    return this.http.put<Carteirinha>(
-        `${this.apiUrl}/api/carteirinhas/rejeitar/${carteirinhaId}`, 
-        {}
-    );
+      return this.http.put<Carteirinha>(
+          `${this.apiUrl}/api/carteirinhas/rejeitar/${carteirinhaId}`, 
+          {}
+      );
     }
 
     getCarteirinhasPorStatus(status: string): Observable<Carteirinha[]> {
