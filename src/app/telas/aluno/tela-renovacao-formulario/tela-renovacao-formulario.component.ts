@@ -6,6 +6,7 @@ import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component'
 import { CarteiraDetalhes } from '../../../core/mocks/mock-carteiras';
 import { AuthService } from '../../../services/auth.service';
 import { CarteirinhaService } from '../../../services/carteirinha.service';
+import { switchMap } from 'rxjs/operators';
 
 type DadosRenovacaoForm = Partial<Omit<CarteiraDetalhes, 'espacosSolicitados' | 'email' | 'senha'>> & {
   espacoPiscina?: boolean;
@@ -103,7 +104,18 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
         espacosSelecionadosArray.forEach(e => formData.append('espacos', e));
         formData.append('foto', this.selectedFile!, this.selectedFile!.name);
 
-        this.carteirinhaService.renovarCarteirinha(this.dadosRenovacao.id!, formData).subscribe({
+        console.log('FormData preparado para renovação:', formData);
+
+        console.log('Dados no FormData:');
+          for (const pair of formData.entries()) {
+            console.log(pair[0], ':', pair[1]);
+        }
+
+        this.carteirinhaService.renovarCarteirinha(this.dadosRenovacao.id!, formData).pipe(
+              switchMap(() => {
+                return this.authService.refreshUserData(); 
+              })
+          ).subscribe({
           next: (novaCarteirinha) => {
             console.log('Renovação enviada:', novaCarteirinha);
             this.router.navigate(['/espera-validacao'], {
@@ -123,7 +135,6 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
       }
     });
   }
-
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
