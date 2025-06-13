@@ -15,7 +15,6 @@
       </div>
       <div class="espacos-list">
         <strong>Espaços:</strong>
-        <!-- CORREÇÃO: Usando um span para cada espaço para estilizar como pílula -->
         <span *ngFor="let espaco of espacosCarteirinha">{{ espaco }}</span>
       </div>
       <div class="rodape">
@@ -23,7 +22,7 @@
           <!-- Apenas um exemplo, ajuste se o formato for diferente -->
           {{ semestreInicioFormatted }}
         </div>
-        <div class="validade" [class.expirada]="isExpired">
+        <div class="validade">
           Validade: {{ validadeFormatted }}
         </div>
       </div>
