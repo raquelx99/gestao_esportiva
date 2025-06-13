@@ -7,8 +7,8 @@
     </header>
     <div class="resumo-lista">
       <a *ngFor="let carteira of primeirasCarteirasPendentes" [routerLink]="['/funcionario/validar-carteiras', carteira._id]" class="resumo-item">
-        <span>Nome: {{ carteira.estudante.user.nome }}</span>
-        <span>Data: {{ carteira.dataRequisicao }}</span>
+        <span>Nome: {{ carteira.estudante?.user?.nome || 'Nome não disponível' }}</span>
+        <span>Data: {{ carteira.dataRequisicao | date:'dd/MM/yyyy' }}</span>
       </a>
       <p *ngIf="!temCarteirasPendentes">Nenhuma requisição pendente no momento.</p>
     </div>
@@ -16,46 +16,50 @@
 
   <section class="resumo-card">
     <header class="resumo-header">
-      <h3>Horários</h3> <a routerLink="/funcionario/horarios" class="ver-todos-link">Ver Todos &rarr;</a>
+      <h3>Horários</h3>
+      <a routerLink="/funcionario/horarios" class="ver-todos-link">Ver Todos &rarr;</a>
     </header>
     <div class="resumo-lista-horarios">
-      <div *ngFor="let espaco of algunsEspacosHorarios" class="espaco-item-resumo" [class.expanded]="horariosResumoExpandidos[espaco.id]">
-        <div class="espaco-header-resumo" (click)="toggleHorarioResumo(espaco.id)">
-          <span class="espaco-nome-resumo">{{ espaco.nomeDisplay }}</span>
-          <button class="expand-button-resumo" aria-label="Ver horários">
+      <div *ngFor="let espaco of algunsEspacosResumo" class="espaco-item-resumo" [class.expanded]="espaco.isExpanded">
+        <div class="espaco-header-resumo" (click)="toggleHorarioResumo(espaco)">
+          <span class="espaco-nome-resumo">{{ espaco.nome }}</span> <button class="expand-button-resumo" aria-label="Ver horários">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>
           </button>
         </div>
-        <div class="espaco-detalhes-resumo" *ngIf="horariosResumoExpandidos[espaco.id]">
-          <div class="tabela-horarios-wrapper">
+
+        <div class="espaco-detalhes-resumo" *ngIf="espaco.isExpanded">
+          <div *ngIf="espaco.estaCarregando" class="feedback-carregando">
+            <p>Carregando horários...</p>
+          </div>
+
+          <div *ngIf="!espaco.estaCarregando && espaco.disponibilidades" class="tabela-horarios-wrapper">
             <table>
               <thead>
                 <tr>
-                  <th *ngFor="let dia of diasDaSemanaCabecalho">{{ dia }}</th>
+                  <th>Horário</th>
+                  <th *ngFor="let dia of diasDaSemanaCabecalho">{{ dia.nome }}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td *ngFor="let diaNome of diasDaSemanaCabecalho">
-                    <ng-container *ngFor="let diaData of espaco.horarios">
-                                          <div *ngIf="diaData.nome === diaNome">
-                        <div *ngFor="let slot of diaData.slots" class="slot-horario-resumo">
-                                          <strong>{{ slot.hora }}</strong> - {{ slot.status }}
-                        </div>
-                        <div *ngIf="diaData.slots.length === 0" class="slot-horario-resumo">
-                          <em>Nenhum horário</em>
-                        </div>
-                      </div>
-                    </ng-container>
-                  </td>
-                </tr>
+                <ng-container *ngFor="let periodo of slotsFixosPorPeriodo">
+                  <tr class="periodo-header-row">
+                    <td [attr.colspan]="diasDaSemanaCabecalho.length + 1">{{ periodo.periodo }}</td>
+                  </tr>
+                  <tr *ngFor="let slotFixo of periodo.slots">
+                    <td>{{ slotFixo.bloco }} ({{ slotFixo.descricao }})</td>
+                    <td *ngFor="let dia of diasDaSemanaCabecalho"
+                        [ngClass]="{
+                          'slot-livre': getStatusSlot(espaco, dia.numero, slotFixo.descricao).status === 'Livre',
+                          'slot-vazio': getStatusSlot(espaco, dia.numero, slotFixo.descricao).status === ' '
+                        }">
+                      {{ getStatusSlot(espaco, dia.numero, slotFixo.descricao).status }}
+                    </td>
+                  </tr>
+                </ng-container>
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-      <p *ngIf="!temHorariosResumo">Nenhum horário para exibir no resumo.</p>
+        </div> </div> <p *ngIf="!temHorariosResumo">Nenhum horário para exibir no resumo.</p>
     </div>
   </section>
-
 </div>

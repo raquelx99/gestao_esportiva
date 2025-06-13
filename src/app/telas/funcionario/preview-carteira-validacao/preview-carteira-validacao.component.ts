@@ -61,9 +61,9 @@ export class PreviewCarteiraValidacaoComponent implements OnInit {
   }
 
   aprovarCarteira(): void {
-    console.log(`Carteira ${this.carteiraId} APROVADA`, this.dadosCarteira);
     this.carteirinhaService.aprovarCarteirinha(this.carteiraId!).subscribe({
       next: () => {
+      console.log(`Carteira ${this.carteiraId} APROVADA`, this.dadosCarteira);  
       this.router.navigate(['/funcionario/validacao-resultado']);
       },
       error: (err) => {

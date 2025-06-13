@@ -10,14 +10,14 @@ import { TopBarComponent }              from '../../componentes/top-bar/top-bar.
 import { AuthService }                  from '../../services/auth.service';
 import {
   HorarioService,
-  Disponibilidade
-} from '../../services/horarioService';
+  } from '../../services/horarioService';
 import { CarteirinhaService }           from '../../services/carteirinha.service';
 import { LocalService }          from '../../services/localService';
 
 import { Estudante }    from '../../entity/Estudante';
 import { Carteirinha }  from '../../entity/Carteirinha';
 import { Local }  from '../../entity/Local';
+import { Disponibilidade } from '../../entity/Disponibilidade';
 
 interface HorarioAgrupado {
   hora: string;

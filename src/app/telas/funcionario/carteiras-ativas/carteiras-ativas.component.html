@@ -16,7 +16,7 @@
       <div *ngFor="let carteira of carteirasFiltradas" class="carteira-item" [class.expanded]="carteira.isExpanded">
         <div class="item-header" (click)="toggleDetalhes(carteira)">
           <div class="info-principal">
-            <span class="nome">Nome: {{ carteira.nome }}</span>
+            <span class="nome">Nome: {{ carteira.estudante.user.nome }}</span>
             <span class="validade">Data de validade: {{ carteira.validade }}</span>
           </div>
           <button class="expand-button" aria-label="Ver detalhes">
@@ -31,12 +31,12 @@
             <section class="card carteirinha-preview-card">
               <h2>Carteira de Acesso</h2>
               <div class="info-grid-carteira">
-                <div><strong>Nome</strong><span>{{ carteira.nome }}</span></div>
-                <div><strong>Matrícula</strong><span>{{ carteira.matricula }}</span></div>
-                <div><strong>Curso</strong><span>{{ carteira.curso }}</span></div>
-                <div><strong>Centro</strong><span>{{ carteira.centro }}</span></div>
-                <div><strong>Telefone</strong><span>{{ carteira.telefone }}</span></div>
-                <div><strong>Telefone urgência</strong><span>{{ carteira.contatoEmergenciaTel }}</span></div>
+                <div><strong>Nome</strong><span>{{ carteira.estudante.user.nome }}</span></div>
+                <div><strong>Matrícula</strong><span>{{ carteira.estudante.user.matricula }}</span></div>
+                <div><strong>Curso</strong><span>{{ carteira.estudante.curso }}</span></div>
+                <div><strong>Centro</strong><span>{{ carteira.estudante.centro }}</span></div>
+                <div><strong>Telefone</strong><span>{{ carteira.estudante.telefone }}</span></div>
+                <div><strong>Telefone urgência</strong><span>{{ carteira.estudante.telefoneUrgencia }}</span></div>
               </div>
               <div class="espacos-list-carteira">
                 <strong>Espaços:</strong>
@@ -47,7 +47,7 @@
               </div>
               </div>
               <div class="rodape-carteira">
-                <div class="semestre-carteira">{{ carteira.emissaoDetalhes }}</div>
+                <div class="semestre-carteira">{{ carteira.dataRequisicao }}</div>
                 <div class="validade-carteira">Validade: {{ carteira.validade }}</div>
               </div>
             </section>
@@ -59,6 +59,5 @@
         <p>Nenhuma carteira ativa encontrada com o termo buscado.</p>
       </div>
     </div>
-
   </div>
 </div>

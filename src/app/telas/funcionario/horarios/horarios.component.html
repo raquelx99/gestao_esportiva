@@ -15,7 +15,7 @@
     <div class="lista-espacos">
       <div *ngFor="let espaco of espacosFiltrados" class="espaco-item" [class.expanded]="espaco.isExpanded">
         <div class="espaco-header" (click)="toggleDetalhesEspaco(espaco)">
-          <span class="espaco-nome">{{ espaco.nomeDisplay }}</span>
+          <span class="espaco-nome">{{ espaco.nome}}</span>
           <button class="expand-button" aria-label="Ver horários">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
               <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
@@ -37,15 +37,13 @@
                     <td [attr.colspan]="diasDaSemanaCabecalho.length + 1">{{ periodo.periodo }}</td>
                   </tr>
                   <tr *ngFor="let slotFixo of periodo.slots">
-                    <td>{{ slotFixo.bloco }} ({{ slotFixo.descricao }})</td> <td *ngFor="let diaNome of diasDaSemanaCabecalho"
+                    <td *ngFor="let dia of diasDaSemanaCabecalho"
                         [ngClass]="{
-                          'slot-livre': getStatusSlot(espaco, diaNome, slotFixo) === 'Livre' || getStatusSlot(espaco, diaNome, slotFixo) === 'Disponível',
-                          'slot-ocupado': getStatusSlot(espaco, diaNome, slotFixo) !== 'Livre' && getStatusSlot(espaco, diaNome, slotFixo) !== 'Disponível' && getStatusSlot(espaco, diaNome, slotFixo) !== ' ',
-                          'slot-vazio': getStatusSlot(espaco, diaNome, slotFixo) === ' ',
-                          'celula-editavel': espaco.isEditing
+                          'slot-livre': getStatusSlot(espaco, dia.numero, slotFixo.descricao).status === 'Livre',
+                          'slot-ocupado': getStatusSlot(espaco, dia.numero, slotFixo.descricao).status !== 'Livre' && getStatusSlot(espaco, dia.numero, slotFixo.descricao).status !== ' ',
+                          'slot-vazio': getStatusSlot(espaco, dia.numero, slotFixo.descricao).status === ' '
                         }"
-                        (click)="atualizarStatusSlot(espaco, diaNome, slotFixo)">
-                      {{ getStatusSlot(espaco, diaNome, slotFixo) }}
+                        (click)="atualizarStatusSlot(espaco, dia.numero, slotFixo)"> {{ getStatusSlot(espaco, dia.numero, slotFixo.descricao).status }}
                     </td>
                   </tr>
                 </ng-container>

@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
 import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component';
 import { AuthService } from '../../../services/auth.service';
 import { LocalService } from '../../../services/localService';
-import { HorarioService, Disponibilidade } from '../../../services/horarioService';
+import { HorarioService } from '../../../services/horarioService';
+import { Disponibilidade } from '../../../entity/Disponibilidade';
 
 interface SlotFixo {
   id: string;
@@ -69,7 +70,6 @@ export class TelaHorariosAlunoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 1) Verifica usuário logado
     const usuarioLogado = this.authService.usuarioLogado;
     if (!usuarioLogado || usuarioLogado.usuario.role !== 'estudante') {
       this.router.navigate(['/boas-vindas']);

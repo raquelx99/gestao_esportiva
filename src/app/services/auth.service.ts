@@ -45,4 +45,13 @@ export class AuthService {
     return this.usuarioLogado?.carteirinha?.liberadoPosValidacao || false;
   }
 
+  getToken(): string | null {
+    const usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      const parsedUsuario = JSON.parse(usuario);
+      return parsedUsuario?.token || null;
+    }
+    return null;
+  }
+
 }

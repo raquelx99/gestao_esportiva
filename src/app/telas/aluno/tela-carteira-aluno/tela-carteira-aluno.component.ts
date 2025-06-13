@@ -18,7 +18,6 @@ import { Carteirinha }       from '../../../entity/Carteirinha';
 })
 export class TelaCarteiraAlunoComponent implements OnInit {
 
-  // Campos para exibição
   usuarioNome!: string;
   matricula!: string;
   curso!: string;
@@ -29,7 +28,6 @@ export class TelaCarteiraAlunoComponent implements OnInit {
   semestreInicioFormatted!: string;
   validadeFormatted!: string;
 
-  // Status de expiração, vindo do backend
   isExpired: boolean = false;
 
   constructor(
@@ -41,20 +39,16 @@ export class TelaCarteiraAlunoComponent implements OnInit {
   ngOnInit(): void {
     const usuarioLogado = this.authService.usuarioLogado;
     if (!usuarioLogado) {
-      // não está logado
       this.router.navigate(['/boas-vindas']);
       return;
     }
 
     const perfil = usuarioLogado.perfil;
     if (!perfil || perfil.tipo !== 'estudante' || !perfil.dados) {
-      // não é estudante ou dados faltando
       this.router.navigate(['/boas-vindas']);
       return;
     }
 
-    // Pega ID do estudante a partir do objeto populado em usuarioLogado (assumindo que login retornou carteirinha populada)
-    // Se no AuthService você guardou `usuarioLogado.carteirinha.estudante._id`, use essa informação:
     const estudanteId = usuarioLogado.carteirinha?.estudante?._id;
     if (!estudanteId) {
       console.error('ID do estudante não encontrado em memória.');
@@ -62,11 +56,9 @@ export class TelaCarteiraAlunoComponent implements OnInit {
       return;
     }
 
-    // Busca a carteirinha atualizada do backend
     this.carteirinhaService.getCarteirinhaPorEstudante(estudanteId).subscribe({
       next: (carteirinha: Carteirinha) => {
         if (!carteirinha) {
-          // sem carteirinha, redireciona para cadastro/fluxo
           this.router.navigate(['/cadastro']);
           return;
         }
@@ -74,7 +66,6 @@ export class TelaCarteiraAlunoComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao buscar carteirinha:', err);
-        // redireciona ou mostrar mensagem
         this.router.navigate(['/cadastro']);
       }
     });
@@ -84,7 +75,6 @@ export class TelaCarteiraAlunoComponent implements OnInit {
     const estudante = carteirinha.estudante;
     const usuarioLogado = this.authService.usuarioLogado;
 
-    // Preenche campos de exibição:
     this.usuarioNome = estudante.user.nome;
     this.matricula = usuarioLogado.user.matricula;
     this.curso = estudante.curso;

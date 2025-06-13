@@ -51,4 +51,8 @@ export class CarteirinhaService {
     );
     }
 
+    getCarteirinhasPorStatus(status: string): Observable<Carteirinha[]> {
+        return this.http.get<Carteirinha[]>(`${this.apiUrl}/api/carteirinhas/status/${status}`);
+    }
+
 }
