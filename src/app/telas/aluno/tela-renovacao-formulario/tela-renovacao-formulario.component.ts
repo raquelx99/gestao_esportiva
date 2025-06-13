@@ -5,10 +5,7 @@ import { Router } from '@angular/router';
 import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component';
 import { CarteirinhaService } from '../../../services/carteirinha.service';
 import { AuthService } from '../../../services/auth.service';
-// Adicione as entidades que você precisa
-import { Carteirinha } from '../../../entity/Carteirinha';
 
-// Mantenha o tipo que já tínhamos para os dados do formulário
 type DadosRenovacaoForm = {
   id?: string;
   nome?: string;
