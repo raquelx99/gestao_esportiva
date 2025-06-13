@@ -79,7 +79,6 @@ export class TelaCarteiraAlunoComponent implements OnInit {
 
   private preencherTelaComCarteirinha(carteirinha: Carteirinha) {
     const estudante = carteirinha.estudante;
-    const usuarioLogado = this.authService.usuarioLogado;
 
     this.usuarioNome = estudante.user.nome;
     this.matricula = estudante.user.matricula;

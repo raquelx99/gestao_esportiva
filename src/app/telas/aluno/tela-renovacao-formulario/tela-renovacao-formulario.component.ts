@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TopBarComponent } from '../../../componentes/top-bar/top-bar.component';
-import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras';
+import { CarteiraDetalhes } from '../../../core/mocks/mock-carteiras';
+import { AuthService } from '../../../services/auth.service';
+import { CarteirinhaService } from '../../../services/carteirinha.service';
 
 type DadosRenovacaoForm = Partial<Omit<CarteiraDetalhes, 'espacosSolicitados' | 'email' | 'senha'>> & {
   espacoPiscina?: boolean;
@@ -25,24 +27,37 @@ type DadosRenovacaoForm = Partial<Omit<CarteiraDetalhes, 'espacosSolicitados' | 
 
 export class TelaRenovacaoFormularioComponent implements OnInit {
   dadosRenovacao: DadosRenovacaoForm = {};
+  selectedFile: File | null = null;
+  selectedFileName: string = '';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private carteirinhaService: CarteirinhaService
+  ) {}
 
   ngOnInit(): void {
-    if (MOCK_CARTEIRAS.length > 0) {
-      const dadosAtuais = MOCK_CARTEIRAS[0];
+  const usuarioLogado = this.authService.usuarioLogado;
 
+  if (!usuarioLogado || !usuarioLogado.matricula) {
+    console.error("Usuário não está logado ou matrícula indisponível.");
+    return;
+  }
+
+  const matricula = usuarioLogado.usuario.matricula;
+
+  this.carteirinhaService.getCarteirinhaPorMatricula(matricula).subscribe({
+    next: (carteirinha) => {
       this.dadosRenovacao = {
-        nome: dadosAtuais.nome,
-        matricula: dadosAtuais.matricula,
-        curso: dadosAtuais.curso,
-        centro: dadosAtuais.centro,
-        telefone: dadosAtuais.telefone,
-        contatoEmergenciaNome: dadosAtuais.contatoEmergenciaNome,
-        contatoEmergenciaTel: dadosAtuais.contatoEmergenciaTel,
+        nome: carteirinha.estudante.user.nome,
+        matricula: carteirinha.estudante.user.matricula,
+        curso: carteirinha.estudante.curso,
+        centro: carteirinha.estudante.centro,
+        telefone: carteirinha.estudante.telefone,
+        telefoneUrgencia: carteirinha.estudante.telefoneUrgencia,
       };
 
-      const espacosAtuaisStr = dadosAtuais.espacosSolicitados?.toLowerCase() || '';
+      const espacosAtuaisStr = (carteirinha.espacos || []).join(', ').toLowerCase();
       this.dadosRenovacao.espacoPiscina = espacosAtuaisStr.includes('piscina');
       this.dadosRenovacao.espacoQuadra = espacosAtuaisStr.includes('quadra');
       this.dadosRenovacao.espacoSociety = espacosAtuaisStr.includes('campo society');
@@ -50,11 +65,13 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
       this.dadosRenovacao.espacoAreia = espacosAtuaisStr.includes('quadra de areia');
       this.dadosRenovacao.espacoAtletismo = espacosAtuaisStr.includes('pista de atletismo');
 
-      console.log('Dados carregados para formulário de renovação:', this.dadosRenovacao);
-    } else {
-      console.error("Mock de carteiras não encontrado para TelaRenovacaoFormulario.");
+      console.log('Dados carregados do backend para formulário de renovação:', this.dadosRenovacao);
+    },
+    error: (err) => {
+      console.error('Erro ao buscar dados da carteirinha para renovação:', err);
     }
-  }
+  });
+}
 
   onSubmitRenovacao(): void {
     const espacosSelecionadosArray: string[] = [];
@@ -67,13 +84,48 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
 
     this.dadosRenovacao.espacosSolicitados = espacosSelecionadosArray.join(', ');
 
-    console.log('Formulário de renovação enviado:', this.dadosRenovacao);
-    this.router.navigate(['/espera-validacao'], { state: { mensagem: 'Sua solicitação de renovação com dados atualizados foi enviada e está em análise.', origem: 'renovacao_atualizada' } });
+    if (!this.selectedFile) {
+      console.error('Erro: nenhuma nova foto foi selecionada.');
+      return;
+    }
+
+    // Obtem ID do estudante pela matrícula
+    this.authService.getEstudantePorMatricula(this.dadosRenovacao.matricula!).subscribe({
+      next: (estudante) => {
+        const estudanteId = estudante._id;
+
+        const formData = new FormData();
+        formData.append('estudanteId', estudanteId);
+        espacosSelecionadosArray.forEach(e => formData.append('espacos', e));
+        formData.append('foto', this.selectedFile!, this.selectedFile!.name);
+
+        this.carteirinhaService.criarCarteirinha(formData).subscribe({
+          next: (novaCarteirinha) => {
+            console.log('Renovação enviada:', novaCarteirinha);
+            this.router.navigate(['/espera-validacao'], {
+              state: {
+                mensagem: 'Sua solicitação de renovação com dados atualizados foi enviada e está em análise.',
+                origem: 'renovacao_atualizada'
+              }
+            });
+          },
+          error: (err) => {
+            console.error('Erro ao enviar renovação:', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Erro ao buscar estudante pela matrícula:', err);
+      }
+    });
   }
+
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
+      this.selectedFile = file;
+      this.selectedFileName = file.name;
       console.log('Arquivo selecionado para renovação:', file.name);
     }
   }

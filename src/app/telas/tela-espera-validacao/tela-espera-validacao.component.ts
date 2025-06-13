@@ -44,7 +44,7 @@ export class TelaEsperaValidacaoComponent implements OnInit {
     if (carteirinha.status === 'pendente') {
       this.status = 'pending';
     }
-    else if (carteirinha.status === 'aprovado') {
+    else if (carteirinha.status === 'aprovado' || carteirinha.status === 'expirado') {
       if (this.liberadoPosValidacao) {
         this.router.navigate(['/visao-geral']);
         return;

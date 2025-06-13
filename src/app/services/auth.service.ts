@@ -45,6 +45,10 @@ export class AuthService {
     return this.usuarioLogado?.carteirinha?.liberadoPosValidacao || false;
   }
 
+  getEstudantePorMatricula(matricula: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/estudantes/matricula/${matricula}`) 
+  }
+
   getToken(): string | null {
     const usuario = localStorage.getItem('usuario');
     if (usuario) {
