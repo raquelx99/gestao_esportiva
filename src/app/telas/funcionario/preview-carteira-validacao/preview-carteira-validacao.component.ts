@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CarteiraDetalhes, MOCK_CARTEIRAS } from '../../../core/mocks/mock-carteiras';
+import { CarteiraDetalhes } from '../../../core/mocks/mock-carteiras';
 import { Carteirinha } from '../../../entity/Carteirinha';
 import { AuthService } from '../../../services/auth.service';
 import { CarteirinhaService } from '../../../services/carteirinha.service';

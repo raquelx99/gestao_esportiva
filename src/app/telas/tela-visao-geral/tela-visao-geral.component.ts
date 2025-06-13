@@ -56,7 +56,6 @@ export class TelaVisaoGeralComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-  
     const usuarioLogado = this.authService.usuarioLogado;
     if (!usuarioLogado) {
       this.router.navigate(['/boas-vindas']);
@@ -69,8 +68,7 @@ export class TelaVisaoGeralComponent implements OnInit {
       return;
     }
 
-    const estudanteEmMemoria = usuarioLogado.carteirinha.estudante._id//perfil.dados as Estudante & { _id: string };
-
+    const estudanteEmMemoria = usuarioLogado.carteirinha.estudante._id;
 
     this.carteirinhaService
       .getCarteirinhaPorEstudante(estudanteEmMemoria)
@@ -81,10 +79,13 @@ export class TelaVisaoGeralComponent implements OnInit {
             this.router.navigate(['/cadastro']);
             return;
           }
-
+          if (carteirinha.status === 'pendente') {
+            this.router.navigate(['/espera-validacao']);
+            return;
+          }
           this.preencherTelaComCarteirinha(carteirinha);
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Erro ao buscar carteirinha:', err);
           this.router.navigate(['/cadastro']);
         }

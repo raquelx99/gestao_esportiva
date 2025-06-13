@@ -56,4 +56,8 @@ export class CarteirinhaService {
         return this.http.get<Carteirinha[]>(`${this.apiUrl}/api/carteirinhas/status/${status}`);
     }
 
+    renovarCarteirinha(carteirinhaId: string, formData: FormData): Observable<any> {
+      return this.http.put(`${this.apiUrl}/api/carteirinhas/renovar/${carteirinhaId}`, formData);
+    }
+
 }

@@ -18,21 +18,21 @@
       <ng-container *ngIf="dadosCarteiraAtual; else carregandoDados">
         <section class="card-preview-renovacao">
           <div class="info-grid">
-            <div><strong>Nome</strong><span>{{ dadosCarteiraAtual.nome }}</span></div>
-            <div><strong>Matrícula</strong><span>{{ dadosCarteiraAtual.matricula }}</span></div>
-            <div><strong>Curso</strong><span>{{ dadosCarteiraAtual.curso }}</span></div>
-            <div><strong>Centro</strong><span>{{ dadosCarteiraAtual.centro }}</span></div>
-            <div><strong>Telefone</strong><span>{{ dadosCarteiraAtual.telefone }}</span></div>
-            <div><strong>Telefone urgência</strong><span>{{ dadosCarteiraAtual.contatoEmergenciaTel }}</span></div>
+            <div><strong>Nome</strong><span>{{ dadosCarteiraAtual.estudante.user.nome }}</span></div>
+            <div><strong>Matrícula</strong><span>{{ dadosCarteiraAtual.estudante.user.matricula }}</span></div>
+            <div><strong>Curso</strong><span>{{ dadosCarteiraAtual.estudante.curso }}</span></div>
+            <div><strong>Centro</strong><span>{{ dadosCarteiraAtual.estudante.centro }}</span></div>
+            <div><strong>Telefone</strong><span>{{ dadosCarteiraAtual.estudante.telefone }}</span></div>
+            <div><strong>Telefone urgência</strong><span>{{ dadosCarteiraAtual.estudante.telefoneUrgencia }}</span></div>
           </div>
 
           <div class="espacos-info">
             <strong>Espaços Autorizados:</strong>
-            <p>{{ dadosCarteiraAtual.espacosSolicitados || 'Nenhum espaço especificado' }}</p>
+            <p>{{ dadosCarteiraAtual.espacos|| 'Nenhum espaço especificado' }}</p>
           </div>
 
           <div class="rodape-carteira">
-            <div class="emissao-info">{{ dadosCarteiraAtual.emissaoDetalhes }}</div>
+            <div class="emissao-info">{{ dadosCarteiraAtual.dataRequisicao }}</div>
             <div class="validade-info"> <strong>Validade:</strong> {{ dadosCarteiraAtual.validade }}
             </div>
           </div>
