@@ -8,6 +8,7 @@ import { TopBarComponent }   from '../../../componentes/top-bar/top-bar.componen
 import { AuthService }       from '../../../services/auth.service';
 import { CarteirinhaService } from '../../../services/carteirinha.service';
 import { Carteirinha }       from '../../../entity/Carteirinha';
+import { encapsulateStyle } from '@angular/compiler';
 
 @Component({
   selector: 'app-tela-carteira-aluno',
@@ -37,11 +38,14 @@ export class TelaCarteiraAlunoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     const usuarioLogado = this.authService.usuarioLogado;
     if (!usuarioLogado) {
       this.router.navigate(['/boas-vindas']);
       return;
     }
+
+    console.log(usuarioLogado);
 
     const perfil = usuarioLogado.perfil;
     if (!perfil || perfil.tipo !== 'estudante' || !perfil.dados) {
@@ -49,19 +53,21 @@ export class TelaCarteiraAlunoComponent implements OnInit {
       return;
     }
 
-    const estudanteId = usuarioLogado.carteirinha?.estudante?._id;
-    if (!estudanteId) {
-      console.error('ID do estudante não encontrado em memória.');
+    const matricula = usuarioLogado.usuario.matricula;
+    console.log('Matrícula do usuário logado:', matricula);
+    if (!matricula) {
+      console.error('matricula não encontrada em memória.');
       this.router.navigate(['/cadastro']);
       return;
     }
 
-    this.carteirinhaService.getCarteirinhaPorEstudante(estudanteId).subscribe({
+    this.carteirinhaService.getCarteirinhaPorMatricula(matricula).subscribe({
       next: (carteirinha: Carteirinha) => {
         if (!carteirinha) {
           this.router.navigate(['/cadastro']);
           return;
         }
+        console.log('Carteirinha encontrada:', carteirinha);
         this.preencherTelaComCarteirinha(carteirinha);
       },
       error: (err) => {
@@ -76,7 +82,7 @@ export class TelaCarteiraAlunoComponent implements OnInit {
     const usuarioLogado = this.authService.usuarioLogado;
 
     this.usuarioNome = estudante.user.nome;
-    this.matricula = usuarioLogado.user.matricula;
+    this.matricula = estudante.user.matricula;
     this.curso = estudante.curso;
     this.centro = estudante.centro;
     this.telefone = estudante.telefone;

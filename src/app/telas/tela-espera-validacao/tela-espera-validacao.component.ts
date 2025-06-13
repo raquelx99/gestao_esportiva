@@ -44,20 +44,20 @@ export class TelaEsperaValidacaoComponent implements OnInit {
     if (carteirinha.status === 'pendente') {
       this.status = 'pending';
     }
-    else if (carteirinha.status === 'aprovada') {
+    else if (carteirinha.status === 'aprovado') {
       if (this.liberadoPosValidacao) {
         this.router.navigate(['/visao-geral']);
         return;
       }
       this.status = 'approved';
     }
-    else if (carteirinha.status === 'rejeitada') {
+    else if (carteirinha.status === 'rejeitado') {
       this.status = 'rejected';
     }
   }
 
   onAdvance() {
-    const estudanteId = this.authService.usuarioLogado.perfil.dados._id;
+    const estudanteId = this.authService.usuarioLogado.carteirinha.estudante._id;
     if (!estudanteId) {
       console.error('ID do estudante não encontrado.');
       return;
