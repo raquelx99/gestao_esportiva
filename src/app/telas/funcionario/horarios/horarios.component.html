@@ -13,7 +13,7 @@
     </header>
 
     <div class="lista-espacos">
-      <div *ngFor="let espaco of espacosFiltrados" class="espaco-item" [class.expanded]="espaco.isExpanded">
+      <div *ngFor="let espaco of espacosFiltrados; trackBy: trackByEspacoId" class="espaco-item" [class.expanded]="espaco.isExpanded">
         <div class="espaco-header" (click)="toggleDetalhesEspaco(espaco)">
           <span class="espaco-nome">{{ espaco.nome }}</span>
           <button class="expand-button" aria-label="Ver horários">
@@ -46,19 +46,29 @@
                           'slot-vazio': getStatusSlot(espaco, dia.numero, slotFixo.descricao).status === ' ',
                           'celula-editavel': espaco.isEditing
                         }"
-                        (click)="atualizarStatusSlot(espaco, dia.numero, slotFixo)">
+                        (click)="atualizarStatusSlotLocalmente(espaco, dia.numero, slotFixo)">
                       {{ getStatusSlot(espaco, dia.numero, slotFixo.descricao).status }}
                     </td>
                   </tr>
                 </ng-container>
               </tbody>
             </table>
-            <button class="edit-button" aria-label="Editar horários" (click)="toggleModoEdicao(espaco)">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
-              </svg>
-              {{ espaco.isEditing ? 'Concluir Edição' : 'Editar Horários' }}
-            </button>
+
+            <div class="botoes-edicao">
+              <button
+                class="edit-button"
+                [ngClass]="{ 'save-button-style': espaco.isEditing, 'edit-button-style': !espaco.isEditing }"
+                [attr.aria-label]="espaco.isEditing ? 'Concluir edição' : 'Editar horários'"
+                (click)="espaco.isEditing ? concluirEdicao(espaco) : entrarModoEdicao(espaco)">
+                
+                <svg *ngIf="!espaco.isEditing" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+                </svg>
+                
+                {{ espaco.isEditing ? 'Concluir Edição' : 'Editar Horários' }}
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
