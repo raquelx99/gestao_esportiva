@@ -1,5 +1,7 @@
-<app-top-bar></app-top-bar> <div class="tela-renovacao-formulario">
-  <div class="renovacao-card"> <div class="logo-titulo">
+<app-top-bar></app-top-bar>
+<div class="tela-renovacao-formulario">
+  <div class="renovacao-card">
+    <div class="logo-titulo">
       <img src="/logo.png" alt="Logo Gestão Esportiva" class="logo" />
       <h1>GestãoEsportiva</h1>
     </div>
@@ -15,24 +17,23 @@
         </div>
         <div class="form-group">
           <label for="matricula">Matrícula</label>
-          <input id="matricula" name="matricula" type="text" [(ngModel)]="dadosRenovacao.matricula" />
+          <input id="matricula" name="matricula" type="text" [(ngModel)]="dadosRenovacao.matricula" [disabled]="true" />
         </div>
 
         <div class="form-group">
           <label for="centro">Centro</label>
-          <select id="centro" name="centro" [(ngModel)]="dadosRenovacao.centro" required>
-            <option value="">Selecione</option>
-            <option value="CCG">CCG</option> <option value="CCT">CCT</option>
-            <option value="CCJ">CCJ</option>
-            </select>
+          <select id="centro" name="centro" [(ngModel)]="dadosRenovacao.centro" (ngModelChange)="onCentroChange($event)" required>
+            <option value="" disabled>Selecione um centro</option>
+            <option *ngFor="let centroOpt of centros" [value]="centroOpt">{{ centroOpt }}</option>
+          </select>
         </div>
+
         <div class="form-group">
           <label for="curso">Curso</label>
-          <select id="curso" name="curso" [(ngModel)]="dadosRenovacao.curso" required>
-            <option value="">Selecione</option>
-            <option value="Comércio Exterior">Comércio Exterior</option> <option value="Engenharia de Software">Engenharia de Software</option>
-            <option value="Direito">Direito</option>
-            </select>
+          <select id="curso" name="curso" [(ngModel)]="dadosRenovacao.curso" [disabled]="!availableCursos || availableCursos.length === 0" required>
+            <option value="" disabled>Selecione um curso</option>
+            <option *ngFor="let c of availableCursos" [value]="c">{{ c }}</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -41,51 +42,37 @@
         </div>
         
         <div class="form-group upload-group">
-          <label>Nova Foto de documento de identificação (opcional)</label>
+          <label>Nova Foto do Aluno (obrigatório para renovação)</label>
           <div class="upload-box">
-            <input type="file" id="docUploadRenovacao" name="docUploadRenovacao" hidden (change)="onFileSelected($event)" />
+            <input type="file" id="docUploadRenovacao" name="docUploadRenovacao" hidden (change)="onFileSelected($event)" accept="image/*" required />
             <label for="docUploadRenovacao" class="upload-label">
               <span class="icon">⭳</span>
-              <span class="text">Anexar nova foto</span>
+              <span class="text">{{ selectedFileName || 'Anexar nova foto' }}</span>
             </label>
           </div>
-          </div>
+        </div>
       </div>
 
       <div class="grid-2">
         <div class="form-group">
-          <label for="contatoEmergenciaTel">Telefone do contato</label>
+          <label for="contatoEmergenciaTel">Telefone do contato de emergência</label>
           <input id="contatoEmergenciaTel" name="contatoEmergenciaTel" type="tel" [(ngModel)]="dadosRenovacao.telefoneUrgencia" required />
         </div>
-      </div>
+        </div>
 
       <fieldset class="espacos-group">
         <legend>Espaços que serão utilizados (confirme ou atualize)</legend>
         <div class="checkbox-group">
-          <label>
-            <input type="checkbox" name="espacoPiscina" [(ngModel)]="dadosRenovacao.espacoPiscina" /> Piscina
-          </label>
-          <label>
-            <input type="checkbox" name="espacoQuadra" [(ngModel)]="dadosRenovacao.espacoQuadra" /> Quadra
-          </label>
-          <label>
-             <input type="checkbox" name="espacoSociety" [(ngModel)]="dadosRenovacao.espacoSociety" /> Campo Society
-          </label>
-          <label>
-            <input type="checkbox" name="espacoTenis" [(ngModel)]="dadosRenovacao.espacoTenis" /> Quadra de Tênis
-          </label>
-          <label>
-            <input type="checkbox" name="espacoAreia" [(ngModel)]="dadosRenovacao.espacoAreia" /> Quadra de Areia
-          </label>
-          <label>
-            <input type="checkbox" name="espacoAtletismo" [(ngModel)]="dadosRenovacao.espacoAtletismo" /> Pista de Atletismo
-          </label>
+          <label><input type="checkbox" name="espacoPiscina" [(ngModel)]="dadosRenovacao.espacoPiscina" /> Piscina</label>
+          <label><input type="checkbox" name="espacoQuadra" [(ngModel)]="dadosRenovacao.espacoQuadra" /> Quadra</label>
+          <label><input type="checkbox" name="espacoSociety" [(ngModel)]="dadosRenovacao.espacoSociety" /> Campo Society</label>
+          <label><input type="checkbox" name="espacoTenis" [(ngModel)]="dadosRenovacao.espacoTenis" /> Quadra de Tênis</label>
+          <label><input type="checkbox" name="espacoAreia" [(ngModel)]="dadosRenovacao.espacoAreia" /> Quadra de Areia</label>
+          <label><input type="checkbox" name="espacoAtletismo" [(ngModel)]="dadosRenovacao.espacoAtletismo" /> Pista de Atletismo</label>
         </div>
       </fieldset>
 
-      <button type="submit" class="btn-concluir-renovacao" [disabled]="formRenovacao.invalid">
-        Concluir Renovação
-      </button>
+      <button type="submit" class="btn-concluir-renovacao" [disabled]="formRenovacao.invalid">Concluir Renovação</button>
     </form>
   </div>
 </div>
