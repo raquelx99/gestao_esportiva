@@ -5,7 +5,6 @@
 
     <section class="card carteirinha-card">
       <h2>Carteira de acesso</h2>
-
       <div class="info-grid">
         <div><strong>Nome</strong><span>{{ usuarioNome }}</span></div>
         <div><strong>Matrícula</strong><span>{{ matricula }}</span></div>
@@ -14,19 +13,17 @@
         <div><strong>Telefone</strong><span>{{ telefone }}</span></div>
         <div><strong>Telefone urgência</strong><span>{{ telefoneUrgencia }}</span></div>
       </div>
-
       <div class="espacos-list">
         <strong>Espaços:</strong>
-        <span *ngFor="let espaco of espacosCarteirinha">
-          {{ espaco }}
-        </span>
+        <!-- CORREÇÃO: Usando um span para cada espaço para estilizar como pílula -->
+        <span *ngFor="let espaco of espacosCarteirinha">{{ espaco }}</span>
       </div>
-
       <div class="rodape">
         <div class="semestre">
-          1° Semestre – {{ semestreInicioFormatted }}
+          <!-- Apenas um exemplo, ajuste se o formato for diferente -->
+          {{ semestreInicioFormatted }}
         </div>
-        <div class="validade">
+        <div class="validade" [class.expirada]="isExpired">
           Validade: {{ validadeFormatted }}
         </div>
       </div>
@@ -34,23 +31,21 @@
 
     <section class="card horarios-card">
       <h2>Horários Livres</h2>
-
       <div class="dia">
         {{ nomeDoDiaAtual | titlecase }}
       </div>
-
       <table *ngIf="horariosAgrupados.length > 0; else semHorarios">
         <thead>
           <tr><th>Hora</th><th>Espaços</th></tr>
         </thead>
         <tbody>
+          <!-- CORREÇÃO: Exibindo linha.intervalo em vez de linha.hora -->
           <tr *ngFor="let linha of horariosAgrupados">
-            <td>{{ linha.hora }}</td>
+            <td>{{ linha.intervalo }}</td>
             <td>{{ linha.espacos.join(', ') }}</td>
           </tr>
         </tbody>
       </table>
-
       <ng-template #semHorarios>
         <p class="no-data">Nenhum horário livre encontrado para hoje.</p>
       </ng-template>
