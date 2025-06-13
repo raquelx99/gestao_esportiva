@@ -1,8 +1,9 @@
 // src/app/services/auth.service.ts
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, tap }      from 'rxjs';
+import { Observable, of, tap }      from 'rxjs';
 import { EstudanteCreateDTO } from '../entity/EstudanteCreateDTO';
+import { CarteirinhaService } from './carteirinha.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000';  
   public usuarioLogado: any = null;
 
-  constructor() {}
+  constructor(
+    private carteirinhaService: CarteirinhaService
+  ) {}
 
   login(matricula: string, senha: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/auth`, { matricula, senha })
@@ -23,6 +26,27 @@ export class AuthService {
           console.log(localStorage.getItem('usuario'));;
         })
       );
+  }
+
+  refreshUserData(): Observable<any> {
+    const matricula = this.usuarioLogado?.usuario?.matricula;
+
+    if (!matricula) {
+      console.warn('RefreshUserData chamado, mas nenhum usuário está logado.');
+      return of(null);
+    }
+
+    return this.carteirinhaService.getCarteirinhaPorMatricula(matricula).pipe(
+      tap(carteirinhaAtualizada => {
+        console.log('Dados da carteirinha atualizados recebidos:', carteirinhaAtualizada);
+        
+        this.usuarioLogado.carteirinha = carteirinhaAtualizada;
+
+        localStorage.setItem('usuario', JSON.stringify(this.usuarioLogado));
+
+        console.log('AuthService e localStorage atualizados com sucesso.');
+      })
+    );
   }
 
   cadastrarEstudante(dados: EstudanteCreateDTO): Observable<any> {

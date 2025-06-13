@@ -6,6 +6,7 @@ import { CarteiraDetalhes } from '../../../core/mocks/mock-carteiras'; // Ajuste
 import { CarteirinhaService } from '../../../services/carteirinha.service';
 import { AuthService } from '../../../services/auth.service';
 import { Carteirinha } from '../../../entity/Carteirinha';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tela-confirmacao-renovacao',
@@ -16,6 +17,7 @@ import { Carteirinha } from '../../../entity/Carteirinha';
 })
 export class TelaConfirmacaoRenovacaoComponent implements OnInit {
   dadosCarteiraAtual: Carteirinha | undefined;
+  private apiUrl = 'http://localhost:3000'
 
   constructor(
     private router: Router,
@@ -42,6 +44,7 @@ export class TelaConfirmacaoRenovacaoComponent implements OnInit {
         console.error('Erro ao buscar carteirinha para confirmação de renovação:', err);
       }
     });
+
   }
 
   async confirmarDadosIguais(): Promise<void> {
@@ -69,53 +72,56 @@ export class TelaConfirmacaoRenovacaoComponent implements OnInit {
 
     if (this.dadosCarteiraAtual.urlFoto) {
       try {
-        const response = await fetch(this.dadosCarteiraAtual.urlFoto, {
-          method: 'GET',
-          headers: {
-          }
-        });
+
+        const fullFotoUrl = this.apiUrl + this.dadosCarteiraAtual.urlFoto;
+        
+        console.log(`Buscando imagem de: ${fullFotoUrl}`); 
+
+        const response = await fetch(fullFotoUrl);
+
         if (!response.ok) {
-          throw new Error('Falha ao baixar foto da carteirinha');
+          const errorBody = await response.text(); 
+          throw new Error(`Falha ao baixar foto da carteirinha. Status: ${response.status}. Body: ${errorBody}`);
         }
 
         const blob = await response.blob();
 
         if (!blob.type.startsWith('image/')) {
           console.error('Tipo de imagem inválido:', blob.type);
-          return;
+          return; 
         }
 
         formData.append('foto', blob, 'carteirinha.jpg');
 
-        formData.append('foto', blob, 'carteirinha.jpg');
       } catch (err) {
         console.error('Erro ao baixar foto para enviar na renovação:', err);
+        alert('Não foi possível obter a foto atual. A renovação não pode continuar sem a foto.');
+        return; 
       }
     } else {
-      console.warn('Carteirinha não tem foto para enviar');
+      console.warn('Carteirinha não tem foto para enviar. Isso pode ser um erro no backend.');
+      
+      alert('A carteirinha atual não possui uma foto. Não é possível renovar sem uma foto.');
+      return; 
     }
 
-    for (const pair of formData.entries()) {
-      console.log(pair[0], ':', pair[1]);
-    }
-
-    this.carteirinhaService.renovarCarteirinha(this.dadosCarteiraAtual._id!, formData).subscribe({
+    this.carteirinhaService.renovarCarteirinha(this.dadosCarteiraAtual._id!, formData).pipe(
+      switchMap(() => {
+        return this.authService.refreshUserData(); 
+      })
+    ).subscribe({
       next: () => {
-        console.log('Renovação enviada com sucesso.');
-        this.router.navigate(['/espera-validacao'], {
-          state: {
-            mensagem: 'Sua solicitação de renovação foi enviada e está em análise.',
-            origem: 'renovacao'
-          }
-        });
+
+        console.log('Dados do usuário atualizados. Navegando para a tela de espera.');
+        this.router.navigate(['/espera-validacao']);
       },
       error: (err) => {
-        console.error('Erro ao enviar renovação:', err);
+        console.error('Erro no processo de renovação ou atualização de dados:', err);
         alert('Erro ao enviar solicitação de renovação. Tente novamente mais tarde.');
       }
     });
-  }
 
+  }
 
   dadosMudaram(): void {
     console.log('Aluno indicou que os dados mudaram. Indo para formulário de atualização...');
