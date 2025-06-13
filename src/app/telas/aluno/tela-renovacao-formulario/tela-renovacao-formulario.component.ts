@@ -38,8 +38,9 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
 
   ngOnInit(): void {
   const usuarioLogado = this.authService.usuarioLogado;
+  console.log('Usuário logado:', usuarioLogado);
 
-  if (!usuarioLogado || !usuarioLogado.matricula) {
+  if (!usuarioLogado || !usuarioLogado.usuario.matricula) {
     console.error("Usuário não está logado ou matrícula indisponível.");
     return;
   }
@@ -49,6 +50,7 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
   this.carteirinhaService.getCarteirinhaPorMatricula(matricula).subscribe({
     next: (carteirinha) => {
       this.dadosRenovacao = {
+        id: carteirinha._id,
         nome: carteirinha.estudante.user.nome,
         matricula: carteirinha.estudante.user.matricula,
         curso: carteirinha.estudante.curso,
@@ -89,7 +91,9 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
       return;
     }
 
-    // Obtem ID do estudante pela matrícula
+    console.log('Dados da renovação:', this.dadosRenovacao);
+    console.log('matricula:', this.dadosRenovacao.matricula!);
+
     this.authService.getEstudantePorMatricula(this.dadosRenovacao.matricula!).subscribe({
       next: (estudante) => {
         const estudanteId = estudante._id;
@@ -99,7 +103,7 @@ export class TelaRenovacaoFormularioComponent implements OnInit {
         espacosSelecionadosArray.forEach(e => formData.append('espacos', e));
         formData.append('foto', this.selectedFile!, this.selectedFile!.name);
 
-        this.carteirinhaService.criarCarteirinha(formData).subscribe({
+        this.carteirinhaService.renovarCarteirinha(this.dadosRenovacao.id!, formData).subscribe({
           next: (novaCarteirinha) => {
             console.log('Renovação enviada:', novaCarteirinha);
             this.router.navigate(['/espera-validacao'], {

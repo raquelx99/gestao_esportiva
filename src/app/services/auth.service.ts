@@ -4,6 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, of, tap }      from 'rxjs';
 import { EstudanteCreateDTO } from '../entity/EstudanteCreateDTO';
 import { CarteirinhaService } from './carteirinha.service';
+import { Estudante } from '../entity/Estudante';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +71,7 @@ export class AuthService {
   }
 
   getEstudantePorMatricula(matricula: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/estudantes/matricula/${matricula}`) 
+    return this.http.get<any>(`${this.apiUrl}/api/estudantes/matricula/${matricula}`) 
   }
 
   getToken(): string | null {
