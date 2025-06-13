@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router'; // <<< Importar ActivatedRoute
 import { CarteirinhaService } from '../../../services/carteirinha.service';
 import { Carteirinha } from '../../../entity/Carteirinha';
 
@@ -15,77 +15,67 @@ export class ConfirmacaoValidacaoComponent implements OnInit {
   status: 'aprovada' | 'rejeitada' | string | undefined;
   nomeCarteira: string | undefined;
   idCarteiraProcessada: string | undefined;
-  listaDeCarteiras: Carteirinha[] = [];
-
+  proximaCarteiraId: string | null = null;
   mensagem: string = '';
   corCard: string = '';
 
-  constructor(private router: Router,
-  private carteirinhaService: CarteirinhaService) {
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as {status: string, id: string, nome?: string};
-
-    if (state) {
-      this.status = state.status;
-      this.idCarteiraProcessada = state.id;
-      this.nomeCarteira = state.nome;
-    }
-  }
+  // Injetar ActivatedRoute para ler os parâmetros da rota
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute, // <<< Injetado aqui
+    private carteirinhaService: CarteirinhaService
+  ) { }
 
   ngOnInit(): void {
-    if (this.status === 'aprovada') {
-      this.mensagem = `A carteira de ${this.nomeCarteira || `ID ${this.idCarteiraProcessada}`} foi APROVADA com sucesso!`;
-      this.corCard = 'approved';
-    } else if (this.status === 'rejeitada') {
-      this.mensagem = `A carteira de ${this.nomeCarteira || `ID ${this.idCarteiraProcessada}`} foi REJEITADA.`;
-      this.corCard = 'rejected';
-    } else {
-      this.mensagem = 'Resultado da validação desconhecido. Por favor, volte para a lista.';
-      this.corCard = 'unknown';
-    }
+    // CORREÇÃO: Lemos os dados a partir dos queryParams da URL
+    this.route.queryParams.subscribe(params => {
+      console.log('Query params recebidos na confirmação:', params);
+      if (params['status'] && params['id']) {
+        this.status = params['status'];
+        this.idCarteiraProcessada = params['id'];
+        this.nomeCarteira = params['nome'];
+      }
 
-    // carregar lista do backend
-    this.carteirinhaService.getCarteirinhasPendentes().subscribe({
-      next: (carteiras) => {
-        this.listaDeCarteiras = carteiras;
-        console.log('Lista de carteiras pendentes carregada:', this.listaDeCarteiras);
-      },
-      error: (err) => {
-        console.error('Erro ao buscar carteiras pendentes:', err);
+      // Lógica para definir a mensagem
+      if (this.status === 'aprovada') {
+        this.mensagem = `A carteira de ${this.nomeCarteira || `ID ${this.idCarteiraProcessada}`} foi APROVADA com sucesso!`;
+        this.corCard = 'approved';
+      } else if (this.status === 'rejeitada') {
+        this.mensagem = `A carteira de ${this.nomeCarteira || `ID ${this.idCarteiraProcessada}`} foi REJEITADA.`;
+        this.corCard = 'rejected';
+      } else {
+        this.mensagem = 'Resultado da validação desconhecido. Por favor, volte para a lista.';
+        this.corCard = 'unknown';
       }
     });
 
-    console.log('Estado recebido na confirmação:', this.status, this.idCarteiraProcessada, this.nomeCarteira);
+    this.carregarProximaCarteiraPendente();
+  }
+
+  carregarProximaCarteiraPendente(): void {
+    this.carteirinhaService.getCarteirinhasPendentes().subscribe({
+      next: (carteiras) => {
+        if (carteiras && carteiras.length > 0) {
+          // A próxima carteira a ser avaliada é a primeira da lista de pendentes
+          this.proximaCarteiraId = carteiras[0]?._id || null;
+        } else {
+          this.proximaCarteiraId = null;
+          console.log('Não há mais carteiras pendentes para avaliar.');
+        }
+      },
+      error: (err) => { this.proximaCarteiraId = null; console.error('Erro ao buscar carteiras pendentes:', err); }
+    });
   }
 
   voltarParaLista(): void {
-    console.log('Voltando para a lista de validação.');
     this.router.navigate(['/funcionario/validar-carteiras']);
   }
 
   avaliarProxima(): void {
-    console.log('Botão "Avaliar próxima" clicado.');
-
-    if (!this.idCarteiraProcessada) {
-      this.voltarParaLista();
-      return;
-    }
-
-    const indiceAtual = this.listaDeCarteiras.findIndex(c => c._id === this.idCarteiraProcessada);
-
-    if (indiceAtual !== -1 && indiceAtual < this.listaDeCarteiras.length - 1) {
-      const proximaCarteira = this.listaDeCarteiras[indiceAtual + 1];
-      console.log('Próxima carteira para avaliar:', proximaCarteira);
-
-      this.router.navigate(['/funcionario/validar-carteiras', proximaCarteira._id], {
-        state: {
-          id: proximaCarteira._id,
-          nome: proximaCarteira.estudante?.user?.nome || 'Desconhecido',
-          status: 'pendente'
-        }
-      });
+    if (this.proximaCarteiraId) {
+      console.log('Navegando para a próxima carteira:', this.proximaCarteiraId);
+      this.router.navigate(['/funcionario/validar-carteiras', this.proximaCarteiraId]);
     } else {
-      console.log('Não há próxima carteira na lista do backend ou ID não encontrado. Voltando para a lista.');
       this.voltarParaLista();
     }
   }

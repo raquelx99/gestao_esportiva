@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CarteiraDetalhes } from '../../../core/mocks/mock-carteiras';
 import { Carteirinha } from '../../../entity/Carteirinha';
-import { AuthService } from '../../../services/auth.service';
 import { CarteirinhaService } from '../../../services/carteirinha.service';
 
 @Component({
@@ -19,7 +17,6 @@ export class PreviewCarteiraValidacaoComponent implements OnInit {
   dadosCarteira: Carteirinha | null = null;
   abaAtiva: string = 'formulario';
 
-
   constructor(
     private carteirinhaService: CarteirinhaService,
     private route: ActivatedRoute,
@@ -28,59 +25,54 @@ export class PreviewCarteiraValidacaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.carteiraId = this.route.snapshot.paramMap.get('id');
-    console.log('ID da Carteira para validar:', this.carteiraId);
-
     if (this.carteiraId) {
       this.carteirinhaService.getCarteirinhaPorId(this.carteiraId).subscribe({
         next: (carteira) => {
           this.dadosCarteira = carteira;
-          if (!this.dadosCarteira) {
-            console.error('Carteira não encontrada com o ID:', this.carteiraId);
-          } else {
-            if (carteira.urlFoto) {
-              this.fotoUrlCompleta = 'http://localhost:3000' + carteira.urlFoto;
-            } else {
-              this.fotoUrlCompleta = null;
-            }
+          if (carteira.urlFoto) {
+            this.fotoUrlCompleta = 'http://localhost:3000' + carteira.urlFoto;
           }
-          console.log(this.dadosCarteira);
         },
-        error: (err) => {
-          console.error('Erro ao buscar carteira:', err);
-        }
+        error: (err) => console.error('Erro ao buscar carteira:', err)
       });
     }
-    else {
-      console.error('ID da carteira não fornecido na rota.');
-      this.router.navigate(['/funcionario/validar-carteiras']);
-    }
   }
 
-  selecionarAba(nomeAba: string): void {
-    this.abaAtiva = nomeAba;
-  }
+  selecionarAba(nomeAba: string): void { this.abaAtiva = nomeAba; }
 
   aprovarCarteira(): void {
-    this.carteirinhaService.aprovarCarteirinha(this.carteiraId!).subscribe({
+    if (!this.carteiraId) return;
+    this.carteirinhaService.aprovarCarteirinha(this.carteiraId).subscribe({
       next: () => {
-      console.log(`Carteira ${this.carteiraId} APROVADA`, this.dadosCarteira);  
-      this.router.navigate(['/funcionario/validacao-resultado']);
+        console.log(`Carteira ${this.carteiraId} APROVADA no back-end.`);
+        // CORREÇÃO: Enviando dados via queryParams
+        this.router.navigate(['/funcionario/validacao-resultado'], {
+          queryParams: {
+            status: 'aprovada',
+            id: this.carteiraId,
+            nome: this.dadosCarteira?.estudante?.user?.nome
+          }
+        });
       },
-      error: (err) => {
-      console.error('Erro ao aprovar carteira:', err);
-      }
+      error: (err) => console.error('Erro ao aprovar carteira:', err)
     });
   }
 
   rejeitarCarteira(): void {
-    console.log(`Carteira ${this.carteiraId} REJEITADA`, this.dadosCarteira);
-    this.carteirinhaService.rejeitarCarteirinha(this.carteiraId!).subscribe({
+    if (!this.carteiraId) return;
+    this.carteirinhaService.rejeitarCarteirinha(this.carteiraId).subscribe({
       next: () => {
-        this.router.navigate(['/funcionario/validacao-resultado']);
+        console.log(`Carteira ${this.carteiraId} REJEITADA no back-end.`);
+        // CORREÇÃO: Enviando dados via queryParams
+        this.router.navigate(['/funcionario/validacao-resultado'], {
+          queryParams: {
+            status: 'rejeitada',
+            id: this.carteiraId,
+            nome: this.dadosCarteira?.estudante?.user?.nome
+          }
+        });
       },
-      error: (err) => {
-        console.error('Erro ao rejeitar carteira:', err);
-      }
+      error: (err) => console.error('Erro ao rejeitar carteira:', err)
     });
   }
 }
