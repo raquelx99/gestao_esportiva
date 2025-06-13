@@ -44,13 +44,14 @@ export class TelaConfirmacaoRenovacaoComponent implements OnInit {
     });
   }
 
-  confirmarDadosIguais(): void {
-  if (!this.dadosCarteiraAtual || !this.dadosCarteiraAtual._id) {
-    console.error('Dados da carteirinha não disponíveis para renovação.');
-    return;
-  }
+  async confirmarDadosIguais(): Promise<void> {
+    if (!this.dadosCarteiraAtual || !this.dadosCarteiraAtual._id) {
+      console.error('Dados da carteirinha não disponíveis para renovação.');
+      return;
+    }
 
-  const formData = new FormData();
+    const formData = new FormData();
+
     formData.append('nome', this.dadosCarteiraAtual.estudante.user.nome);
     formData.append('matricula', this.dadosCarteiraAtual.estudante.user.matricula);
     formData.append('curso', this.dadosCarteiraAtual.estudante.curso);
@@ -64,6 +65,38 @@ export class TelaConfirmacaoRenovacaoComponent implements OnInit {
       });
     } else if (typeof this.dadosCarteiraAtual.espacos === 'string') {
       formData.append('espacos', this.dadosCarteiraAtual.espacos);
+    }
+
+    if (this.dadosCarteiraAtual.urlFoto) {
+      try {
+        const response = await fetch(this.dadosCarteiraAtual.urlFoto, {
+          method: 'GET',
+          headers: {
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Falha ao baixar foto da carteirinha');
+        }
+
+        const blob = await response.blob();
+
+        if (!blob.type.startsWith('image/')) {
+          console.error('Tipo de imagem inválido:', blob.type);
+          return;
+        }
+
+        formData.append('foto', blob, 'carteirinha.jpg');
+
+        formData.append('foto', blob, 'carteirinha.jpg');
+      } catch (err) {
+        console.error('Erro ao baixar foto para enviar na renovação:', err);
+      }
+    } else {
+      console.warn('Carteirinha não tem foto para enviar');
+    }
+
+    for (const pair of formData.entries()) {
+      console.log(pair[0], ':', pair[1]);
     }
 
     this.carteirinhaService.renovarCarteirinha(this.dadosCarteiraAtual._id!, formData).subscribe({
@@ -82,6 +115,7 @@ export class TelaConfirmacaoRenovacaoComponent implements OnInit {
       }
     });
   }
+
 
   dadosMudaram(): void {
     console.log('Aluno indicou que os dados mudaram. Indo para formulário de atualização...');
