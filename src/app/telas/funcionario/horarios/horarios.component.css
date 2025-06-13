@@ -220,3 +220,12 @@
 .espaco-details .edit-button svg {
   margin-right: 0.3rem;
 }
+
+.espaco-details td.celula-editavel {
+  cursor: pointer;
+}
+
+
+.espaco-details td.celula-editavel:not(.slot-ocupado):hover {
+  background-color: #e0e0e0 !important;
+}
