@@ -4,14 +4,13 @@ import { Router, RouterModule } from '@angular/router';
 
 import { CarteirinhaService } from '../../services/carteirinha.service';
 import { AuthService }        from '../../services/auth.service';
-import { TopBarComponent } from "../../componentes/top-bar/top-bar.component";
 
 type Status = 'pending' | 'approved' | 'rejected';
 
 @Component({
   selector: 'app-tela-espera-validacao',
   standalone: true,
-  imports: [CommonModule, RouterModule, TopBarComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './tela-espera-validacao.component.html',
   styleUrls: ['./tela-espera-validacao.component.css']
 })
