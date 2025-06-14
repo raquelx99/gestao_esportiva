@@ -17,7 +17,7 @@
         <div class="item-header" (click)="toggleDetalhes(carteira)">
           <div class="info-principal">
             <span class="nome">Nome: {{ carteira.estudante.user.nome }}</span>
-            <span class="validade">Data de validade: {{ carteira.validade }}</span>
+            <span class="validade">Data de validade: {{ carteira.validade | date:'dd/MM/yyyy' }}</span>
           </div>
           <button class="expand-button" aria-label="Ver detalhes">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
@@ -48,7 +48,7 @@
               </div>
               <div class="rodape-carteira">
                 <div class="semestre-carteira">{{ carteira.dataRequisicao }}</div>
-                <div class="validade-carteira">Validade: {{ carteira.validade }}</div>
+                <div class="validade-carteira">Validade: {{ carteira.validade | date:'dd/MM/yyyy' }}</div>
               </div>
             </section>
           </div>
