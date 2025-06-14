@@ -32,8 +32,11 @@
           </div>
 
           <div class="rodape-carteira">
-            <div class="emissao-info">{{ dadosCarteiraAtual.dataRequisicao }}</div>
-            <div class="validade-info"> <strong>Validade:</strong> {{ dadosCarteiraAtual.validade }}
+            <div class="emissao-info">
+              <strong>Emissão:</strong> {{ dadosCarteiraAtual.dataRequisicao | date:'dd/MM/yyyy' }}
+            </div>
+            <div class="validade-info">
+              <strong>Validade:</strong> {{ dadosCarteiraAtual.validade | date:'dd/MM/yyyy' }}
             </div>
           </div>
         </section>
