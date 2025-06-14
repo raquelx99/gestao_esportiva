@@ -52,7 +52,7 @@
           <span>{{ dadosCarteira?.espacos }}</span>
           </div>
 
-        <div class="rodape-carteira"> <div class="semestre-carteira">{{ dadosCarteira?.estudante?.semestreInicio | date:'dd/MM/yyyy' }}</div>
+        <div class="rodape-carteira"> <div class="semestre-carteira"> Emissão: {{ dadosCarteira?.estudante?.semestreInicio | date:'dd/MM/yyyy' }}</div>
           <div class="validade-carteira">
             Validade: {{ dadosCarteira?.validade | date:'dd/MM/yyyy' }}
           </div>
