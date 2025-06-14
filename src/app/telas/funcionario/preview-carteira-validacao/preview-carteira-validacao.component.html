@@ -27,7 +27,7 @@
             <p><strong>Centro:</strong> {{ dadosCarteira.estudante.centro }}</p>
             <p><strong>Telefone:</strong> {{ dadosCarteira.estudante.telefone }}</p>
             <p><strong>Tel. Emergência:</strong> {{ dadosCarteira.estudante.telefoneUrgencia }}</p>
-            <p><strong>Validade:</strong> {{ dadosCarteira.validade }}</p>
+            <p><strong>Validade:</strong> {{ dadosCarteira.validade | date:'dd/MM/yyyy' }}</p>
             <hr>
             <h4>Espaços Solicitados:</h4>
             <p>{{ dadosCarteira.espacos }}</p>
@@ -52,8 +52,10 @@
           <span>{{ dadosCarteira?.espacos }}</span>
           </div>
 
-        <div class="rodape-carteira"> <div class="semestre-carteira">{{ dadosCarteira?.estudante?.semestreInicio }}</div>
-          <div class="validade-carteira">Validade: {{ dadosCarteira?.validade }}</div>
+        <div class="rodape-carteira"> <div class="semestre-carteira">{{ dadosCarteira?.estudante?.semestreInicio | date:'dd/MM/yyyy' }}</div>
+          <div class="validade-carteira">
+            Validade: {{ dadosCarteira?.validade | date:'dd/MM/yyyy' }}
+          </div>
         </div>
       </section>
     </div>
